@@ -2,52 +2,130 @@ Parent directory:
 http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/
 
 
-DEX_005nM_GR_rep1.broadPeak 
+DEX_005nM_GR_rep1
 http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549GrPcr1xDex5nmPkRep1.broadPeak.gz
 
-DEX_005nM_GR_rep2.broadPeak
+DEX_005nM_GR_rep2
 http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549GrPcr1xDex5nmPkRep2.broadPeak.gz
 
-DEX_050nM_GR_rep1.broadPeak
+DEX_050nM_GR_rep1
 http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549GrPcr1xDex50nmPkRep2.broadPeak.gz
 
-DEX_050nM_GR_rep2.broadPeak
+DEX_050nM_GR_rep2
 http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549GrPcr1xDex50nmPkRep2.broadPeak.gz
 
-DEX_100nM_00h_JunB_rep1.bed
+DEX_100nM_00h_JunB_rep1
 https://www.encodeproject.org/files/ENCFF683JTQ/
 
-DEX_100nM_00h_JunB_rep1.bed
+DEX_100nM_00h_JunB_rep1
 https://www.encodeproject.org/files/ENCFF565QYS/
 
-DEX_100nM_01h_JunB_rep1.bed
+DEX_100nM_01h_JunB_rep1
 https://www.encodeproject.org/files/ENCFF692MOZ/
 
-DEX_100nM_01h_JunB_rep1.bed
+DEX_100nM_01h_JunB_rep1
 https://www.encodeproject.org/files/ENCFF031VMK/
 
-DEX_100nM_02h_JunB_rep1.bed
+DEX_100nM_02h_JunB_rep1
 https://www.encodeproject.org/files/ENCFF180WKU/
 
-DEX_100nM_02h_JunB_rep2.bed
+DEX_100nM_02h_JunB_rep2
 https://www.encodeproject.org/files/ENCFF724OHD/
 
-DEX_100nM_03h_JunB_rep1.bed
+DEX_100nM_03h_JunB_rep1
 https://www.encodeproject.org/files/ENCFF316JWA/
 
-DEX_100nM_03h_JunB_rep2.bed
+DEX_100nM_03h_JunB_rep2
 https://www.encodeproject.org/files/ENCFF291YOD/
 
-DEX_100nM_03h_JunB_rep3.bed
+DEX_100nM_03h_JunB_rep3
 https://www.encodeproject.org/files/ENCFF750UUH/
 
-DEX_100nM_04h_JunB_rep1.bed
+DEX_100nM_04h_JunB_rep1
 https://www.encodeproject.org/files/ENCFF468KOV/
 
-DEX_100nM_04h_JunB_rep2.bed
+DEX_100nM_04h_JunB_rep2
 https://www.encodeproject.org/files/ENCFF556BSR/
 
-DEX_100nM_04h_JunB_rep3.bed
+DEX_100nM_04h_JunB_rep3
 https://www.encodeproject.org/files/ENCFF167YTT/
 
+DEX_100nM_05h_JunB_rep1
+https://www.encodeproject.org/files/ENCFF626BPP/
 
+DEX_100nM_05h_JunB_rep2
+https://www.encodeproject.org/files/ENCFF072SWK/
+
+DEX_100nM_05h_JunB_rep3
+https://www.encodeproject.org/files/ENCFF056FWG/
+
+DEX_100nM_07h_JunB_rep1
+https://www.encodeproject.org/files/ENCFF317LMH/
+
+DEX_100nM_07h_JunB_rep2
+https://www.encodeproject.org/files/ENCFF292ZLA/
+
+DEX_100nM_07h_JunB_rep3
+https://www.encodeproject.org/files/ENCFF886OBM/
+
+DEX_100nM_08h_JunB_rep1
+https://www.encodeproject.org/files/ENCFF305VSD/
+
+DEX_100nM_08h_JunB_rep2
+https://www.encodeproject.org/files/ENCFF245HYM/
+
+DEX_100nM_08h_JunB_rep3
+https://www.encodeproject.org/files/ENCFF895YDP/
+
+DEX_100nM_10h_JunB_rep1
+https://www.encodeproject.org/files/ENCFF256HHF/
+
+DEX_100nM_10h_JunB_rep2
+https://www.encodeproject.org/files/ENCFF207IGN/
+
+DEX_100nM_30m_JunB_rep1
+https://www.encodeproject.org/files/ENCFF799KKU/
+
+DEX_100nM_30m_JunB_rep2
+https://www.encodeproject.org/files/ENCFF362SMA/
+
+DEX_100nM_FOXA1_rep1
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Foxa1V0416102Dex100nmPkRep1.broadPeak.gz
+
+DEX_100nM_FOXA1_rep2
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Foxa1V0416102Dex100nmPkRep2.broadPeak.gz
+
+
+DEX_100nM_POL2_rep1
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Pol2Pcr2xDex100nmPkRep1.broadPeak.gz
+
+DEX_100nM_POL2_rep2
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Pol2Pcr2xDex100nmPkRep2.broadPeak.gz
+
+
+DEX_100nM_USF1_rep1
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Usf1Pcr1xDex100nmPkRep1.broadPeak.gz
+
+DEX_100nM_USF1_rep2
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Usf1Pcr1xDex100nmPkRep2.broadPeak.gz
+
+
+DEX_500pM_GR_rep1
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549GrPcr1xDex500pmPkRep1.broadPeak.gz
+
+DEX_500pM_GR_rep2
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549GrPcr1xDex500pmPkRep2.broadPeak.gz
+
+
+EtOH_002_ATF3_rep1
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Atf3V0422111Etoh02PkRep1.broadPeak.gz
+
+EtOH_002_ATF3_rep2
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Atf3V0422111Etoh02PkRep2.broadPeak.gz
+
+
+EtOH_002_BCL3_rep1
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Bcl3V0422111Etoh02PkRep1.broadPeak.gz
+
+EtOH_002_BCL3_rep2
+http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/wgEncodeHaibTfbsA549Bcl3V0422111Etoh02PkRep2.broadPeak.gz
