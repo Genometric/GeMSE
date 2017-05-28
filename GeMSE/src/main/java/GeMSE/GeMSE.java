@@ -179,7 +179,7 @@ public class GeMSE extends javax.swing.JFrame
             },
             new String []
             {
-                "Cached GTF File Name"
+                "Loaded file"
             }
         )
         {
@@ -886,7 +886,7 @@ public class GeMSE extends javax.swing.JFrame
 
     private void UpdateCachedFeaturesDataGrid()
     {
-        DefaultTableModel gtf_TabMod = new DefaultTableModel()
+        DefaultTableModel tabModel = new DefaultTableModel()
         {
             @Override
             public boolean isCellEditable(int row, int column)
@@ -895,21 +895,20 @@ public class GeMSE extends javax.swing.JFrame
             }
         };
 
-        gtf_TabMod.setColumnIdentifiers(new Object[]
+        tabModel.setColumnIdentifiers(new Object[]
         {
-            "Cached Sample", "Features count"
+            "Loaded file"
         });
 
-        for (SampleData gtfFile : GlobalVariables.samples)
-            gtf_TabMod.addRow(new Object[]
+        for (SampleData file : GlobalVariables.samples)
+            tabModel.addRow(new Object[]
             {
-                gtfFile.fileName,
-                Integer.toString(gtfFile.featuresCount)
+                file.fileName
             });
 
-        _inputSamplesDG.setModel(gtf_TabMod);
-        _inputSamplesDG.getColumnModel().getColumn(0).setPreferredWidth(100);
-        _inputSamplesDG.getColumnModel().getColumn(1).setPreferredWidth(50);
+        _inputSamplesDG.setModel(tabModel);
+        //_inputSamplesDG.getColumnModel().getColumn(0).setPreferredWidth(100);
+        //_inputSamplesDG.getColumnModel().getColumn(1).setPreferredWidth(50);
     }
 
     private void UpdateDeterminedFeatures()
