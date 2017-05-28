@@ -1,0 +1,4 @@
+chr	start	stop	name	p-value
+chr1	10	20	Peak_0	90.131
+chr1	30	40	Peak_1	7.222
+chr1	50	60	Peak_2	17.906

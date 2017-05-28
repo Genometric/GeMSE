@@ -1,0 +1,1444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<atJob xmlns="Polimi.DEIB.VahidJalili.MuSERA">
+	<!--Note: Labels are case sensitive.-->
+	<!--Note: The path should be "absolute path" (not relative)-->
+	<Plot>
+		<Setter Property="Width" Value="3500" />
+		<Setter Property="Height" Value="1500" />
+		<Setter Property="Marker Size" Value="32" />
+		<Setter Property="Font Size" Value="32" />
+		<Setter Property="Axis Font Size" Value="32" />
+		<Setter Property="Data Label Font Size" Value="32" />
+		<Setter Property="Header font size" Value="40" />
+		<Setter Property="Save Path" Value="E:\Data\" />
+		<Setter Property="Overview" Value="Disabled" />
+		<!--Enables/Disables plotting overview for each analysis session.-->
+	</Plot>
+	<LogFile>
+		<Setter Property="Path" Value="E:\Data\" />
+	</LogFile>
+	<Session Title="DEX_005nM_01h_GR">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_005nM_01h_GR\DEX_005pm_GR_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_005nM_01h_GR\DEX_005pm_GR_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_005nM_01h_GR\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_050nM_01h_GR">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_050nM_01h_GR\DEX_050pm_GR_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_050nM_01h_GR\DEX_050pm_GR_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_050nM_01h_GR\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_00h_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_00h_JunB\DEX_100nM_00h_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_00h_JunB\DEX_100nM_00h_JunB_rep2.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_00h_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_01h_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_01h_JunB\DEX_100nM_01h_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_01h_JunB\DEX_100nM_01h_JunB_rep2.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_01h_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_02h_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_02h_JunB\DEX_100nM_02h_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_02h_JunB\DEX_100nM_02h_JunB_rep2.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_02h_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_03h_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_03h_JunB\DEX_100nM_03h_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_03h_JunB\DEX_100nM_03h_JunB_rep2.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_03h_JunB\DEX_100nM_03h_JunB_rep3.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_03h_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_04h_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_04h_JunB\DEX_100nM_04h_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_04h_JunB\DEX_100nM_04h_JunB_rep2.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_04h_JunB\DEX_100nM_04h_JunB_rep3.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_04h_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_05h_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_05h_JunB\DEX_100nM_05h_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_05h_JunB\DEX_100nM_05h_JunB_rep2.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_05h_JunB\DEX_100nM_05h_JunB_rep3.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_05h_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_07h_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_07h_JunB\DEX_100nM_07h_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_07h_JunB\DEX_100nM_07h_JunB_rep2.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_07h_JunB\DEX_100nM_07h_JunB_rep3.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_07h_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_08h_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_08h_JunB\DEX_100nM_08h_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_08h_JunB\DEX_100nM_08h_JunB_rep2.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_08h_JunB\DEX_100nM_08h_JunB_rep3.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_08h_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_10h_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_10h_JunB\DEX_100nM_10h_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_10h_JunB\DEX_100nM_10h_JunB_rep2.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_10h_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_30m_JunB">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_30m_JunB\DEX_100nM_30m_JunB_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_30m_JunB\DEX_100nM_30m_JunB_rep2.bed" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_30m_JunB\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_FOXA1">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_FOXA1\DEX_100nM_FOXA1_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_FOXA1\DEX_100nM_FOXA1_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_FOXA1\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_POL2">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_POL2\DEX_100nM_POL2_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_POL2\DEX_100nM_POL2_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_POL2\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_100nM_USF1">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_USF1\DEX_100nM_USF1_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_100nM_USF1\DEX_100nM_USF1_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_100nM_USF1\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="DEX_500pM_GR">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\DEX_500pM_GR\DEX_500pM_GR_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\DEX_500pM_GR\DEX_500pM_GR_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\DEX_500pM_GR\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_ATF3">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_ATF3\EtOH_002_ATF3_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_ATF3\EtOH_002_ATF3_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_ATF3\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_BCL3">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_BCL3\EtOH_002_BCL3_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_BCL3\EtOH_002_BCL3_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_BCL3\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_CTCF">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_CTCF\EtOH_002_CTCF_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_CTCF\EtOH_002_CTCF_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_CTCF\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_EP300">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_EP300\EtOH_002_EP300_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_EP300\EtOH_002_EP300_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_EP300\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_GABPA">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_GABPA\EtOH_002_GABPA_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_GABPA\EtOH_002_GABPA_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_GABPA\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_JunD">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_JunD\EtOH_002_JunD_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_JunD\EtOH_002_JunD_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_JunD\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_NRSF">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_NRSF\EtOH_002_NRSF_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_NRSF\EtOH_002_NRSF_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_NRSF\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>	
+	<Session Title="EtOH_002_POL2">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_POL2\EtOH_002_POL2_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_POL2\EtOH_002_POL2_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_POL2\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_SIN3AK20">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_SIN3AK20\EtOH_002_SIN3AK20_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_SIN3AK20\EtOH_002_SIN3AK20_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_SIN3AK20\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_SIX5">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_SIX5\EtOH_002_SIX5_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_SIX5\EtOH_002_SIX5_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_SIX5\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_TAF1">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_TAF1\EtOH_002_TAF1_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_TAF1\EtOH_002_TAF1_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_TAF1\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_TCF12">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_TCF12\EtOH_002_TCF12_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_TCF12\EtOH_002_TCF12_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_TCF12\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="EtOH_002_USF1">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_USF1\EtOH_002_USF1_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\EtOH_002_USF1\EtOH_002_USF1_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\EtOH_002_USF1\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="NoTreatment_CTCF">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\NoTreatment_CTCF\NoTreatment_CTCF_rep1.bed" />
+			<Setter Property="Input Sample" Value="E:\Data\NoTreatment_CTCF\NoTreatment_CTCF_rep2.bed" />
+			<Setter Property="Output Path" Value="E:\Data\NoTreatment_CTCF\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="7" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-1 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="NoTreatment_PBX3">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\NoTreatment_PBX3\NoTreatment_PBX3_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\NoTreatment_PBX3\NoTreatment_PBX3_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\NoTreatment_PBX3\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="NoTreatment_RAD21">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\NoTreatment_RAD21\NoTreatment_RAD21_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\NoTreatment_RAD21\NoTreatment_RAD21_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\NoTreatment_RAD21\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+	<Session Title="NoTreatment_TEAD4">
+		<Load_and_Save_Parameters>
+			<Setter Property="Input Sample" Value="E:\Data\NoTreatment_TEAD4\NoTreatment_TEAD4_rep1.broadPeak" />
+			<Setter Property="Input Sample" Value="E:\Data\NoTreatment_TEAD4\NoTreatment_TEAD4_rep2.broadPeak" />
+			<Setter Property="Output Path" Value="E:\Data\NoTreatment_TEAD4\" />
+			<Setter Property="Export Output Set (BED)" Value="true" />
+			<Setter Property="Export Output Set (XML)" Value="false" />
+			<Setter Property="Export Stringent ERs" Value="true" />
+			<Setter Property="Export Weak ERs" Value="true" />
+			<Setter Property="Export Background ERs" Value="true" />
+			<Setter Property="Export Confirmed ERs (BED)" Value="true" />
+			<Setter Property="Export Confirmed ERs (XML)" Value="false" />
+			<Setter Property="Export Discarded ERs (BED)" Value="true" />
+			<Setter Property="Export Discarded ERs (XML)" Value="false" />
+			<Setter Property="Export Chromosome-wide statistics" Value="false" />
+		</Load_and_Save_Parameters>
+		<Analysis_Parameters>
+			<Setter Property="Replicate Type" Value="biological" />
+			<!--possible values are (without square bracket): [biological] or [technical]-->
+			<Setter Property="TauS" Value="1.00E-8" />
+			<Setter Property="TauW" Value="1.00E-4" />
+			<Setter Property="Gamma" Value="1.00E-8" />
+			<Setter Property="Alpha" Value="0.05" />
+			<Setter Property="C" Value="1" />
+			<Setter Property="Multiple Testing Correction" Value="BH FDR" />
+		</Analysis_Parameters>
+		<BED_Parser_Parameters>
+			<Setter Property="Start Offset" Value="0" />
+			<Setter Property="Chr Column" Value="0" />
+			<Setter Property="Start Column" Value="1" />
+			<Setter Property="Stop Column" Value="2" />
+			<Setter Property="Name Column" Value="3" />
+			<Setter Property="p-value Column" Value="4" />
+			<Setter Property="Drop Line if no p-value" Value="true" />
+			<Setter Property="Default p-value" Value="1.00E-6" />
+			<Setter Property="p-value Conversion Option" Value="-10 x Log10 (p-value)" />
+			<!--Possible values are (without square bracket):-->
+			<!--1: none-->
+			<!--2: [-1 x log10 (p-value)], or [-1 * log10 (p-value)], or [-1xlog10(p-value)], or [-1*log10(p-value)]-->
+			<!--3: [-10 x log10 (p-value)], or [-10 * log10 (p-value)], or [-10xlog10(p-value)], or [-10*log10(p-value)]-->
+			<!--4: [-100 x log10 (p-value)], or [-100 * log10 (p-value)], or [-100xlog10(p-value)], or [-100*log10(p-value)]-->
+		</BED_Parser_Parameters>
+	</Session>
+</atJob>
