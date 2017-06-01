@@ -117,7 +117,7 @@ public class ClusteringOptionsPanel extends javax.swing.JPanel
 
         MetricCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Euclidean Distance", "Manhattan Distance", "Earth Movers Distance", "Chebyshev Distance", "Canberra Distance", "Pearson Correlation Coefficient" }));
 
-        DisplayElbowOutputCB.setText("Plot elbow method data");
+        DisplayElbowOutputCB.setText("Plot Elbow method data");
 
         javax.swing.GroupLayout Main_PanelLayout = new javax.swing.GroupLayout(Main_Panel);
         Main_Panel.setLayout(Main_PanelLayout);

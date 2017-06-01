@@ -493,10 +493,10 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="5">
                     <StringItem index="0" value="Extract"/>
-                    <StringItem index="1" value="Rewrite"/>
-                    <StringItem index="2" value="Discretize"/>
-                    <StringItem index="3" value="Clustering"/>
-                    <StringItem index="4" value="Sort"/>
+                    <StringItem index="1" value="Sort"/>
+                    <StringItem index="2" value="Rewrite"/>
+                    <StringItem index="3" value="Discretize"/>
+                    <StringItem index="4" value="Clustering"/>
                   </StringArray>
                 </Property>
               </Properties>

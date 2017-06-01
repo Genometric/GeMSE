@@ -221,7 +221,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="DisplayElbowOutputCB">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Plot elbow method data"/>
+            <Property name="text" type="java.lang.String" value="Plot Elbow method data"/>
           </Properties>
         </Component>
       </SubComponents>

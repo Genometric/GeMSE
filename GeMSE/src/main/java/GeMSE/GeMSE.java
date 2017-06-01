@@ -349,7 +349,7 @@ public class GeMSE extends javax.swing.JFrame
         Operations_L1.setText("Operations");
         Operations_L1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        Operations_CB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Extract", "Rewrite", "Discretize", "Clustering", "Sort" }));
+        Operations_CB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Extract", "Sort", "Rewrite", "Discretize", "Clustering" }));
         Operations_CB.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
