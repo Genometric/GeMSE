@@ -267,7 +267,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
 
         DomainColRB.setText("Columns (samples)");
 
-        DisplayElbowOutputCB.setText("Plot elbow method data");
+        DisplayElbowOutputCB.setText("Plot Elbow method data");
         DisplayElbowOutputCB.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -393,7 +393,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
         ClusterDistancePanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         DistanceL.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        DistanceL.setText("Distance between clusters");
+        DistanceL.setText("Distance between children");
         DistanceL.setToolTipText("");
         DistanceL.setEnabled(false);
 

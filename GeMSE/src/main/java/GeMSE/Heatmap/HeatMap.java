@@ -270,8 +270,10 @@ public class HeatMap
 
                 writer.newLine();
                 // generates heatmap
-                writer.write(heatmapCommand + dendrogramCommand + ")");
-
+                String lvc = "#" + Integer.toHexString(GlobalVariables.lowValueColor.getRGB()).substring(2);
+                String hvc = "#" + Integer.toHexString(GlobalVariables.hightValueColor.getRGB()).substring(2);
+                String colorCode = "col=colorRampPalette(c(\"" + lvc + "\", \"" + hvc + "\")), ";
+                writer.write(heatmapCommand + colorCode + dendrogramCommand + ")");
                 writer.newLine();
                 // Turn-off the device used to directly saving plot to a file.
                 // The file will be generated after calling this command.

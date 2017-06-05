@@ -242,7 +242,7 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="DisplayElbowOutputCB">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Plot elbow method data"/>
+            <Property name="text" type="java.lang.String" value="Plot Elbow method data"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DisplayElbowOutputCBActionPerformed"/>
@@ -470,7 +470,7 @@
             <Component class="javax.swing.JLabel" name="DistanceL">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Distance between clusters"/>
+                <Property name="text" type="java.lang.String" value="Distance between children"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>

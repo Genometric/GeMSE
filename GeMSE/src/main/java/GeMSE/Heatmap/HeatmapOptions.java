@@ -11,7 +11,6 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package GeMSE.Heatmap;
 
 import GeMSE.GlobalVariables;
@@ -817,7 +816,10 @@ public class HeatmapOptions extends javax.swing.JFrame
         return "heatmap.2(space, "
                + "main = \"" + GlobalVariables.HeatmapOptions.heatmapTitle + "\", "
                + "xlab = \"" + GlobalVariables.HeatmapOptions.horizontalAxisTitle + "\", "
-               + "ylab = \"" + GlobalVariables.HeatmapOptions.verticalAxisTitle + "\" ";
+               + "ylab = \"" + GlobalVariables.HeatmapOptions.verticalAxisTitle + "\", "
+               + "trace = \"none\", "
+               // + "key.par=list(mar=c(3.5,0,3,0)), lmat=rbind(c(5, 4, 2), c(6, 1, 3)), lhei=c(2.5, 15), lwid=c(1, 10, 1)";
+               + "lhei=c(0.1, 0.6), lwid=c(0.1, 1), key=FALSE, ";
     }
 
     private void EnableDisable_RHeatMapOptions(Boolean enable)
