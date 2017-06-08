@@ -1,6 +1,12 @@
 # GeMSE
 GenoMetric Space Exploration
 
-[Documentation](https://github.com/Genometric/GeMSE/wiki)
+- [Introduction](https://www.youtube.com/embed/75FCAoSmioA)
 
-[Download](https://github.com/Genometric/GeMSE/tree/master/GeMSE/Build) verions of GeMSE.
+- [Documentation](https://github.com/Genometric/GeMSE/wiki)
+
+- [Demos](https://youtu.be/B0hVsd9SE5Q?list=PLfWxoOMC6swJBgu4nIDgsoXO_sLuGnIqF)
+
+- [Download](https://github.com/Genometric/GeMSE/tree/master/GeMSE/Build)
+
+
