@@ -7,6 +7,6 @@ GenoMetric Space Exploration
 
 - [Demos](https://youtu.be/B0hVsd9SE5Q?list=PLfWxoOMC6swJBgu4nIDgsoXO_sLuGnIqF)
 
-- [Download](https://github.com/Genometric/GeMSE/tree/master/GeMSE/Build)
+- [Download](https://github.com/Genometric/GeMSE/releases/)
 
 
