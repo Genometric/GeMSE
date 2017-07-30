@@ -20,7 +20,9 @@ import GeMSE.OperationsOptions.SortOptions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ExternalLibraries.Cluster;
+import GeMSE.IO.InProgress;
 import java.io.Serializable;
+import javax.swing.SwingWorker;
 
 
 /**
@@ -62,7 +64,25 @@ public class Operations implements Serializable
                 break;
 
             case Clustering:
-                result = Clustering((ClusteringOptions) parameters);
+                if (((ClusteringOptions) parameters).dendrogram == null)
+                {
+                    InProgress inProgress = new InProgress(null, "Clustering data, please wait ...");
+                    inProgress.setLocationRelativeTo(null);
+                    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>()
+                    {
+                        @Override
+                        protected Void doInBackground()
+                        {
+                            result = Clustering((ClusteringOptions) parameters);
+                            inProgress.dispose();
+                            return null;
+                        }
+                    };
+                    worker.execute();
+                    inProgress.setVisible(true);
+                }
+                else
+                    result = Clustering((ClusteringOptions) parameters);
                 break;
 
             case UpdateClustering:

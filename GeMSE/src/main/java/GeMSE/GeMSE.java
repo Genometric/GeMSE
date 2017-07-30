@@ -47,6 +47,7 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import GeMSE.GS.Operations.Functions;
+import GeMSE.IO.InProgress;
 import GeMSE.IO.Loader;
 import GeMSE.IO.Loader.LoadType;
 import GeMSE.OperationsOptions.ClusteringOptions;
@@ -60,6 +61,7 @@ import java.awt.Component;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingWorker;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -659,7 +661,7 @@ public class GeMSE extends javax.swing.JFrame
 
     private void Load_MIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Load_MIActionPerformed
     {//GEN-HEADEREND:event_Load_MIActionPerformed
-        Loader loader = new Loader();
+        Loader loader = new Loader(this);
         if (loader.Load(LoadType.File))
         {
             UpdateCachedFeatures();
@@ -740,7 +742,6 @@ public class GeMSE extends javax.swing.JFrame
         }
 
         _space.RunOperation(selectedSpaceID, Operation_Title_TB.getText(), function, _operationsOptions.GetValues());
-
         CreateOperationsTree();
         GlobalVariables.sessionSerializationRequired = true;
     }//GEN-LAST:event_Apply_Op_BTActionPerformed
@@ -752,7 +753,7 @@ public class GeMSE extends javax.swing.JFrame
 
     private void Load_Folder_MIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Load_Folder_MIActionPerformed
     {//GEN-HEADEREND:event_Load_Folder_MIActionPerformed
-        Loader loader = new Loader();
+        Loader loader = new Loader(this);
         if (loader.Load(LoadType.Directory))
         {
             UpdateCachedFeatures();
@@ -819,7 +820,7 @@ public class GeMSE extends javax.swing.JFrame
         {
             int r = JOptionPane.showConfirmDialog(
                     this,
-                    "Session is not saved. \nDo you want to save the session before you exit?",
+                    "Session is not saved. \nDo you want to save the session before you exit ?     ",
                     "Unsaved session",
                     JOptionPane.YES_NO_CANCEL_OPTION);
 

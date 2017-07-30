@@ -77,9 +77,9 @@ public class SessionIO
                     inProgress.dispose();
                     JOptionPane.showMessageDialog(
                             parent,
-                            "A problem occured when saving the session.     "
+                            "An error occured when saving the session.     "
                             + "\nError message: \n" + e,
-                            "Session save error.",
+                            "Session save error",
                             JOptionPane.ERROR_MESSAGE);
                 }
                 return null;

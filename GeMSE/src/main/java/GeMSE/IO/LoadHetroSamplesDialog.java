@@ -15,11 +15,15 @@ package GeMSE.IO;
 
 import GeMSE.GS.SampleData;
 import GeMSE.GlobalVariables;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -39,16 +43,17 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
     {
         super(parent, modal);
         initComponents();
+        _parent = parent;
         ButtonGroup group = new ButtonGroup();
         group.add(UseCachedRef_RB);
         group.add(LoadNewRef_RB);
-        
+
         AggregateFunctions_CB.setModel(new DefaultComboBoxModel(GenometricMapper.MapOp.values()));
-        
+
         Determined_Atts_CB.removeAllItems();
         for (String att : GeMSE.GlobalVariables.AllNumAttributes())
             Determined_Atts_CB.addItem(att);
-        
+
         _fileNameExtensionFilters = new ArrayList<>();
         _fileNameExtensionFilters.add(new FileNameExtensionFilter(_tGTFDescription, "GTF"));
         _fileNameExtensionFilters.add(new FileNameExtensionFilter(_tCSVDescription, "CSV", "TXT"));
@@ -56,7 +61,7 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
         _fileNameExtensionFilters.add(new FileNameExtensionFilter(_narrowPeakDescription, "narrowPeak"));
         _fileNameExtensionFilters.add(new FileNameExtensionFilter(_broadPeakDescription, "broadPeak"));
         _fileNameExtensionFilters.sort(new FileExtensionComparer());
-        
+
         if (GlobalVariables.annotations.fileName == null
             || GlobalVariables.annotations.fileName.trim().isEmpty())
         {
@@ -71,12 +76,13 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
             CachedRefLabel.setEnabled(true);
         }
     }
-    
+
     private String _reference = "";
     private String _reffileFilterDescription = "";
     private String[] _samples;
-    
-    
+    private Boolean _result;
+    private final java.awt.Frame _parent;
+
     private final String _tGTFDescription = "General Feature Format (GTF)";
     private final String _tCSVDescription = "General Tab-delimited (CSV)";
     private final String _tBEDDescription = "Browser Extensible Data (BED)";
@@ -331,7 +337,7 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
         chooser.setAcceptAllFileFilterUsed(false);
         for (FileNameExtensionFilter filter : _fileNameExtensionFilters)
             chooser.setFileFilter(filter);
-        
+
         int returnVal = chooser.showOpenDialog(jPanel1);
         if (returnVal == JFileChooser.APPROVE_OPTION)
         {
@@ -344,6 +350,7 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
 
     private void CancelBTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CancelBTActionPerformed
     {//GEN-HEADEREND:event_CancelBTActionPerformed
+        _result = false;
         dispose();
     }//GEN-LAST:event_CancelBTActionPerformed
 
@@ -358,8 +365,22 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
         }
         else
         {
-            Load();
             dispose();
+            InProgress inProgress = new InProgress(_parent, "Mapping the heterogeneous samples, please wait ...");
+            inProgress.setLocationRelativeTo(_parent);
+            SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>()
+            {
+                @Override
+                protected Void doInBackground()
+                {
+                    Load();
+                    inProgress.dispose();
+                    return null;
+                }
+            };
+            worker.execute();
+            inProgress.setVisible(true);
+            _result = true;
         }
     }//GEN-LAST:event_LoadBTActionPerformed
 
@@ -442,6 +463,11 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
     private javax.swing.JButton refSampleB;
     // End of variables declaration//GEN-END:variables
 
+    public Boolean GetResult()
+    {
+        return _result;
+    }
+
     private void Load()
     {
         // Load reference.
@@ -465,7 +491,7 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
 
                     referenceSample = gtfParser.Parse();
                     break;
-                
+
                 case _tCSVDescription:
                 case _tBEDDescription:
                 case _narrowPeakDescription:
@@ -476,7 +502,7 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
                     referenceSample = csvParser.Parse();
                     break;
             }
-            
+
             if (CacheLoadedRef_CB.isSelected())
                 GlobalVariables.annotations = referenceSample;
         }
@@ -484,11 +510,11 @@ public class LoadHetroSamplesDialog extends javax.swing.JDialog
         {
             referenceSample = GlobalVariables.annotations;
         }
-        
+
         GenometricMapper gMap = new GenometricMapper(
                 (GenometricMapper.MapOp) AggregateFunctions_CB.getSelectedItem(),
                 Determined_Atts_CB.getSelectedItem().toString());
-        
+
         for (SampleData sample : GlobalVariables.samples)
         {
             gMap.scan(referenceSample, sample, 0, 0, true);

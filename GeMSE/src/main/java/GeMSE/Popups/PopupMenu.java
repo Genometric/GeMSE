@@ -312,7 +312,7 @@ public class PopupMenu extends JPopupMenu
         if (file.exists())
             return JOptionPane.showConfirmDialog(
                     this,
-                    "The file already exists. Do you want to overwrite it?",
+                    "The file already exists. Do you want to overwrite it ?     ",
                     "Existing file",
                     JOptionPane.YES_NO_OPTION)
                    == JOptionPane.YES_OPTION;

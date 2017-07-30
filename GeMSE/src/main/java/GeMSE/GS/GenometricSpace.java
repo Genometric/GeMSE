@@ -35,7 +35,7 @@ public class GenometricSpace implements Serializable
         _history = new History();
         _operations = new Operations();
     }
-    
+
     public static final long serialVersionUID = 1;
     /**
      * Private Genometric Space populated by Initialize() function.

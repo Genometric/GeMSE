@@ -34,10 +34,13 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import ExternalLibraries.HeatChart;
 import GeMSE.Heatmap.HeatMap;
+import GeMSE.IO.InProgress;
+import GeMSE.OperationsOptions.ClusteringOptions;
 import GeMSE.Popups.DataGridClickListener;
 import GeMSE.Popups.HeatmapClickListener;
 import java.awt.Color;
 import java.util.HashSet;
+import javax.swing.SwingWorker;
 
 /**
  *
@@ -941,140 +944,20 @@ public class PatternSearchWindow extends javax.swing.JFrame
 
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SearchButtonActionPerformed
     {//GEN-HEADEREND:event_SearchButtonActionPerformed
-        // this prevents all change events on the three sliders.
-        _userChangingSlider = null;
-        PatternDetailPlot.setIcon(null);
-        PatternDetailPlot.setText("GeMSE: Selected Pattern Heatmap");
-
-        selectedPatternDetails_DG.setModel(new DefaultTableModel()
+        InProgress inProgress = new InProgress(null, "Processing patterns in the data, please wait ...");
+        inProgress.setLocationRelativeTo(null);
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>()
         {
             @Override
-            public boolean isCellEditable(int row, int column)
+            protected Void doInBackground()
             {
-                return false;
+                ProcessPatterns();
+                inProgress.dispose();
+                return null;
             }
-        });
-        patternDetails_DG1.setModel(new DefaultTableModel()
-        {
-            @Override
-            public boolean isCellEditable(int row, int column)
-            {
-                return false;
-            }
-        });
-        metadataCount_DG.setModel(new DefaultTableModel()
-        {
-            @Override
-            public boolean isCellEditable(int row, int column)
-            {
-                return false;
-            }
-        });
-
-        metadataCount_DG.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        ResizeColumnWidth(metadataCount_DG);
-
-        Metrics metric = Metrics.EuclideanDistance;
-        switch (MetricCB.getSelectedItem().toString())
-        {
-            case "Euclidean distance":
-                metric = Metrics.EuclideanDistance;
-                break;
-
-            case "Manhattan Distance":
-                metric = Metrics.ManhattanDistance;
-                break;
-
-            case "Earth Movers Distance":
-                metric = Metrics.EarthMoversDistance;
-                break;
-
-            case "Chebyshev Distance":
-                metric = Metrics.ChebyshevDistance;
-                break;
-
-            case "Canberra Distance":
-                metric = Metrics.CanberraDistance;
-                break;
-
-            case "Pearson Correlation Coefficient":
-                metric = Metrics.PearsonCorrelationCoefficient;
-                break;
-        }
-
-
-        if (DomainRowRB.isSelected())
-        {
-            EnableDisableMetadataAggregates(true);
-            RowPatternPlot.setVisible(true);
-            ColPatternPlot.setVisible(false);
-            patternDetails_DG1.setEnabled(true);
-            _psp = new PatternSearchProcesses(
-                    source,
-                    ClusteringDomains.Rows,
-                    metric);
-
-            EnableDiableColPatternDetailAttributes(false);
-            EnableDiableRowPatternDetailAttributes(false);
-
-            UseRowID_RB.setEnabled(true);
-            if (GlobalVariables.annotations == null || GlobalVariables.annotations.features.isEmpty())
-                UseReferenceAnnotation_RB.setEnabled(false);
-            else
-                UseReferenceAnnotation_RB.setEnabled(true);
-
-            DeterminedAtts_L2.setEnabled(true);
-            SampleAttribute_CB.setEnabled(false);
-
-            if (null != GlobalVariables.rowLabelsSource)
-                switch (GlobalVariables.rowLabelsSource)
-                {
-                    case ID:
-                        UseRowID_RB.setSelected(true);
-                        break;
-                    case SampleAttributes:
-                        UseSampleRegionTXTAttributes_RB.setSelected(true);
-                        SampleAttribute_CB.setEnabled(true);
-                        break;
-                    case ReferenceAttributes:
-                        UseReferenceAnnotation_RB.setSelected(true);
-                        ReferenceSampleAttributes_CB.setEnabled(true);
-                        break;
-                }
-        }
-        else
-        {
-            EnableDisableMetadataAggregates(false);
-            RowPatternPlot.setVisible(false);
-            ColPatternPlot.setVisible(true);
-            patternDetails_DG1.setEnabled(false);
-            _psp = new PatternSearchProcesses(
-                    source,
-                    ClusteringDomains.Columns,
-                    metric);
-
-            EnableDiableColPatternDetailAttributes(true);
-            EnableDiableRowPatternDetailAttributes(false);
-        }
-
-
-        ClusterCountSlider.setMaximum(_psp.MaxClusterCount());
-        ClusterCountSlider.setValue(_psp.DefaultClusterCount());
-        HeightSlider.setMaximum(_psp.MaxHeight());
-        HeightSlider.setValue(_psp.ExchangeC4H(ClusterCountSlider.getValue()));
-        DistanceSlider.setMaximum((int) Math.floor(_psp.MaxDistance()) + 1);
-        DistanceSlider.setMinimum((int) Math.floor(_psp.MinDistance()));
-        DistanceSlider.setValue((int) Math.round(_psp.ExchangeC4D(ClusterCountSlider.getValue())));
-
-        ClusterCountSuggestedL.setText("Suggested value: " + String.valueOf(ClusterCountSlider.getValue()));
-        ClusterHeightSuggestedL.setText("Suggested value: " + String.valueOf(HeightSlider.getValue()));
-        ClusterDistanceSuggestedL.setText("Suggested value: " + String.valueOf(DistanceSlider.getValue()));
-
-        EnableDisableClusterSlidersGroups(true);
-
-        _userChangingSlider = Sliders.Count;
-        UpdateDeterminedPatterns();
-        _userChangingSlider = Sliders.None;
+        };
+        worker.execute();
+        inProgress.setVisible(true);
     }//GEN-LAST:event_SearchButtonActionPerformed
 
     private void DisplayElbowOutputCBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_DisplayElbowOutputCBActionPerformed
@@ -1296,6 +1179,144 @@ public class PatternSearchWindow extends javax.swing.JFrame
     private javax.swing.JTable patternDetails_DG2;
     private javax.swing.JTable selectedPatternDetails_DG;
     // End of variables declaration//GEN-END:variables
+
+    private void ProcessPatterns()
+    {
+// this prevents all change events on the three sliders.
+        _userChangingSlider = null;
+        PatternDetailPlot.setIcon(null);
+        PatternDetailPlot.setText("GeMSE: Selected Pattern Heatmap");
+
+        selectedPatternDetails_DG.setModel(new DefaultTableModel()
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
+            }
+        });
+        patternDetails_DG1.setModel(new DefaultTableModel()
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
+            }
+        });
+        metadataCount_DG.setModel(new DefaultTableModel()
+        {
+            @Override
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
+            }
+        });
+
+        metadataCount_DG.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        ResizeColumnWidth(metadataCount_DG);
+
+        Metrics metric = Metrics.EuclideanDistance;
+        switch (MetricCB.getSelectedItem().toString())
+        {
+            case "Euclidean distance":
+                metric = Metrics.EuclideanDistance;
+                break;
+
+            case "Manhattan Distance":
+                metric = Metrics.ManhattanDistance;
+                break;
+
+            case "Earth Movers Distance":
+                metric = Metrics.EarthMoversDistance;
+                break;
+
+            case "Chebyshev Distance":
+                metric = Metrics.ChebyshevDistance;
+                break;
+
+            case "Canberra Distance":
+                metric = Metrics.CanberraDistance;
+                break;
+
+            case "Pearson Correlation Coefficient":
+                metric = Metrics.PearsonCorrelationCoefficient;
+                break;
+        }
+
+
+        if (DomainRowRB.isSelected())
+        {
+            EnableDisableMetadataAggregates(true);
+            RowPatternPlot.setVisible(true);
+            ColPatternPlot.setVisible(false);
+            patternDetails_DG1.setEnabled(true);
+            _psp = new PatternSearchProcesses(
+                    source,
+                    ClusteringDomains.Rows,
+                    metric);
+
+            EnableDiableColPatternDetailAttributes(false);
+            EnableDiableRowPatternDetailAttributes(false);
+
+            UseRowID_RB.setEnabled(true);
+            if (GlobalVariables.annotations == null || GlobalVariables.annotations.features.isEmpty())
+                UseReferenceAnnotation_RB.setEnabled(false);
+            else
+                UseReferenceAnnotation_RB.setEnabled(true);
+
+            DeterminedAtts_L2.setEnabled(true);
+            SampleAttribute_CB.setEnabled(false);
+
+            if (null != GlobalVariables.rowLabelsSource)
+                switch (GlobalVariables.rowLabelsSource)
+                {
+                    case ID:
+                        UseRowID_RB.setSelected(true);
+                        break;
+                    case SampleAttributes:
+                        UseSampleRegionTXTAttributes_RB.setSelected(true);
+                        SampleAttribute_CB.setEnabled(true);
+                        break;
+                    case ReferenceAttributes:
+                        UseReferenceAnnotation_RB.setSelected(true);
+                        ReferenceSampleAttributes_CB.setEnabled(true);
+                        break;
+                }
+        }
+        else
+        {
+            EnableDisableMetadataAggregates(false);
+            RowPatternPlot.setVisible(false);
+            ColPatternPlot.setVisible(true);
+            patternDetails_DG1.setEnabled(false);
+            _psp = new PatternSearchProcesses(
+                    source,
+                    ClusteringDomains.Columns,
+                    metric);
+
+            EnableDiableColPatternDetailAttributes(true);
+            EnableDiableRowPatternDetailAttributes(false);
+        }
+
+
+        ClusterCountSlider.setMaximum(_psp.MaxClusterCount());
+        ClusterCountSlider.setValue(_psp.DefaultClusterCount());
+        HeightSlider.setMaximum(_psp.MaxHeight());
+        HeightSlider.setValue(_psp.ExchangeC4H(ClusterCountSlider.getValue()));
+        DistanceSlider.setMaximum((int) Math.floor(_psp.MaxDistance()) + 1);
+        DistanceSlider.setMinimum((int) Math.floor(_psp.MinDistance()));
+        DistanceSlider.setValue((int) Math.round(_psp.ExchangeC4D(ClusterCountSlider.getValue())));
+
+        ClusterCountSuggestedL.setText("Suggested value: " + String.valueOf(ClusterCountSlider.getValue()));
+        ClusterHeightSuggestedL.setText("Suggested value: " + String.valueOf(HeightSlider.getValue()));
+        ClusterDistanceSuggestedL.setText("Suggested value: " + String.valueOf(DistanceSlider.getValue()));
+
+        EnableDisableClusterSlidersGroups(true);
+
+        _userChangingSlider = Sliders.Count;
+        UpdateDeterminedPatterns();
+        _userChangingSlider = Sliders.None;
+    }
 
     private void UpdateDeterminedPatterns()
     {
