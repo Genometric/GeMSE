@@ -77,7 +77,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
         else
             for (String attribute : GlobalVariables.annotations.GetTXTAttributesArray())
                 ReferenceSampleAttributes_CB.addItem(attribute);
-        ReferenceSampleAttributes_CB.setSelectedItem(GlobalVariables.selectedRowLabelOption);
+        //ReferenceSampleAttributes_CB.setSelectedItem(GlobalVariables.selectedRowLabelOption);
 
         PatternSearchDomainBG.add(DomainRowRB);
         PatternSearchDomainBG.add(DomainColRB);

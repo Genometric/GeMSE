@@ -17,12 +17,14 @@
  */
 package ExternalLibraries;
 
+import java.io.Serializable;
+
 /**
  * Virtual coordinates.
  */
-public class VCoord
+public class VCoord implements Serializable
 {
-
+    public static final long serialVersionUID = 1;
     private double x = Double.NaN;
     private double y = Double.NaN;
 

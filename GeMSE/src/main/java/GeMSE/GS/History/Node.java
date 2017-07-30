@@ -11,17 +11,18 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package GeMSE.GS.History;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  *
  * @author Vahid Jalili
  */
-public class Node<T>
+public class Node<T> implements Serializable
 {
+    public static final long serialVersionUID = 1;
     private final List<Node<T>> children = new ArrayList<>();
     private Node<T> parent = null;
     private T data = null;

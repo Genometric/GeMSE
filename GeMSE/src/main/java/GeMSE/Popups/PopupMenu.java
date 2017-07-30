@@ -261,6 +261,7 @@ public class PopupMenu extends JPopupMenu
         GlobalVariables.lowValueColor = JColorChooser.showDialog(new JFrame("Color_Chooser"), "Low Value Color", GlobalVariables.lowValueColor);
         if (GlobalVariables.lowValueColor == null)
             GlobalVariables.lowValueColor = previous_value;
+        GlobalVariables.sessionSerializationRequired = true;
     }
     private void HighValueColorActionListener(java.awt.event.ActionEvent e)
     {
@@ -268,6 +269,7 @@ public class PopupMenu extends JPopupMenu
         GlobalVariables.hightValueColor = JColorChooser.showDialog(new JFrame("Color_Chooser"), "High Value Color", GlobalVariables.hightValueColor);
         if (GlobalVariables.hightValueColor == null)
             GlobalVariables.hightValueColor = previous_value;
+        GlobalVariables.sessionSerializationRequired = true;
     }
 
     private void SaveNewickTreeFormat(java.awt.event.ActionEvent e)

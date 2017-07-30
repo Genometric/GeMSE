@@ -17,18 +17,16 @@
  */
 package ExternalLibraries;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cluster
+public class Cluster implements Serializable
 {
-
+    public static final long serialVersionUID = 1;
     private String name;
-
     private Cluster parent;
-
     private List<Cluster> children;
-
     private Double distance;
 
     public Double getDistance()

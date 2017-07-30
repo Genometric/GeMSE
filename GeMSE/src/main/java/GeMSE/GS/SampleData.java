@@ -13,6 +13,7 @@
  */
 package GeMSE.GS;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ import java.util.Set;
  *
  * @author Vahid Jalili
  */
-public class SampleData
+public class SampleData implements Serializable
 {
     public SampleData()
     {
@@ -35,8 +36,8 @@ public class SampleData
     }
 
     public String fileName;
-    
     public String fullPath;
+    public static final long serialVersionUID = 1;
 
     /**
      * Chromosome count of the sample which is set by features parser based on
@@ -50,14 +51,14 @@ public class SampleData
      * Total number of lines in the file.
      */
     public int lineCounter;
-    
+
     public ArrayList<String> messages;
-    
+
     /**
      * Parsed features grouped chromosome-wide.
      */
     public HashMap<String, ArrayList<Feature>> features;
-    
+
     /**
      * Contains the determined features.
      * <para>Each string[] is a unique feature; the feature index in the list is
@@ -66,20 +67,20 @@ public class SampleData
      * feature.</para>
      */
     public ArrayList<String[]> determinedFeatures;
-    
+
     public HashMap<String, String[]> metaData;
-    
+
     public String sampleID;
-    
+
     private HashMap<String, Byte> _txtAttributes;
-    
+
     private HashMap<String, Byte> _numAttributes;
-    
+
     public Set<String> GetNumAttributes()
     {
         return _numAttributes.keySet();
     }
-    
+
     public ArrayList<String> GetNumAttributesArray()
     {
         ArrayList<String> rtv = new ArrayList<>();
@@ -88,7 +89,7 @@ public class SampleData
 
         return rtv;
     }
-    
+
     public String GetNumAttribute(String chr, int start, int stop, String attribute)
     {
         for (Feature f : features.get(chr))
@@ -98,12 +99,12 @@ public class SampleData
 
         return "NA";
     }
-    
+
     public HashMap<String, Byte> CopyNumAttributes()
     {
         return _numAttributes;
     }
-    
+
     public void PasteNumAttributes(HashMap<String, Byte> numAttributes)
     {
         _numAttributes = numAttributes;
@@ -157,8 +158,9 @@ public class SampleData
         return -1;
     }
 
-    public class Feature implements Comparable<Feature>
+    public class Feature implements Comparable<Feature>, Serializable
     {
+        public static final long serialVersionUID = 1;
         /**
          * Sets and Gets Start position of the feature, with sequence numbering
          * starting at 1
@@ -179,7 +181,7 @@ public class SampleData
         public byte feature;
 
 
-        private class _numAttribute
+        private class _numAttribute implements Serializable
         {
             private _numAttribute(byte attribute, double value)
             {
@@ -189,11 +191,12 @@ public class SampleData
 
             private final byte _attribute;
             private final double _value;
+            public static final long serialVersionUID = 1;
         }
         private final ArrayList<_numAttribute> _numAVP = new ArrayList<>();
 
 
-        private class _txtAttribute
+        private class _txtAttribute implements Serializable
         {
             private _txtAttribute(byte attribute, String value)
             {
@@ -203,6 +206,7 @@ public class SampleData
 
             private final byte _attribute;
             private final String _value;
+            public static final long serialVersionUID = 1;
         }
         private final ArrayList<_txtAttribute> _txtAVP = new ArrayList<>();
 

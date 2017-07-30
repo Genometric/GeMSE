@@ -11,18 +11,19 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package GeMSE.GS;
 
 import GeMSE.GlobalVariables;
 import GeMSE.GlobalVariables.RLS;
+import java.io.Serializable;
 
 /**
  *
  * @author Vahid Jalili
  */
-public class Space
+public class Space implements Serializable
 {
+    public static final long serialVersionUID = 1;
     public double[][] content;
     public String[] rowsID;
     public String[] colsID;
@@ -99,8 +100,8 @@ public class Space
     public void UpdateRowsTitles()
     {
         rowTitle = GetRowTitles(GlobalVariables.rowLabelsSource,
-                GlobalVariables.rowLabelsSourceSelectedSample,
-                GlobalVariables.rowLabelsSourceSelectedAttribute);
+                                GlobalVariables.rowLabelsSourceSelectedSample,
+                                GlobalVariables.rowLabelsSourceSelectedAttribute);
     }
 
     public String[] GetRowTitles(RLS rowLabelSource, String sampleFileName, String attribute)

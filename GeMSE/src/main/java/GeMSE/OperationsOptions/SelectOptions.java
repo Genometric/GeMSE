@@ -11,14 +11,15 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package GeMSE.OperationsOptions;
+
+import java.io.Serializable;
 
 /**
  *
  * @author Vahid Jalili
  */
-public class SelectOptions implements Cloneable
+public class SelectOptions implements Cloneable, Serializable
 {
     public SelectOptions(int columnFrom, int columnTo, int rowFrom, int rowTo)
     {
@@ -28,6 +29,7 @@ public class SelectOptions implements Cloneable
         RowTo = rowTo;
     }
 
+    public static final long serialVersionUID = 1;
     public int ColumnFrom;
     public int ColumnTo;
     public int RowFrom;

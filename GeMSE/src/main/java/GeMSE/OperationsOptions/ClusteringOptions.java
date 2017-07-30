@@ -14,12 +14,13 @@
 package GeMSE.OperationsOptions;
 
 import ExternalLibraries.Cluster;
+import java.io.Serializable;
 
 /**
  *
  * @author Vahid Jalili
  */
-public class ClusteringOptions implements Cloneable
+public class ClusteringOptions implements Cloneable, Serializable
 {
     public ClusteringOptions()
     {
@@ -31,6 +32,8 @@ public class ClusteringOptions implements Cloneable
         cutDistance = 0.0;
         dendrogram = null;
     }
+
+    public static final long serialVersionUID = 1;
 
     public enum ClusteringMethods
     {

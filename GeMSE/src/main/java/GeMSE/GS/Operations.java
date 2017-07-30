@@ -11,7 +11,6 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package GeMSE.GS;
 
 import GeMSE.OperationsOptions.ClusteringOptions;
@@ -21,15 +20,15 @@ import GeMSE.OperationsOptions.SortOptions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ExternalLibraries.Cluster;
+import java.io.Serializable;
 
 
 /**
  *
  * @author Vahid Jalili
  */
-public class Operations
+public class Operations implements Serializable
 {
-
     public Operations()
     {
         source = null;
@@ -40,6 +39,7 @@ public class Operations
     public Space source;
     public Space result;
     public Object parameters;
+    public static final long serialVersionUID = 1;
 
     public enum Functions
     {

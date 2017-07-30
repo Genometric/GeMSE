@@ -19,6 +19,10 @@ import GeMSE.OperationsOptions.ClusteringOptions;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,8 +30,9 @@ import java.util.HashMap;
  *
  * @author Vahid Jalili
  */
-public class GlobalVariables
+public class GlobalVariables implements Serializable
 {
+    public static final long serialVersionUID = 1;
     public static GenometricSpace space;
 
     public static ArrayList<SampleData> samples = new ArrayList<>();
@@ -38,7 +43,7 @@ public class GlobalVariables
     public static String selectedColumnLabelOption;
 
     public static String[] availableRowLabelOptions;
-    public static String selectedRowLabelOption;
+    //public static String selectedRowLabelOption;
     public static int columnIndexToReadRowsInfoFrom;
 
     public static Color lowValueColor = Color.YELLOW;
@@ -78,11 +83,11 @@ public class GlobalVariables
         SetLastBrowsedDirectory. However, to enable both options 
         I created two functions. If you want to use a., then
         simply uncomment options a. and comment out b.
-        */
-        
+         */
+
         // a. 
         //_lastBrowsedDirectory = path;
-        
+
         // b. 
         _lastBrowsedDirectory = path.substring(0, path.lastIndexOf(File.separator));
     }
@@ -131,14 +136,78 @@ public class GlobalVariables
         ID, SampleAttributes, ReferenceAttributes
     }
     public static RLS rowLabelsSource = RLS.ID;
-
-    public static String rowLabelsSourceSelectedSample;
-    public static String rowLabelsSourceSelectedAttribute;
+    public static String rowLabelsSourceSelectedSample = "";
+    public static String rowLabelsSourceSelectedAttribute = "";
 
     public static Boolean plotElbowMethodOutput;
+    public static Boolean sessionSerializationRequired = false;
 
-    public static class HeatmapOptions
+    private void writeObject(ObjectOutputStream stream) throws IOException
     {
+        stream.writeObject(space);
+        stream.writeObject(samples);
+        stream.writeObject(annotations);
+        stream.writeObject(featuresCount);
+        stream.writeObject(availableColumnLabelOptions);
+        stream.writeObject(selectedColumnLabelOption);
+        stream.writeObject(availableRowLabelOptions);
+        stream.writeInt(columnIndexToReadRowsInfoFrom);
+        stream.writeObject(lowValueColor);
+        stream.writeObject(hightValueColor);
+        stream.writeBoolean(disablePopups);
+        stream.writeObject(_lastBrowsedDirectory);
+        stream.writeObject(rowLabelsSource);
+        stream.writeObject(rowLabelsSourceSelectedSample);
+        stream.writeObject(rowLabelsSourceSelectedAttribute);
+        stream.writeBoolean(plotElbowMethodOutput);
+        stream.writeBoolean(HeatmapOptions.heatmpaType);
+        stream.writeObject(HeatmapOptions.heatmapCommand);
+        stream.writeObject(HeatmapOptions.heatmapParameters);
+        stream.writeObject(HeatmapOptions.heatmapTitle);
+        stream.writeObject(HeatmapOptions.horizontalAxisTitle);
+        stream.writeObject(HeatmapOptions.verticalAxisTitle);
+        stream.writeObject(HeatmapOptions.size);
+        stream.writeObject(HeatmapOptions.RScriptPath);
+        stream.writeBoolean(HeatmapOptions.autoFitRPlotSize);
+        stream.writeBoolean(HeatmapOptions.RBAOptions);
+        stream.writeDouble(HeatmapOptions.epsilonDistance);
+    }
+
+    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException
+    {
+        space = (GenometricSpace) stream.readObject();
+        samples = (ArrayList<SampleData>) stream.readObject();
+        annotations = (SampleData) stream.readObject();
+        featuresCount = (HashMap<String, Integer>) stream.readObject();
+        availableColumnLabelOptions = (String[]) stream.readObject();
+        selectedColumnLabelOption = (String) stream.readObject();
+        availableRowLabelOptions = (String[]) stream.readObject();
+        columnIndexToReadRowsInfoFrom = stream.readInt();
+        lowValueColor = (Color) stream.readObject();
+        hightValueColor = (Color) stream.readObject();
+        disablePopups = stream.readBoolean();
+        _lastBrowsedDirectory = (String) stream.readObject();
+        rowLabelsSource = (RLS) stream.readObject();
+        rowLabelsSourceSelectedSample = (String) stream.readObject();
+        rowLabelsSourceSelectedAttribute = (String) stream.readObject();
+        plotElbowMethodOutput = stream.readBoolean();
+        HeatmapOptions.heatmpaType = stream.readBoolean();
+        HeatmapOptions.heatmapCommand = (String) stream.readObject();
+        HeatmapOptions.heatmapParameters = (ClusteringOptions) stream.readObject();
+        HeatmapOptions.heatmapTitle = (String) stream.readObject();
+        HeatmapOptions.horizontalAxisTitle = (String) stream.readObject();
+        HeatmapOptions.verticalAxisTitle = (String) stream.readObject();
+        HeatmapOptions.size = (Dimension) stream.readObject();
+        HeatmapOptions.RScriptPath = (String) stream.readObject();
+        HeatmapOptions.autoFitRPlotSize = stream.readBoolean();
+        HeatmapOptions.RBAOptions = stream.readBoolean();
+        HeatmapOptions.epsilonDistance = stream.readDouble();
+    }
+
+
+    public static class HeatmapOptions implements Serializable
+    {
+        public static final long serialVersionUID = 1;
         /**
          * If false, use integrated heatmap package. If true, use R to generate
          * heatmap.
@@ -157,17 +226,11 @@ public class GlobalVariables
          * R for proper dendrogram creation for heatmap.
          */
         public static ClusteringOptions heatmapParameters = null;
-
         public static String heatmapTitle = "";
-
         public static String horizontalAxisTitle = "Samples";
-
         public static String verticalAxisTitle = "Regions";
-
         public static Dimension size;
-
         public static String RScriptPath = "C:\\Program Files\\R\\R-3.2.0\\bin\\Rscript.exe";
-
         public static Boolean autoFitRPlotSize = true;
 
         /**

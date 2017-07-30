@@ -15,14 +15,15 @@ package GeMSE.GS.History;
 
 import GeMSE.GS.Operations;
 import GeMSE.GS.Space;
+import java.io.Serializable;
 
 /**
  *
  * @author Vahid Jalili
  */
-public class History
+public class History implements Serializable
 {
-
+    public static final long serialVersionUID = 1;
     public Space initialSpace;
     private final OperationsHistory _opHistory;
     private final SpacesHistory _spHistory;
