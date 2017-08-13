@@ -794,6 +794,7 @@
                           <Table columnCount="0" rowCount="4"/>
                         </Property>
                         <Property name="autoResizeMode" type="int" value="0"/>
+                        <Property name="cellSelectionEnabled" type="boolean" value="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>

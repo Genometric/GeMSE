@@ -36,6 +36,7 @@ public class GlobalVariables implements Serializable
 {
     public static final long serialVersionUID = 1;
     public static GenometricSpace space;
+    public static String selectedNodeID;
 
     public static ArrayList<SampleData> samples = new ArrayList<>();
     public static SampleData annotations = new SampleData();

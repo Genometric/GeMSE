@@ -16,9 +16,13 @@ package GeMSE.Popups;
 
 import ExternalLibraries.Cluster;
 import ExternalLibraries.DendrogramPanel;
+import GeMSE.GS.Operations;
+import GeMSE.GS.Operations.Functions;
 import GeMSE.IO.Exporter;
 import GeMSE.GlobalVariables;
 import GeMSE.GS.clustering.ClusterToNewick;
+import GeMSE.GeMSE;
+import GeMSE.OperationsOptions.SelectOptions;
 import com.itextpdf.awt.PdfGraphics2D;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -52,7 +56,7 @@ import javax.swing.table.DefaultTableModel;
 
 enum PopupMenuType
 {
-    DataGrid, Dendrogram, Heatmap, Tree
+    GSDataGrid, DataGrid, Dendrogram, Heatmap, Tree
 };
 
 /**
@@ -62,6 +66,8 @@ enum PopupMenuType
 public class PopupMenu extends JPopupMenu
 {
     private final JComponent _component;
+    private Boolean _isExtractSelected;
+    private GeMSE _parent;
 
     public PopupMenu(JComponent component, PopupMenuType type)
     {
@@ -69,6 +75,10 @@ public class PopupMenu extends JPopupMenu
 
         switch (type)
         {
+            case GSDataGrid:
+                GSCreateDataGridMenuItems();
+                break;
+
             case DataGrid:
                 CreateDataGridMenuItems();
                 break;
@@ -86,10 +96,23 @@ public class PopupMenu extends JPopupMenu
                 break;
         }
     }
+    private void GSCreateDataGridMenuItems()
+    {
+        _isExtractSelected = false;
+        JMenuItem save = new JMenuItem("   Save as text file   ");
+        save.addActionListener(this::SaveDataGrid);
+
+        JMenuItem extract = new JMenuItem("   Extract selected cells   ");
+        extract.addActionListener(this::ExtractCells);
+
+        add(save);
+        add(extract);
+    }
     private void CreateDataGridMenuItems()
     {
         JMenuItem save = new JMenuItem("   Save as text file   ");
         save.addActionListener(this::SaveDataGrid);
+
         add(save);
     }
     private void CreateDendrogramMenuItems()
@@ -179,6 +202,59 @@ public class PopupMenu extends JPopupMenu
         return rtv;
     }
 
+    private void ExtractCells(java.awt.event.ActionEvent e)
+    {
+        int[] cols = ((JTable) _component).getSelectedColumns();
+        int[] rows = ((JTable) _component).getSelectedRows();
+        int colMin = Integer.MAX_VALUE;
+        int colMax = 0;
+        int rowMin = Integer.MAX_VALUE;
+        int rowMax = 0;
+        for (int i = 0 ; i < cols.length ; i++)
+        {
+            if (cols[i] < 2) continue;
+            if (cols[i] < colMin)
+                colMin = cols[i];
+            else if (cols[i] > colMax)
+                colMax = cols[i];
+        }
+        if (colMin == Integer.MAX_VALUE)
+        {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Select at least one value column."
+                    + "\nThe first two columns, as they contain only metadata, are not counted.     \n",
+                    "Invalid Column",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        colMin = colMin - 2;
+        if (colMax == 0)
+            colMax = colMin + 1;
+        else
+            colMax = colMax - 1;
+
+        for (int i = 0 ; i < rows.length ; i++)
+        {
+            if (rows[i] < rowMin)
+                rowMin = rows[i];
+            else if (rows[i] > rowMax)
+                rowMax = rows[i];
+        }
+        if (rowMax == 0)
+            rowMax = rowMin + 1;
+        else
+            rowMax = rowMax + 1;
+        _isExtractSelected = true;
+
+        GlobalVariables.space.RunOperation(
+                GlobalVariables.selectedNodeID,
+                "on gridview",
+                Functions.Extract,
+                new SelectOptions(colMin, colMax, rowMin, rowMax));
+        _parent.CreateOperationsTree();
+        GlobalVariables.sessionSerializationRequired = true;
+    }
 
     private void SaveImage(java.awt.event.ActionEvent e)
     {
@@ -317,5 +393,10 @@ public class PopupMenu extends JPopupMenu
                     JOptionPane.YES_NO_OPTION)
                    == JOptionPane.YES_OPTION;
         return true;
+    }
+
+    public void SetParent(GeMSE parent)
+    {
+        _parent = parent;
     }
 }

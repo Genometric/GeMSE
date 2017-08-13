@@ -53,6 +53,7 @@ import GeMSE.OperationsOptions.DiscretizeOptions;
 import GeMSE.OperationsOptions.SelectOptions;
 import GeMSE.OperationsOptions.SortOptions;
 import GeMSE.Popups.DataGridClickListener;
+import GeMSE.Popups.GSDataGridClickListener;
 import GeMSE.Popups.HeatmapClickListener;
 import GeMSE.Popups.TreeClickListener;
 import java.awt.Component;
@@ -61,6 +62,7 @@ import java.net.URISyntaxException;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -72,7 +74,6 @@ import javax.swing.table.TableColumnModel;
 public class GeMSE extends javax.swing.JFrame
 {
     private final JTree _tree;
-    private GenometricSpace _space;
     private Object _selectedNodeOperationParameters = null;
     private final OperationsOptions _operationsOptions = new OperationsOptions();
     private OVDendrogramPanel _dendrogramPanel;
@@ -102,7 +103,7 @@ public class GeMSE extends javax.swing.JFrame
         GlobalVariables.plotElbowMethodOutput = true;
 
         HeatMapPlot.addMouseListener(new HeatmapClickListener());
-        space_DG.addMouseListener(new DataGridClickListener());
+        space_DG.addMouseListener(new GSDataGridClickListener(this));
     }
 
     /**
@@ -514,6 +515,7 @@ public class GeMSE extends javax.swing.JFrame
             }
         ));
         space_DG.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        space_DG.setCellSelectionEnabled(true);
         jScrollPane1.setViewportView(space_DG);
 
         javax.swing.GroupLayout gridView_tabLayout = new javax.swing.GroupLayout(gridView_tab);
@@ -819,9 +821,9 @@ public class GeMSE extends javax.swing.JFrame
         EnableDisableSpaceManipulation(true);
         GlobalVariables.disablePopups = false;
 
-        _space.UpdateSpace(GetSelectedNodeID());
-        _space.space.UpdateColumnsTitles();
-        _space.space.UpdateRowsTitles();
+        GlobalVariables.space.UpdateSpace(GetSelectedNodeID());
+        GlobalVariables.space.space.UpdateColumnsTitles();
+        GlobalVariables.space.space.UpdateRowsTitles();
         UpdateGenometricSpaceDataGrid();
         GlobalVariables.sessionSerializationRequired = true;
     }//GEN-LAST:event_Create_GS_BTActionPerformed
@@ -872,7 +874,7 @@ public class GeMSE extends javax.swing.JFrame
                 break;
         }
 
-        _space.RunOperation(selectedSpaceID, Operation_Title_TB.getText(), function, _operationsOptions.GetValues());
+        GlobalVariables.space.RunOperation(selectedSpaceID, Operation_Title_TB.getText(), function, _operationsOptions.GetValues());
         CreateOperationsTree();
         GlobalVariables.sessionSerializationRequired = true;
     }//GEN-LAST:event_Apply_Op_BTActionPerformed
@@ -896,7 +898,7 @@ public class GeMSE extends javax.swing.JFrame
     private void SearchPatternMIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SearchPatternMIActionPerformed
     {//GEN-HEADEREND:event_SearchPatternMIActionPerformed
         PatternSearchWindow psMW = new PatternSearchWindow();
-        psMW.source = _space.GetSpace(GetSelectedNodeID());
+        psMW.source = GlobalVariables.space.GetSpace(GetSelectedNodeID());
         psMW.spaceID = GetSelectedNodeID();
         psMW.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         psMW.setLocationRelativeTo(this);
@@ -928,15 +930,14 @@ public class GeMSE extends javax.swing.JFrame
         try
         {
             SessionIO.Deserialize(this);
-            _space = GlobalVariables.space;
             UpdateCachedFeatures();
             EnableDisableSpaceGeneration(true);
             CreateOperationsTree();
             EnableDisableSpaceManipulation(true);
             GlobalVariables.disablePopups = false;
-            _space.UpdateSpace(GetSelectedNodeID());
-            _space.space.UpdateColumnsTitles();
-            _space.space.UpdateRowsTitles();
+            GlobalVariables.space.UpdateSpace(GetSelectedNodeID());
+            GlobalVariables.space.space.UpdateColumnsTitles();
+            GlobalVariables.space.space.UpdateRowsTitles();
             UpdateGenometricSpaceDataGrid();
             GlobalVariables.sessionSerializationRequired = false;
         }
@@ -1292,8 +1293,7 @@ public class GeMSE extends javax.swing.JFrame
 
     private void UpdateGenometricSpace()
     {
-        _space = new GenometricSpace();
-        GlobalVariables.space = _space;
+        GlobalVariables.space = new GenometricSpace();
 
         int ssc = GlobalVariables.samples.size();
         int[] selectedSamples = new int[ssc];
@@ -1311,7 +1311,7 @@ public class GeMSE extends javax.swing.JFrame
         else
             mnr = GlobalVariables.featuresCount.get(selectedFeature);
 
-        _space.Initialize(
+        GlobalVariables.space.Initialize(
                 selectedSamples,
                 chromosomes,
                 selectedFeature,
@@ -1330,8 +1330,8 @@ public class GeMSE extends javax.swing.JFrame
             }
         };
 
-        String[] gotColumnTitle = _space.space.colTitle;
-        String[] gotRowTitle = _space.space.rowTitle;
+        String[] gotColumnTitle = GlobalVariables.space.space.colTitle;
+        String[] gotRowTitle = GlobalVariables.space.space.rowTitle;
         String[] columnTitle = new String[gotColumnTitle.length + 2];
         columnTitle[0] = "index";
         columnTitle[1] = "Region label";
@@ -1339,23 +1339,24 @@ public class GeMSE extends javax.swing.JFrame
 
         spaceTabMod.setColumnIdentifiers(columnTitle);
 
-        int spaceColSize = _space.space.content[0].length;
+        int spaceColSize = GlobalVariables.space.space.content[0].length;
 
         int col = 0;
-        for (int r = 0 ; r < _space.space.content.length ; r++)
+        for (int r = 0 ; r < GlobalVariables.space.space.content.length ; r++)
         {
             String[] row = new String[spaceColSize + 2];
             row[0] = Integer.toString(r);
             row[1] = gotRowTitle[r];
 
             for (col = 0 ; col < spaceColSize ; col++)
-                row[col + 2] = Double.toString(_space.space.content[r][col]);
+                row[col + 2] = Double.toString(GlobalVariables.space.space.content[r][col]);
 
             spaceTabMod.addRow(row);
         }
 
         this.space_DG.setModel(spaceTabMod);
         this.space_DG.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        this.space_DG.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         ResizeColumnWidth(this.space_DG);
     }
 
@@ -1374,7 +1375,7 @@ public class GeMSE extends javax.swing.JFrame
             return "null";
     }
 
-    private void CreateOperationsTree()
+    public void CreateOperationsTree()
     {
         A2MConverter converter = new A2MConverter();
 
@@ -1383,7 +1384,7 @@ public class GeMSE extends javax.swing.JFrame
         if (_tree != null)
             previouslySelectedNode = (DefaultMutableTreeNode) _tree.getLastSelectedPathComponent();
 
-        DefaultMutableTreeNode newTree = converter.GetNodes(_space.GetTree());
+        DefaultMutableTreeNode newTree = converter.GetNodes(GlobalVariables.space.GetTree());
 
         _tree.setModel(new DefaultTreeModel(newTree));
         _tree.setOpaque(false);
@@ -1412,6 +1413,7 @@ public class GeMSE extends javax.swing.JFrame
         if (selectedNode != null)// && selection_tree_first_pass)
         {
             EnableDisableTransformation(true);
+            GlobalVariables.selectedNodeID = GetSelectedNodeID();
             // This will empty the dendrogram info so that for nodes that 
             // are not clustering, no dendrogram would be generated.
             GlobalVariables.HeatmapOptions.heatmapParameters = null;
@@ -1486,7 +1488,9 @@ public class GeMSE extends javax.swing.JFrame
                             Functions.Extract, _selectedNodeOperationParameters));
                 else
                     Operations_Options_SP.setViewportView(_operationsOptions.GetPanel(
-                            Functions.Extract, new SelectOptions(0, _space.space.colsID.length, 0, _space.space.rowsID.length)));
+                            Functions.Extract, new SelectOptions(
+                                    0, GlobalVariables.space.space.colsID.length,
+                                    0, GlobalVariables.space.space.rowsID.length)));
                 break;
 
             case "Rewrite":
@@ -1495,7 +1499,9 @@ public class GeMSE extends javax.swing.JFrame
                             Functions.Rewrite, _selectedNodeOperationParameters));
                 else
                     Operations_Options_SP.setViewportView(_operationsOptions.GetPanel(
-                            Functions.Rewrite, new DiscretizeOptions(0, _space.space.colsID.length, 0, _space.space.rowsID.length)));
+                            Functions.Rewrite, new DiscretizeOptions(
+                                    0, GlobalVariables.space.space.colsID.length,
+                                    0, GlobalVariables.space.space.rowsID.length)));
 
                 break;
 
@@ -1505,7 +1511,9 @@ public class GeMSE extends javax.swing.JFrame
                             Functions.Discretize, _selectedNodeOperationParameters));
                 else
                     Operations_Options_SP.setViewportView(_operationsOptions.GetPanel(
-                            Functions.Discretize, new DiscretizeOptions(0, _space.space.colsID.length, 0, _space.space.rowsID.length)));
+                            Functions.Discretize, new DiscretizeOptions(
+                                    0, GlobalVariables.space.space.colsID.length,
+                                    0, GlobalVariables.space.space.rowsID.length)));
                 break;
 
             case "Clustering":
@@ -1523,7 +1531,9 @@ public class GeMSE extends javax.swing.JFrame
                             Functions.Sort, _selectedNodeOperationParameters));
                 else
                     Operations_Options_SP.setViewportView(_operationsOptions.GetPanel(
-                            Functions.Sort, new SortOptions(_space.space.colsID.length, _space.space.rowsID.length)));
+                            Functions.Sort, new SortOptions(
+                                    GlobalVariables.space.space.colsID.length,
+                                    GlobalVariables.space.space.rowsID.length)));
                 break;
         }
     }
@@ -1593,15 +1603,15 @@ public class GeMSE extends javax.swing.JFrame
 
         Dimension dimension = new Dimension(spaceIllustrationTab.getSize().width - 75, spaceIllustrationTab.getSize().height - 75);
 
-        _space.UpdateSpace(GetSelectedNodeID());
-        _space.space.UpdateColumnsTitles();
-        _space.space.UpdateRowsTitles();
-        HeatMap.InitializeChart(_space.space);
+        GlobalVariables.space.UpdateSpace(GetSelectedNodeID());
+        GlobalVariables.space.space.UpdateColumnsTitles();
+        GlobalVariables.space.space.UpdateRowsTitles();
+        HeatMap.InitializeChart(GlobalVariables.space.space);
 
         if (Auto_Cell_Dimension_CB.isSelected() == true)
         {
-            dimension.height = (int) Math.round((dimension.height - (HeatMap.GetChartMargin() * 8.00)) / _space.space.content.length);
-            dimension.width = (int) Math.round((dimension.width - (HeatMap.GetChartMargin() * 5.0)) / _space.space.content[0].length);
+            dimension.height = (int) Math.round((dimension.height - (HeatMap.GetChartMargin() * 8.00)) / GlobalVariables.space.space.content.length);
+            dimension.width = (int) Math.round((dimension.width - (HeatMap.GetChartMargin() * 5.0)) / GlobalVariables.space.space.content[0].length);
 
             if (dimension.height < 1) dimension.height = 1;
             if (dimension.width < 1) dimension.width = 1;
