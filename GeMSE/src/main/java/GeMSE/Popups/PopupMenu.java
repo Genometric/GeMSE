@@ -18,7 +18,7 @@ import ExternalLibraries.Cluster;
 import ExternalLibraries.DendrogramPanel;
 import GeMSE.IO.Exporter;
 import GeMSE.GlobalVariables;
-import GeMSE.IO.ClusterToNewick;
+import GeMSE.GS.clustering.ClusterToNewick;
 import com.itextpdf.awt.PdfGraphics2D;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;

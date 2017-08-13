@@ -15,6 +15,8 @@ package GeMSE;
 
 import GeMSE.GS.SampleData;
 import GeMSE.GS.GenometricSpace;
+import GeMSE.GraphVisualization.GraphType;
+import GeMSE.GraphVisualization.NodeGrouping;
 import GeMSE.OperationsOptions.ClusteringOptions;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,13 +45,24 @@ public class GlobalVariables implements Serializable
     public static String selectedColumnLabelOption;
 
     public static String[] availableRowLabelOptions;
-    //public static String selectedRowLabelOption;
     public static int columnIndexToReadRowsInfoFrom;
 
     public static Color lowValueColor = Color.YELLOW;
     public static Color hightValueColor = Color.BLUE;
 
     public static Boolean disablePopups;
+
+    // The followings are the graph visualization parameters.
+    public static GraphType graphType = GraphType.Radial;
+    public static NodeGrouping grouping = NodeGrouping.None;
+    public static Boolean useLightGraphTheme = false;
+    public static Boolean useSolidAggColor = true;
+    public static Color beforeCutColor = Color.RED;
+    public static Color afterCutColor = Color.YELLOW;
+    public static Color solidColor = Color.LIGHT_GRAY;
+    public static Boolean enforceAngularBound = false;
+    public static int angularBoundDegree = 0;
+    public static int angularBoundRadius = 6;
 
 
     private static String _lastBrowsedDirectory;
@@ -171,6 +184,16 @@ public class GlobalVariables implements Serializable
         stream.writeBoolean(HeatmapOptions.autoFitRPlotSize);
         stream.writeBoolean(HeatmapOptions.RBAOptions);
         stream.writeDouble(HeatmapOptions.epsilonDistance);
+        stream.writeObject(graphType);
+        stream.writeObject(grouping);
+        stream.writeObject(useLightGraphTheme);
+        stream.writeObject(useSolidAggColor);
+        stream.writeObject(beforeCutColor);
+        stream.writeObject(afterCutColor);
+        stream.writeObject(solidColor);
+        stream.writeObject(enforceAngularBound);
+        stream.writeInt(angularBoundDegree);
+        stream.writeInt(angularBoundRadius);
     }
 
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException
@@ -202,6 +225,16 @@ public class GlobalVariables implements Serializable
         HeatmapOptions.autoFitRPlotSize = stream.readBoolean();
         HeatmapOptions.RBAOptions = stream.readBoolean();
         HeatmapOptions.epsilonDistance = stream.readDouble();
+        graphType = (GraphType) stream.readObject();
+        grouping = (NodeGrouping) stream.readObject();
+        useLightGraphTheme = (Boolean) stream.readObject();
+        useSolidAggColor = (Boolean) stream.readObject();
+        beforeCutColor = (Color) stream.readObject();
+        afterCutColor = (Color) stream.readObject();
+        solidColor = (Color) stream.readObject();
+        enforceAngularBound = (Boolean) stream.readObject();
+        angularBoundDegree = (int) stream.readInt();
+        angularBoundRadius = (int) stream.readInt();
     }
 
 

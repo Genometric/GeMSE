@@ -11,7 +11,7 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package GeMSE.Heatmap;
+package GeMSE.Visualization;
 
 import GeMSE.GS.Space;
 import GeMSE.OperationsOptions.ClusteringOptions;
@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import ExternalLibraries.HeatChart;
-import GeMSE.IO.ClusterToNewick;
+import GeMSE.GS.clustering.ClusterToNewick;
 import GeMSE.IO.Exporter;
 import GeMSE.GeMSE;
 import GeMSE.GlobalVariables;

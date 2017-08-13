@@ -76,7 +76,7 @@ public class OVDendrogramPanel extends javax.swing.JPanel
     private int scaleValueDecimals = 2;
     private final ClusteringFunctions _cF;
     private final ClusteringOptions _parameters;
-    HashMap<String, String> _rowOrColIDToTitle;
+    HashMap<String, String> _ID2Label;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -412,7 +412,7 @@ public class OVDendrogramPanel extends javax.swing.JPanel
     private Cluster ConvertDendrogramNodeIDsToTitles()
     {
         Space tmp = GlobalVariables.space.GetSpace(_spaceID);
-        _rowOrColIDToTitle = new HashMap<>();
+        _ID2Label = new HashMap<>();
 
         if (null != _parameters.domain)
             switch (_parameters.domain)
@@ -420,13 +420,13 @@ public class OVDendrogramPanel extends javax.swing.JPanel
                 case Rows:
                     tmp.UpdateRowsTitles();
                     for (int row = 0 ; row < tmp.rowsID.length ; row++)
-                        _rowOrColIDToTitle.put(tmp.rowsID[row], tmp.rowTitle[row]);
+                        _ID2Label.put(tmp.rowsID[row], tmp.rowTitle[row]);
                     break;
 
                 case Columns:
                     tmp.UpdateColumnsTitles();
                     for (int col = 0 ; col < tmp.colsID.length ; col++)
-                        _rowOrColIDToTitle.put(tmp.colsID[col], tmp.colTitle[col]);
+                        _ID2Label.put(tmp.colsID[col], tmp.colTitle[col]);
                     break;
 
                 default:
@@ -442,7 +442,7 @@ public class OVDendrogramPanel extends javax.swing.JPanel
     private void RenameDendrogramNodes(Cluster parent)
     {
         if (parent.getChildren().isEmpty())
-            parent.setName(_rowOrColIDToTitle.get(parent.getName()));
+            parent.setName(_ID2Label.get(parent.getName()));
         else
             for (Cluster child : parent.getChildren())
                 RenameDendrogramNodes(child);

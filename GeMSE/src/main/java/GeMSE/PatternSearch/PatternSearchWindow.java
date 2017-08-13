@@ -33,13 +33,17 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import ExternalLibraries.HeatChart;
-import GeMSE.Heatmap.HeatMap;
+import GeMSE.Visualization.HeatMap;
+import GeMSE.GS.clustering.ClusterToGraphML;
+import GeMSE.GraphVisualization.GraphVis;
 import GeMSE.IO.InProgress;
 import GeMSE.OperationsOptions.ClusteringOptions;
 import GeMSE.Popups.DataGridClickListener;
 import GeMSE.Popups.HeatmapClickListener;
 import java.awt.Color;
+import java.io.File;
 import java.util.HashSet;
+import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 
 /**
@@ -58,23 +62,23 @@ public class PatternSearchWindow extends javax.swing.JFrame
         group.add(UseRowID_RB);
         group.add(UseSampleRegionTXTAttributes_RB);
         group.add(UseReferenceAnnotation_RB);
-
+        
         _userChangingSlider = Sliders.None;
-
+        
         RowPatternPlot.setVisible(false);
         ColPatternPlot.setVisible(false);
-
+        
         for (String cL : GlobalVariables.availableColumnLabelOptions)
             Columns_CB.addItem(cL);
         Columns_CB.setSelectedItem(GlobalVariables.selectedColumnLabelOption);
         Columns_CB.setSelectedItem(GlobalVariables.selectedColumnLabelOption);
-
+        
         for (String cL : GlobalVariables.availableColumnLabelOptions)
             Columns_CB1.addItem(cL);
         Columns_CB1.setSelectedItem(GlobalVariables.selectedColumnLabelOption);
         Columns_CB1.setSelectedItem(GlobalVariables.selectedColumnLabelOption);
         EnableDisableMetadataAggregates(false);
-
+        
         if (GlobalVariables.annotations == null || GlobalVariables.annotations.features.isEmpty())
             UseReferenceAnnotation_RB.setEnabled(false);
         else
@@ -87,22 +91,23 @@ public class PatternSearchWindow extends javax.swing.JFrame
         DomainColRB.setSelected(true);
         EnableDiableColPatternDetailAttributes(false);
         EnableDiableRowPatternDetailAttributes(false);
-
+        
         DisplayElbowOutputCB.setSelected(GlobalVariables.plotElbowMethodOutput);
-
+        
         PatternHeatmapPane.addMouseListener(new HeatmapClickListener());
         PatternDetailPlot.addMouseListener(new HeatmapClickListener());
-
+        
         Color.RGBtoHSB(214, 217, 223, bColor);
-
+        
         patternDetails_DG1.addMouseListener(new DataGridClickListener());
         metadataCount_DG.addMouseListener(new DataGridClickListener());
         patternDetails_DG2.addMouseListener(new DataGridClickListener());
         PatternDetailDG.addMouseListener(new DataGridClickListener());
         selectedPatternDetails_DG.addMouseListener(new DataGridClickListener());
     }
-
+    
     public Space source;
+    public String spaceID;
     private PatternSearchProcesses _psp;
     private Dimension _dimension;
     private String _logestRowL;
@@ -110,10 +115,10 @@ public class PatternSearchWindow extends javax.swing.JFrame
     private HashMap<AttributeValuePair, int[]> _metadataCount;
     private final String _patternTagPrefix = "P_";
     float[] bColor = new float[3];
-
-
+    
+    
     private Sliders _userChangingSlider;
-
+    
     private enum Sliders
     {
         Count, Height, Distance, None
@@ -157,6 +162,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
         DistanceSlider = new javax.swing.JSlider();
         DistanceSliderValue = new javax.swing.JLabel();
         ClusterDistanceSuggestedL = new javax.swing.JLabel();
+        GraphVisualization = new javax.swing.JButton();
         PatternTabbedPane = new javax.swing.JTabbedPane();
         heatMap_tab = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -199,6 +205,9 @@ public class PatternSearchWindow extends javax.swing.JFrame
         jPanel7 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         PatternDetailDG = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         DistanceL3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DistanceL3.setText("Number of clusters");
@@ -242,6 +251,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("GeMSE: Patten Exploration");
 
         SearchButton.setText("Search");
         SearchButton.addActionListener(new java.awt.event.ActionListener()
@@ -448,6 +458,16 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
+        GraphVisualization.setText("Graph Visualization");
+        GraphVisualization.setEnabled(false);
+        GraphVisualization.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                GraphVisualizationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout ControlPanelLayout = new javax.swing.GroupLayout(ControlPanel);
         ControlPanel.setLayout(ControlPanelLayout);
         ControlPanelLayout.setHorizontalGroup(
@@ -457,22 +477,24 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SearchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ControlPanelLayout.createSequentialGroup()
-                        .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(DomainL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(MetricL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(ControlPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(MetricCB, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(ControlPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(DomainRowRB)
-                                    .addComponent(DomainColRB)))))
-                    .addComponent(ClusterCountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MetricL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(MetricCB, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(ControlPanelLayout.createSequentialGroup()
                         .addComponent(DisplayElbowOutputCB, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(GraphVisualization, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ControlPanelLayout.createSequentialGroup()
+                        .addComponent(DomainL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(ControlPanelLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(DomainRowRB))
+                            .addGroup(ControlPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(DomainColRB)))
+                        .addGap(28, 28, 28))
+                    .addComponent(ClusterCountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ClusterHeightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                     .addComponent(ClusterDistancePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -482,19 +504,21 @@ public class PatternSearchWindow extends javax.swing.JFrame
             .addGroup(ControlPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(SearchButton)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GraphVisualization)
+                .addGap(18, 18, 18)
                 .addComponent(DisplayElbowOutputCB)
-                .addGap(16, 16, 16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(MetricL, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MetricCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(MetricCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MetricL, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DomainL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DomainColRB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DomainRowRB)
-                .addGap(37, 37, 37)
+                .addGap(25, 25, 25)
                 .addComponent(ClusterCountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ClusterHeightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -539,7 +563,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 .addComponent(ColPatternPlot, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PatternHeatmapPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RowPatternPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                    .addComponent(RowPatternPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                     .addComponent(PatternPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -554,7 +578,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
         );
         heatMap_tabLayout.setVerticalGroup(
             heatMap_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
         );
 
         PatternTabbedPane.addTab("   Patterns   ", heatMap_tab);
@@ -646,7 +670,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane5))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
 
@@ -822,7 +846,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("   Overview   ", jPanel4);
@@ -843,7 +867,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PatternDetailPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+                .addComponent(PatternDetailPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -878,7 +902,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("   Grid View   ", jPanel7);
@@ -904,7 +928,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
             .addGroup(gridView_tab1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(gridView_tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                     .addGroup(gridView_tab1Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -915,6 +939,14 @@ public class PatternSearchWindow extends javax.swing.JFrame
         );
 
         PatternTabbedPane.addTab("   Patterns Details      ", gridView_tab1);
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -932,7 +964,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PatternTabbedPane)
+                    .addComponent(PatternTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
                     .addComponent(ControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -954,6 +986,12 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 ProcessPatterns();
                 inProgress.dispose();
                 return null;
+            }
+            
+            @Override
+            protected void done()
+            {
+                GraphVisualization.setEnabled(true);
             }
         };
         worker.execute();
@@ -1003,6 +1041,22 @@ public class PatternSearchWindow extends javax.swing.JFrame
         }
     }//GEN-LAST:event_DistanceSliderStateChanged
 
+    private void GraphVisualizationActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_GraphVisualizationActionPerformed
+    {//GEN-HEADEREND:event_GraphVisualizationActionPerformed
+        String filename = System.getProperty("user.dir") + "tmpGraphML.xml";
+        ClusteringDomains dom = ClusteringDomains.Columns;
+        if (DomainRowRB.isSelected())
+            dom = ClusteringDomains.Rows;
+        ClusterToGraphML.Convert(spaceID, _psp.GetDendrogram(), filename, dom, ClusteringOptions.DistanceType.Height, HeightSlider.getValue());
+
+        GraphVis gVis = new GraphVis(filename);
+        gVis.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gVis.setLocationRelativeTo(this);
+        gVis.setVisible(true);
+        gVis.UpdateGraph();
+        new File(filename).delete();
+    }//GEN-LAST:event_GraphVisualizationActionPerformed
+
     private void UseReferenceAnnotation_RBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_UseReferenceAnnotation_RBActionPerformed
     {//GEN-HEADEREND:event_UseReferenceAnnotation_RBActionPerformed
         if (UseReferenceAnnotation_RB.isSelected())
@@ -1042,7 +1096,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
             ChooseSampleForTXTAttributes_CB.setEnabled(true);
             SampleAttribute_CB.setEnabled(true);
             ReferenceSampleAttributes_CB.setEnabled(false);
-
+            
             for (SampleData sample : GlobalVariables.samples)
                 ChooseSampleForTXTAttributes_CB.addItem(sample.fileName);
         }
@@ -1136,6 +1190,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
     private javax.swing.JRadioButton DomainColRB;
     private javax.swing.JLabel DomainL;
     private javax.swing.JRadioButton DomainRowRB;
+    private javax.swing.JButton GraphVisualization;
     private javax.swing.JLabel HeightL;
     private javax.swing.JSlider HeightSlider;
     private javax.swing.JLabel HeightSliderValue;
@@ -1160,6 +1215,9 @@ public class PatternSearchWindow extends javax.swing.JFrame
     private javax.swing.JPanel heatMap_tab;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1182,11 +1240,11 @@ public class PatternSearchWindow extends javax.swing.JFrame
 
     private void ProcessPatterns()
     {
-// this prevents all change events on the three sliders.
+        // this prevents all change events on the three sliders.
         _userChangingSlider = null;
         PatternDetailPlot.setIcon(null);
         PatternDetailPlot.setText("GeMSE: Selected Pattern Heatmap");
-
+        
         selectedPatternDetails_DG.setModel(new DefaultTableModel()
         {
             @Override
@@ -1211,39 +1269,39 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 return false;
             }
         });
-
+        
         metadataCount_DG.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         ResizeColumnWidth(metadataCount_DG);
-
+        
         Metrics metric = Metrics.EuclideanDistance;
         switch (MetricCB.getSelectedItem().toString())
         {
             case "Euclidean distance":
                 metric = Metrics.EuclideanDistance;
                 break;
-
+            
             case "Manhattan Distance":
                 metric = Metrics.ManhattanDistance;
                 break;
-
+            
             case "Earth Movers Distance":
                 metric = Metrics.EarthMoversDistance;
                 break;
-
+            
             case "Chebyshev Distance":
                 metric = Metrics.ChebyshevDistance;
                 break;
-
+            
             case "Canberra Distance":
                 metric = Metrics.CanberraDistance;
                 break;
-
+            
             case "Pearson Correlation Coefficient":
                 metric = Metrics.PearsonCorrelationCoefficient;
                 break;
         }
-
-
+        
+        
         if (DomainRowRB.isSelected())
         {
             EnableDisableMetadataAggregates(true);
@@ -1254,19 +1312,19 @@ public class PatternSearchWindow extends javax.swing.JFrame
                     source,
                     ClusteringDomains.Rows,
                     metric);
-
+            
             EnableDiableColPatternDetailAttributes(false);
             EnableDiableRowPatternDetailAttributes(false);
-
+            
             UseRowID_RB.setEnabled(true);
             if (GlobalVariables.annotations == null || GlobalVariables.annotations.features.isEmpty())
                 UseReferenceAnnotation_RB.setEnabled(false);
             else
                 UseReferenceAnnotation_RB.setEnabled(true);
-
+            
             DeterminedAtts_L2.setEnabled(true);
             SampleAttribute_CB.setEnabled(false);
-
+            
             if (null != GlobalVariables.rowLabelsSource)
                 switch (GlobalVariables.rowLabelsSource)
                 {
@@ -1293,12 +1351,12 @@ public class PatternSearchWindow extends javax.swing.JFrame
                     source,
                     ClusteringDomains.Columns,
                     metric);
-
+            
             EnableDiableColPatternDetailAttributes(true);
             EnableDiableRowPatternDetailAttributes(false);
         }
-
-
+        
+        
         ClusterCountSlider.setMaximum(_psp.MaxClusterCount());
         ClusterCountSlider.setValue(_psp.DefaultClusterCount());
         HeightSlider.setMaximum(_psp.MaxHeight());
@@ -1306,18 +1364,18 @@ public class PatternSearchWindow extends javax.swing.JFrame
         DistanceSlider.setMaximum((int) Math.floor(_psp.MaxDistance()) + 1);
         DistanceSlider.setMinimum((int) Math.floor(_psp.MinDistance()));
         DistanceSlider.setValue((int) Math.round(_psp.ExchangeC4D(ClusterCountSlider.getValue())));
-
+        
         ClusterCountSuggestedL.setText("Suggested value: " + String.valueOf(ClusterCountSlider.getValue()));
         ClusterHeightSuggestedL.setText("Suggested value: " + String.valueOf(HeightSlider.getValue()));
         ClusterDistanceSuggestedL.setText("Suggested value: " + String.valueOf(DistanceSlider.getValue()));
-
+        
         EnableDisableClusterSlidersGroups(true);
-
+        
         _userChangingSlider = Sliders.Count;
         UpdateDeterminedPatterns();
         _userChangingSlider = Sliders.None;
     }
-
+    
     private void UpdateDeterminedPatterns()
     {
         int clusterCount;
@@ -1348,11 +1406,11 @@ public class PatternSearchWindow extends javax.swing.JFrame
             default:
                 return;
         }
-
+        
         if (clusterCount == -1) return;
         _psp.SearchPattern(Double.NaN, clusterCount);
         PlotData();
-
+        
         if (DomainRowRB.isSelected())
         {
             PlotRowsPattern();
@@ -1362,42 +1420,42 @@ public class PatternSearchWindow extends javax.swing.JFrame
             PlotColsPattern();
             CountColMetadata();
         }
-
+        
         DisplayPatternDetails();
     }
-
+    
     private void PlotData()
     {
         Space determinedPattern = _psp.GetPatternSpace();
         HeatChart heatChart = new HeatChart(determinedPattern.content);
         heatChart.setBackgroundColour(Color.getHSBColor(bColor[0], bColor[1], bColor[2]));
         heatChart.setChartMargin(10);
-
+        
         heatChart.setXValues(determinedPattern.colTitle);
         heatChart.setYValues(determinedPattern.rowTitle);
         heatChart.setXAxisLabel(GlobalVariables.HeatmapOptions.horizontalAxisTitle);
         heatChart.setYAxisLabel(GlobalVariables.HeatmapOptions.verticalAxisTitle);
-
+        
         _logestColL = "";
         for (String columnTitle : determinedPattern.colTitle)
             if (_logestColL.length() < columnTitle.length())
                 _logestColL = columnTitle;
-
+        
         _logestRowL = "";
         for (String rowTitle : determinedPattern.rowTitle)
             if (_logestRowL.length() < rowTitle.length())
                 _logestRowL = rowTitle;
-
+        
         heatChart.setHighValueColour(GlobalVariables.hightValueColor);
         heatChart.setLowValueColour(GlobalVariables.lowValueColor);
-
+        
         _dimension = new Dimension(PatternPlot.getSize().width - 200, PatternPlot.getSize().height - 100);
         _dimension.height = (int) Math.round((_dimension.height - (heatChart.getChartMargin() * 8.00)) / determinedPattern.content.length);
         _dimension.width = (int) Math.round((_dimension.width - (heatChart.getChartMargin() * 5.0)) / determinedPattern.content[0].length);
         if (_dimension.height < 1) _dimension.height = 1;
         if (_dimension.width < 1) _dimension.width = 1;
         heatChart.setCellSize(_dimension);
-
+        
         PatternPlot.setText("");
         PatternPlot.setIcon(new javax.swing.ImageIcon(heatChart.getChartImage(true)));
     }
@@ -1407,23 +1465,23 @@ public class PatternSearchWindow extends javax.swing.JFrame
         HeatChart heatChart = new HeatChart(determinedPattern);
         heatChart.setBackgroundColour(Color.getHSBColor(bColor[0], bColor[1], bColor[2]));
         heatChart.setChartMargin(10);
-
+        
         heatChart.setXValues(new String[]
         {
             _logestColL
         });
-
+        
         String[] yValues = new String[determinedPattern.length];
         for (int i = 0 ; i < yValues.length ; i++)
             yValues[i] = _patternTagPrefix + i + " : " + (int) determinedPattern[i][0] + " ";
         heatChart.setYValues(yValues);
-
+        
         heatChart.setHighValueColour(GlobalVariables.hightValueColor);
         heatChart.setLowValueColour(GlobalVariables.lowValueColor);
-
+        
         Dimension dimension = new Dimension(50, _dimension.height);
         heatChart.setCellSize(dimension);
-
+        
         RowPatternPlot.setText("");
         RowPatternPlot.setIcon(new javax.swing.ImageIcon(heatChart.getChartImage(false)));
     }
@@ -1433,40 +1491,40 @@ public class PatternSearchWindow extends javax.swing.JFrame
         HeatChart heatChart = new HeatChart(determinedPattern);
         heatChart.setBackgroundColour(Color.getHSBColor(bColor[0], bColor[1], bColor[2]));
         heatChart.setChartMargin(10);
-
+        
         heatChart.setYValues(new String[]
         {
             _logestRowL
         });
-
+        
         String[] xValues = new String[determinedPattern[0].length];
         for (int i = 0 ; i < xValues.length ; i++)
             xValues[i] = _patternTagPrefix + i + " : " + (int) determinedPattern[0][i] + " ";
         heatChart.setXValues(xValues);
-
+        
         heatChart.setHighValueColour(GlobalVariables.hightValueColor);
         heatChart.setLowValueColour(GlobalVariables.lowValueColor);
-
+        
         Dimension dimension = new Dimension(_dimension.width, 50);
         heatChart.setCellSize(dimension);
-
+        
         ColPatternPlot.setText("");
         ColPatternPlot.setIcon(new javax.swing.ImageIcon(heatChart.getChartImage(false)));
     }
-
+    
     private void CountColMetadata()
     {
         Space spacePattern = _psp.GetPatternSpace();
         _metadataCount = new HashMap<>();
-
+        
         for (int col = 0 ; col < spacePattern.content[0].length ; col++)
         {
             ArrayList<String> ids = _psp.GetRelativeIDs(spacePattern.colsID[col]);
-
+            
             for (String id : ids)
                 CountMetadata(id, col, spacePattern.content[0].length);
         }
-
+        
         String[] columnTitle = new String[spacePattern.content[0].length + 2];
         columnTitle[0] = "Attribute";
         columnTitle[1] = "Value";
@@ -1474,7 +1532,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
             columnTitle[i] = _patternTagPrefix + String.valueOf(i - 2);
         DisplayCountedMetada(columnTitle, spacePattern.content[0].length + 2);
     }
-
+    
     private void CountMetadata(String sampleID, int col, int colSize)
     {
         int[] tempValue;
@@ -1487,12 +1545,12 @@ public class PatternSearchWindow extends javax.swing.JFrame
                     for (String value : md.getValue())
                     {
                         AttributeValuePair avPair = new AttributeValuePair(md.getKey(), value);
-
+                        
                         if (_metadataCount.containsKey(avPair))
                             tempValue = _metadataCount.get(avPair);
                         else
                             tempValue = new int[colSize];
-
+                        
                         tempValue[col]++;
                         _metadataCount.put(avPair, tempValue);
                     }
@@ -1511,21 +1569,21 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 return false;
             }
         };
-
+        
         spacePatternTabMod.setColumnIdentifiers(columnTitle);
-
+        
         for (Map.Entry<AttributeValuePair, int[]> md : _metadataCount.entrySet())
         {
             String[] row = new String[colCount];
             row[0] = md.getKey().GetAttribute();
             row[1] = md.getKey().GetValue();
-
+            
             for (int i = 0 ; i < md.getValue().length ; i++)
                 row[i + 2] = String.valueOf(md.getValue()[i]);
-
+            
             spacePatternTabMod.addRow(row);
         }
-
+        
         this.metadataCount_DG.setModel(spacePatternTabMod);
         metadataCount_DG.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         ResizeColumnWidth(metadataCount_DG);
@@ -1540,14 +1598,14 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 return false;
             }
         };
-
+        
         String[] columnTitle = new String[2];
         columnTitle[0] = "Pattern Tag";
         columnTitle[1] = "Pattern Count";
         spacePatternTabMod.setColumnIdentifiers(columnTitle);
-
+        
         double[][] determinedPattern = _psp.GetPatternCount();
-
+        
         if (DomainRowRB.isSelected())
         {
             for (int r = 0 ; r < determinedPattern.length ; r++)
@@ -1557,7 +1615,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 row[1] = String.valueOf((int) Math.round(determinedPattern[r][0]));
                 spacePatternTabMod.addRow(row);
             }
-
+            
             this.patternDetails_DG1.setModel(spacePatternTabMod);
             patternDetails_DG1.getSelectionModel().addListSelectionListener(new DG1_SelectionListener());
         }
@@ -1571,12 +1629,12 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 spacePatternTabMod.addRow(row);
             }
         }
-
+        
         patternDetails_DG2.setModel(spacePatternTabMod);
         patternDetails_DG2.getSelectionModel().addListSelectionListener(new DG2_SelectionListener());
     }
-
-
+    
+    
     class DG1_SelectionListener implements ListSelectionListener
     {
         /// Following code, to some extend, is copied and pasted from Space.java. 
@@ -1595,14 +1653,14 @@ public class PatternSearchWindow extends javax.swing.JFrame
             if (col < 0) return; // true when clearSelection
 
             int selectedPattern = Integer.valueOf(((String) patternDetails_DG1.getValueAt(row, 0)).substring(_patternTagPrefix.length()));
-
+            
             double minVV = 0;// Double.valueOf(MinValidTF.getText());
             double maxVV = Double.MAX_VALUE;// Double.valueOf(MaxValidTF.getText());
             Space spacePattern = _psp.GetPatternSpace();
             _metadataCount = new HashMap<>();
-
+            
             ArrayList<String> ids = _psp.GetRelativeIDs(spacePattern.rowsID[selectedPattern]);
-
+            
             for (String id : ids)
                 for (int r = 0 ; r < source.rowsID.length ; r++)
                     if (source.rowsID[r].equals(id))
@@ -1612,12 +1670,12 @@ public class PatternSearchWindow extends javax.swing.JFrame
                                 CountMetadata(spacePattern.colsID[c], c, spacePattern.content[0].length);
                         break;
                     }
-
+            
             String[] columnTitle = new String[spacePattern.colsID.length + 2];
             String attribute = Columns_CB1.getSelectedItem().toString();
             columnTitle[0] = "Attribute";
             columnTitle[1] = "Value";
-
+            
             for (int c = 0 ; c < spacePattern.colsID.length ; c++)
                 //columnTitle[c + 1] = spacePattern.colTitle[c];
                 for (int j = 0 ; j < GlobalVariables.samples.size() ; j++)
@@ -1641,11 +1699,11 @@ public class PatternSearchWindow extends javax.swing.JFrame
                             else
                                 columnTitle[c + 2] = "NA";
                         }
-
+            
             DisplayCountedMetada(columnTitle, spacePattern.content[0].length + 2);
         }
     }
-
+    
     class DG2_SelectionListener implements ListSelectionListener
     {
         /// Following code, to some extend, is copied and pasted from Space.java. 
@@ -1673,14 +1731,14 @@ public class PatternSearchWindow extends javax.swing.JFrame
                     return false;
                 }
             };
-
+            
             int tCounter = 0;
             Space tSpace;
             if (DomainRowRB.isSelected())
             {
                 ArrayList<String> ids = _psp.GetRelativeIDs(spacePattern.rowsID[selectedPattern]);
                 String[] columnTitle;
-
+                
                 if (UseRowID_RB.isSelected())
                 {
                     columnTitle = new String[]
@@ -1688,7 +1746,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
                         "index", "ID"
                     };
                     selectedPatternDetails_DG_TabMod.setColumnIdentifiers(columnTitle);
-
+                    
                     for (String id : ids)
                         selectedPatternDetails_DG_TabMod.addRow(new String[]
                         {
@@ -1702,7 +1760,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
                     for (int c = 0 ; c < spacePattern.colTitle.length ; c++)
                         columnTitle[c + 1] = spacePattern.colTitle[c];
                     selectedPatternDetails_DG_TabMod.setColumnIdentifiers(columnTitle);
-
+                    
                     String attribute = SampleAttribute_CB.getSelectedItem().toString();
                     for (String id : ids)
                     {
@@ -1718,10 +1776,10 @@ public class PatternSearchWindow extends javax.swing.JFrame
                                             Integer.valueOf(ID[1]),
                                             Integer.valueOf(ID[2]),
                                             attribute);
-
+                                    
                                     break;
                                 }
-
+                        
                         selectedPatternDetails_DG_TabMod.addRow(newRow);
                     }
                 }
@@ -1733,7 +1791,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
                         "index", attribute
                     };
                     selectedPatternDetails_DG_TabMod.setColumnIdentifiers(columnTitle);
-
+                    
                     for (String id : ids)
                     {
                         String[] ID = id.split("\\s*_\\s*");
@@ -1760,7 +1818,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
                 {
                     "index", attribute
                 });
-
+                
                 for (String id : ids)
                 {
                     String[] newRow = new String[2];
@@ -1789,27 +1847,27 @@ public class PatternSearchWindow extends javax.swing.JFrame
                             }
                             break;
                         }
-
+                    
                     selectedPatternDetails_DG_TabMod.addRow(newRow);
                 }
-
+                
                 tSpace = CreateSpaceBasedOnColPattern(ids);
                 PlotPattern(tSpace);
             }
-
+            
             ShowPatternOnDG(tSpace);
             selectedPatternDetails_DG.setModel(selectedPatternDetails_DG_TabMod);
         }
-
+        
         private Space CreateSpaceBasedOnRowPattern(ArrayList<String> ids)
         {
             Space p = new Space(ids.size(), source.colsID.length);
             System.arraycopy(source.colsID, 0, p.colsID, 0, source.colsID.length);
             ids.toArray(p.rowsID);
-
+            
             int i = 0;
             HashSet<String> idsH = new HashSet<>(ids);
-
+            
             for (int row = 0 ; row < source.rowsID.length ; row++)
                 if (idsH.contains(source.rowsID[row]))
                 {
@@ -1817,7 +1875,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
                         p.content[i][col] = source.content[row][col];
                     i++;
                 }
-
+            
             return p;
         }
         private Space CreateSpaceBasedOnColPattern(ArrayList<String> ids)
@@ -1825,10 +1883,10 @@ public class PatternSearchWindow extends javax.swing.JFrame
             Space p = new Space(source.rowsID.length, ids.size());
             System.arraycopy(source.rowsID, 0, p.rowsID, 0, source.rowsID.length);
             ids.toArray(p.colsID);
-
+            
             int i = 0;
             HashSet<String> idsH = new HashSet<>(ids);
-
+            
             for (int col = 0 ; col < source.colsID.length ; col++)
                 if (idsH.contains(source.colsID[col]))
                 {
@@ -1836,39 +1894,39 @@ public class PatternSearchWindow extends javax.swing.JFrame
                         p.content[row][i] = source.content[row][col];
                     i++;
                 }
-
+            
             return p;
         }
-
+        
         private void PlotPattern(Space p)
         {
             p.UpdateRowsTitles();
             p.UpdateColumnsTitles();
-
+            
             HeatChart heatChart = new HeatChart(p.content);
             heatChart.setBackgroundColour(Color.getHSBColor(bColor[0], bColor[1], bColor[2]));
             heatChart.setChartMargin(10);
-
+            
             heatChart.setXValues(p.colTitle);
             heatChart.setYValues(p.rowTitle);
             heatChart.setXAxisLabel(GlobalVariables.HeatmapOptions.horizontalAxisTitle);
             heatChart.setYAxisLabel(GlobalVariables.HeatmapOptions.verticalAxisTitle);
-
+            
             heatChart.setHighValueColour(GlobalVariables.hightValueColor);
             heatChart.setLowValueColour(GlobalVariables.lowValueColor);
-
+            
             _dimension = new Dimension(PatternDetailPlot.getSize().width - 200, PatternDetailPlot.getSize().height - 100);
             _dimension.height = (int) Math.round((_dimension.height - (HeatMap.GetChartMargin() * 8.00)) / p.content.length);
             _dimension.width = (int) Math.round((_dimension.width - (HeatMap.GetChartMargin() * 5.0)) / p.content[0].length);
-
+            
             if (_dimension.height < 1) _dimension.height = 1;
             if (_dimension.width < 1) _dimension.width = 1;
             heatChart.setCellSize(_dimension);
-
+            
             PatternDetailPlot.setText("");
             PatternDetailPlot.setIcon(new javax.swing.ImageIcon(heatChart.getChartImage(true)));
         }
-
+        
         private void ShowPatternOnDG(Space space)
         {
             DefaultTableModel spaceTabMod = new DefaultTableModel()
@@ -1879,39 +1937,39 @@ public class PatternSearchWindow extends javax.swing.JFrame
                     return false;
                 }
             };
-
+            
             String[] gotColumnTitle = space.colTitle;
             String[] gotRowTitle = space.rowTitle;
             String[] columnTitle = new String[gotColumnTitle.length + 2];
             columnTitle[0] = "index";
             columnTitle[1] = "Region label";
             System.arraycopy(gotColumnTitle, 0, columnTitle, 2, gotColumnTitle.length);
-
+            
             spaceTabMod.setColumnIdentifiers(columnTitle);
-
+            
             int spaceColSize = space.content[0].length;
-
+            
             int col = 0;
             for (int r = 0 ; r < space.content.length ; r++)
             {
                 String[] row = new String[spaceColSize + 2];
                 row[0] = Integer.toString(r);
                 row[1] = gotRowTitle[r];
-
+                
                 for (col = 0 ; col < spaceColSize ; col++)
                 {
                     row[col + 2] = Double.toString(space.content[r][col]);
                 }
-
+                
                 spaceTabMod.addRow(row);
             }
-
+            
             PatternDetailDG.setModel(spaceTabMod);
             PatternDetailDG.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             ResizeColumnWidth(PatternDetailDG);
         }
     }
-
+    
     public void ResizeColumnWidth(JTable table)
     {
         final TableColumnModel columnModel = table.getColumnModel();
@@ -1930,7 +1988,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
                             table,
                             tableColumn.getHeaderValue(), false, false, -1, column);
             width = Math.max(component.getPreferredSize().width + 5, width);
-
+            
             for (int row = 0 ; row < table.getRowCount() ; row++)
             {
                 renderer = table.getCellRenderer(row, column);
@@ -1942,7 +2000,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
             columnModel.getColumn(column).setPreferredWidth(width);
         }
     }
-
+    
     private void EnableDiableColPatternDetailAttributes(Boolean enable)
     {
         DeterminedAtts_L.setEnabled(enable);
@@ -1961,26 +2019,26 @@ public class PatternSearchWindow extends javax.swing.JFrame
         UseReferenceAnnotation_RB.setEnabled(enable);
         ReferenceSampleAttributes_CB.setEnabled(enable);
     }
-
+    
     private void EnableDisableMetadataAggregates(Boolean enable)
     {
         DeterminedAtts_L4.setEnabled(enable);
         DeterminedAtts_L3.setEnabled(enable);
         Columns_CB1.setEnabled(enable);
     }
-
+    
     private void EnableDisableClusterSlidersGroups(Boolean enable)
     {
         NoOfClustersL.setEnabled(enable);
         ClusterCountSlider.setEnabled(enable);
         ClusterCountSliderValue.setEnabled(enable);
         ClusterCountSuggestedL.setEnabled(enable);
-
+        
         HeightL.setEnabled(enable);
         HeightSlider.setEnabled(enable);
         HeightSliderValue.setEnabled(enable);
         ClusterHeightSuggestedL.setEnabled(enable);
-
+        
         DistanceL.setEnabled(enable);
         DistanceSlider.setEnabled(enable);
         DistanceSliderValue.setEnabled(enable);

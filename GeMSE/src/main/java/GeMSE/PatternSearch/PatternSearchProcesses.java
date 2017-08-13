@@ -134,6 +134,11 @@ public class PatternSearchProcesses
         else
             _patternSpace = ApplyColPattern();
     }
+    
+    public Cluster GetDendrogram()
+    {
+        return _clusteringOptions.dendrogram;
+    }
 
     private Space ApplyRowPattern()
     {

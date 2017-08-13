@@ -14,8 +14,8 @@
 package GeMSE;
 
 import GeMSE.IO.SessionIO;
-import GeMSE.Heatmap.HeatmapOptions;
-import GeMSE.Heatmap.HeatMap;
+import GeMSE.Visualization.HeatmapOptions;
+import GeMSE.Visualization.HeatMap;
 import GeMSE.GS.SampleData;
 import GeMSE.StateSpaceTree.A2MConverter;
 import GeMSE.GS.History.NodeData;
@@ -47,6 +47,7 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import GeMSE.GS.Operations.Functions;
+import GeMSE.GraphVisualization.GraphTreeVis;
 import GeMSE.IO.InProgress;
 import GeMSE.IO.Loader;
 import GeMSE.IO.Loader.LoadType;
@@ -766,6 +767,7 @@ public class GeMSE extends javax.swing.JFrame
     {//GEN-HEADEREND:event_SearchPatternMIActionPerformed
         PatternSearchWindow psMW = new PatternSearchWindow();
         psMW.source = _space.GetSpace(GetSelectedNodeID());
+        psMW.spaceID = GetSelectedNodeID();
         psMW.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         psMW.setLocationRelativeTo(this);
         psMW.setVisible(true);
