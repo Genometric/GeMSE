@@ -161,11 +161,12 @@ public class GeMSE extends javax.swing.JFrame
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         SaveSessionMI = new javax.swing.JMenuItem();
         LoadSessionMI = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         Exit_MI = new javax.swing.JMenuItem();
         Tools_JM = new javax.swing.JMenu();
         SearchPatternMI = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
         HOnlineSupport = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
@@ -596,6 +597,17 @@ public class GeMSE extends javax.swing.JFrame
             }
         });
         File_JM.add(LoadSessionMI);
+        File_JM.add(jSeparator5);
+
+        jMenuItem2.setText("   Preferences          ");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        File_JM.add(jMenuItem2);
         File_JM.add(jSeparator1);
 
         Exit_MI.setText("   Quit GeMSE");
@@ -610,9 +622,9 @@ public class GeMSE extends javax.swing.JFrame
 
         jMenuBar1.add(File_JM);
 
-        Tools_JM.setText("  Tools  ");
+        Tools_JM.setText("  Analysis  ");
 
-        SearchPatternMI.setText("   Search Pattern          ");
+        SearchPatternMI.setText("   Pattern Analysis          ");
         SearchPatternMI.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -621,16 +633,6 @@ public class GeMSE extends javax.swing.JFrame
             }
         });
         Tools_JM.add(SearchPatternMI);
-
-        jMenuItem2.setText("   Options          ");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        Tools_JM.add(jMenuItem2);
 
         jMenuBar1.add(Tools_JM);
 
@@ -1206,6 +1208,7 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JTabbedPane spaceIllustrationTab;
     private javax.swing.JTable space_DG;
     // End of variables declaration//GEN-END:variables
