@@ -1240,8 +1240,12 @@ public class GeMSE extends javax.swing.JFrame
 
         GlobalVariables.availableColumnLabelOptions = availableColumnLabels.toArray(new String[availableColumnLabels.size()]);
 
-        if (GlobalVariables.availableColumnLabelOptions.length > 0)
-            GlobalVariables.selectedColumnLabelOption = GlobalVariables.availableColumnLabelOptions[0];
+        // This is setting the sample's default labeling option.
+        // The following line set's the defualt labeling option to sampl'es filename, 
+        // and the proceeding line sets it the first available attribute.
+        GlobalVariables.selectedColumnLabelOption = "Sample Name (file name)";
+        /*if (GlobalVariables.availableColumnLabelOptions.length > 0)
+            GlobalVariables.selectedColumnLabelOption = GlobalVariables.availableColumnLabelOptions[0];*/
     }
 
     private void UpdateCachedFeaturesDataGrid()
