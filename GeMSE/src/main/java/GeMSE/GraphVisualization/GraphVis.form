@@ -375,6 +375,31 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="  Help  "/>
           </Properties>
+          <SubComponents>
+            <Menu class="javax.swing.JMenu" name="HOnline">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="     Online Support     "/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HOnlineActionPerformed"/>
+              </Events>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="HOnlineDocs">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="     Online Docs     "/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="HDInterface">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="     Interface and Controllers     "/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HDInterfaceActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>

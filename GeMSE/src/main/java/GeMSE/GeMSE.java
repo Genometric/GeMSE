@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
@@ -41,16 +40,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import GeMSE.GS.Operations.Functions;
-import GeMSE.GraphVisualization.GraphTreeVis;
-import GeMSE.IO.InProgress;
 import GeMSE.IO.Loader;
 import GeMSE.IO.Loader.LoadType;
+import GeMSE.IO.OpenWebpage;
 import GeMSE.OperationsOptions.ClusteringOptions;
 import GeMSE.OperationsOptions.DiscretizeOptions;
 import GeMSE.OperationsOptions.SelectOptions;
@@ -59,10 +56,11 @@ import GeMSE.Popups.DataGridClickListener;
 import GeMSE.Popups.HeatmapClickListener;
 import GeMSE.Popups.TreeClickListener;
 import java.awt.Component;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.SwingWorker;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -119,6 +117,7 @@ public class GeMSE extends javax.swing.JFrame
 
         jMenuItem1 = new javax.swing.JMenuItem();
         HeatmapPopupMenu = new javax.swing.JPopupMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -166,8 +165,25 @@ public class GeMSE extends javax.swing.JFrame
         Tools_JM = new javax.swing.JMenu();
         SearchPatternMI = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        HelpMenu = new javax.swing.JMenu();
+        HOnlineSupport = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        HOnlineDocs = new javax.swing.JMenu();
+        HDInterface = new javax.swing.JMenuItem();
+        HDLoadData = new javax.swing.JMenuItem();
+        HDLoadNSaveSession = new javax.swing.JMenuItem();
+        HDTransitions = new javax.swing.JMenuItem();
+        HVideoTutorial = new javax.swing.JMenu();
+        HVOverview = new javax.swing.JMenuItem();
+        HVDemo = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        HVInterface = new javax.swing.JMenuItem();
+        HVLoad = new javax.swing.JMenuItem();
+        HVSave = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GeMSE (GenoMetric Space Explorer)");
@@ -536,7 +552,7 @@ public class GeMSE extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        File_JM.setText("File");
+        File_JM.setText("  File  ");
 
         Load_MI.setText("   Load file      ");
         Load_MI.addActionListener(new java.awt.event.ActionListener()
@@ -592,7 +608,7 @@ public class GeMSE extends javax.swing.JFrame
 
         jMenuBar1.add(File_JM);
 
-        Tools_JM.setText("Tools");
+        Tools_JM.setText("  Tools  ");
 
         SearchPatternMI.setText("   Search Pattern          ");
         SearchPatternMI.addActionListener(new java.awt.event.ActionListener()
@@ -615,6 +631,120 @@ public class GeMSE extends javax.swing.JFrame
         Tools_JM.add(jMenuItem2);
 
         jMenuBar1.add(Tools_JM);
+
+        HelpMenu.setText("  Help  ");
+
+        HOnlineSupport.setLabel("     Online Support     ");
+        HOnlineSupport.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HOnlineSupportActionPerformed(evt);
+            }
+        });
+        HelpMenu.add(HOnlineSupport);
+        HelpMenu.add(jSeparator4);
+
+        HOnlineDocs.setLabel("     Online Docs     ");
+
+        HDInterface.setLabel("     Interface     ");
+        HDInterface.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HDInterfaceActionPerformed(evt);
+            }
+        });
+        HOnlineDocs.add(HDInterface);
+
+        HDLoadData.setLabel("     Load Data     ");
+        HDLoadData.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HDLoadDataActionPerformed(evt);
+            }
+        });
+        HOnlineDocs.add(HDLoadData);
+
+        HDLoadNSaveSession.setLabel("     Load and Save Session     ");
+        HDLoadNSaveSession.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HDLoadNSaveSessionActionPerformed(evt);
+            }
+        });
+        HOnlineDocs.add(HDLoadNSaveSession);
+
+        HDTransitions.setLabel("     Transitions     ");
+        HDTransitions.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HDTransitionsActionPerformed(evt);
+            }
+        });
+        HOnlineDocs.add(HDTransitions);
+
+        HelpMenu.add(HOnlineDocs);
+
+        HVideoTutorial.setLabel("     Video Tutorials     ");
+
+        HVOverview.setLabel("     Overview     ");
+        HVOverview.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HVOverviewActionPerformed(evt);
+            }
+        });
+        HVideoTutorial.add(HVOverview);
+
+        HVDemo.setLabel("     Demo (using ENCODE data)     ");
+        HVDemo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HVDemoActionPerformed(evt);
+            }
+        });
+        HVideoTutorial.add(HVDemo);
+        HVideoTutorial.add(jSeparator3);
+
+        HVInterface.setLabel("     Interface     ");
+        HVInterface.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HVInterfaceActionPerformed(evt);
+            }
+        });
+        HVideoTutorial.add(HVInterface);
+
+        HVLoad.setLabel("     Load Data     ");
+        HVLoad.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HVLoadActionPerformed(evt);
+            }
+        });
+        HVideoTutorial.add(HVLoad);
+
+        HVSave.setLabel("     Save     ");
+        HVSave.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HVSaveActionPerformed(evt);
+            }
+        });
+        HVideoTutorial.add(HVSave);
+
+        HelpMenu.add(HVideoTutorial);
+
+        jMenuBar1.add(HelpMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -838,6 +968,126 @@ public class GeMSE extends javax.swing.JFrame
         }
     }//GEN-LAST:event_formWindowClosing
 
+    private void HOnlineSupportActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HOnlineSupportActionPerformed
+    {//GEN-HEADEREND:event_HOnlineSupportActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/issues"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HOnlineSupportActionPerformed
+
+    private void HDLoadDataActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HDLoadDataActionPerformed
+    {//GEN-HEADEREND:event_HDLoadDataActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/wiki/Load-Data"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HDLoadDataActionPerformed
+
+    private void HDTransitionsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HDTransitionsActionPerformed
+    {//GEN-HEADEREND:event_HDTransitionsActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/wiki/Transitions"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HDTransitionsActionPerformed
+
+    private void HDLoadNSaveSessionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HDLoadNSaveSessionActionPerformed
+    {//GEN-HEADEREND:event_HDLoadNSaveSessionActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/wiki/Save-and-load-session"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HDLoadNSaveSessionActionPerformed
+
+    private void HDInterfaceActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HDInterfaceActionPerformed
+    {//GEN-HEADEREND:event_HDInterfaceActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/wiki/Interface"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HDInterfaceActionPerformed
+
+    private void HVInterfaceActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HVInterfaceActionPerformed
+    {//GEN-HEADEREND:event_HVInterfaceActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://youtu.be/B0hVsd9SE5Q?list=PLfWxoOMC6swJBgu4nIDgsoXO_sLuGnIqF"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HVInterfaceActionPerformed
+
+    private void HVLoadActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HVLoadActionPerformed
+    {//GEN-HEADEREND:event_HVLoadActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://youtu.be/h9FbXNukdQY?list=PLfWxoOMC6swJBgu4nIDgsoXO_sLuGnIqF"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HVLoadActionPerformed
+
+    private void HVOverviewActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HVOverviewActionPerformed
+    {//GEN-HEADEREND:event_HVOverviewActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://youtu.be/75FCAoSmioA"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HVOverviewActionPerformed
+
+    private void HVDemoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HVDemoActionPerformed
+    {//GEN-HEADEREND:event_HVDemoActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://youtu.be/n2wXoT21o94?list=PLfWxoOMC6swJBgu4nIDgsoXO_sLuGnIqF"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HVDemoActionPerformed
+
+    private void HVSaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HVSaveActionPerformed
+    {//GEN-HEADEREND:event_HVSaveActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://youtu.be/Mv0vw2CZuPE?list=PLfWxoOMC6swJBgu4nIDgsoXO_sLuGnIqF"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HVSaveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -902,13 +1152,26 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JLabel Determined_Feat_L1;
     private javax.swing.JMenuItem Exit_MI;
     private javax.swing.JMenu File_JM;
+    private javax.swing.JMenuItem HDInterface;
+    private javax.swing.JMenuItem HDLoadData;
+    private javax.swing.JMenuItem HDLoadNSaveSession;
+    private javax.swing.JMenuItem HDTransitions;
     private javax.swing.JLabel HM_Cell_Dim_H_L;
     private javax.swing.JLabel HM_Cell_Dim_L;
     private javax.swing.JTextField HM_Cell_Dim_MinH_TB;
     private javax.swing.JTextField HM_Cell_Dim_MinW_TB;
     private javax.swing.JLabel HM_Cell_Dim_W_L;
+    private javax.swing.JMenu HOnlineDocs;
+    private javax.swing.JMenuItem HOnlineSupport;
+    private javax.swing.JMenuItem HVDemo;
+    private javax.swing.JMenuItem HVInterface;
+    private javax.swing.JMenuItem HVLoad;
+    private javax.swing.JMenuItem HVOverview;
+    private javax.swing.JMenuItem HVSave;
+    private javax.swing.JMenu HVideoTutorial;
     private javax.swing.JLabel HeatMapPlot;
     private javax.swing.JPopupMenu HeatmapPopupMenu;
+    private javax.swing.JMenu HelpMenu;
     private javax.swing.JMenuItem LoadSessionMI;
     private javax.swing.JMenuItem Load_Folder_MI;
     private javax.swing.JMenuItem Load_MI;
@@ -929,6 +1192,7 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -939,6 +1203,8 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JTabbedPane spaceIllustrationTab;
     private javax.swing.JTable space_DG;
     // End of variables declaration//GEN-END:variables

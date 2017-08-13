@@ -13,7 +13,9 @@
  */
 package GeMSE.GraphVisualization;
 
+import GeMSE.GeMSE;
 import GeMSE.GlobalVariables;
+import GeMSE.IO.OpenWebpage;
 import com.itextpdf.awt.PdfGraphics2D;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -28,6 +30,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -236,6 +240,9 @@ public class GraphVis extends javax.swing.JFrame
         SaveMenuItem = new javax.swing.JMenuItem();
         ExitMenuItem = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
+        HOnline = new javax.swing.JMenu();
+        HOnlineDocs = new javax.swing.JMenu();
+        HDInterface = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -705,6 +712,31 @@ public class GraphVis extends javax.swing.JFrame
         jMenuBar19.add(jMenu38);
 
         HelpMenu.setText("  Help  ");
+
+        HOnline.setText("     Online Support     ");
+        HOnline.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HOnlineActionPerformed(evt);
+            }
+        });
+        HelpMenu.add(HOnline);
+
+        HOnlineDocs.setText("     Online Docs     ");
+
+        HDInterface.setText("     Interface and Controllers     ");
+        HDInterface.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                HDInterfaceActionPerformed(evt);
+            }
+        });
+        HOnlineDocs.add(HDInterface);
+
+        HelpMenu.add(HOnlineDocs);
+
         jMenuBar19.add(HelpMenu);
 
         setJMenuBar(jMenuBar19);
@@ -894,6 +926,30 @@ public class GraphVis extends javax.swing.JFrame
         this.dispose();
     }//GEN-LAST:event_ExitMenuItemActionPerformed
 
+    private void HDInterfaceActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HDInterfaceActionPerformed
+    {//GEN-HEADEREND:event_HDInterfaceActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/wiki/Graph-Visualization"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HDInterfaceActionPerformed
+
+    private void HOnlineActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HOnlineActionPerformed
+    {//GEN-HEADEREND:event_HOnlineActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/issues"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_HOnlineActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AfterCut;
@@ -916,6 +972,9 @@ public class GraphVis extends javax.swing.JFrame
     private javax.swing.JRadioButton GroupingColor;
     private javax.swing.JLabel GroupingLabel;
     private javax.swing.JRadioButton GroupingNone;
+    private javax.swing.JMenuItem HDInterface;
+    private javax.swing.JMenu HOnline;
+    private javax.swing.JMenu HOnlineDocs;
     private javax.swing.JMenu HelpMenu;
     private javax.swing.JRadioButton LightThemeRB;
     private javax.swing.JRadioButton RadialGraphRB;
