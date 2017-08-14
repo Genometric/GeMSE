@@ -44,7 +44,8 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
     public StatisticalSignificanceWindow()
     {
         initComponents();
-        _tTestPanel = new TwoSampleTTestPanel();
+        _tTestPanelOneSample = new OneSampleTTestPanel();
+        _tTestPanelTwoSample = new TwoSampleTTestPanel();
         _sampleA = new double[0];
         _sampleB = new double[0];
 
@@ -70,7 +71,8 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
 
     private String _ttest = "Student's t-test";
 
-    private TwoSampleTTestPanel _tTestPanel;
+    private OneSampleTTestPanel _tTestPanelOneSample;
+    private TwoSampleTTestPanel _tTestPanelTwoSample;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,6 +158,13 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         Sample1CB.setText("Sample 1");
+        Sample1CB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                Sample1CBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -183,6 +192,13 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
         jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         Sample2CB.setText("Sample 2");
+        Sample2CB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                Sample2CBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -253,6 +269,16 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
     {//GEN-HEADEREND:event_TestCBActionPerformed
         PerformSignificanceTest();
     }//GEN-LAST:event_TestCBActionPerformed
+
+    private void Sample1CBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Sample1CBActionPerformed
+    {//GEN-HEADEREND:event_Sample1CBActionPerformed
+        PerformSignificanceTest();
+    }//GEN-LAST:event_Sample1CBActionPerformed
+
+    private void Sample2CBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Sample2CBActionPerformed
+    {//GEN-HEADEREND:event_Sample2CBActionPerformed
+        PerformSignificanceTest();
+    }//GEN-LAST:event_Sample2CBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,9 +353,26 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
         String selectedTest = (String) TestCB.getSelectedItem();
         if (selectedTest.equals(_ttest))
         {
-            ResultsSP.setViewportView(_tTestPanel);
-            _tTestPanel.RunAnalysis(_sampleA, _sampleB);
-
+            if (Sample1CB.isSelected() && Sample2CB.isSelected())
+            {
+                ResultsSP.setViewportView(_tTestPanelTwoSample);
+                _tTestPanelTwoSample.RunAnalysis(_sampleA, _sampleB);
+            }
+            else if (Sample1CB.isSelected())
+            {
+                ResultsSP.setViewportView(_tTestPanelOneSample);
+                _tTestPanelOneSample.RunAnalysis(_sampleA);
+            }
+            else if (Sample2CB.isSelected())
+            {
+                ResultsSP.setViewportView(_tTestPanelOneSample);
+                _tTestPanelOneSample.RunAnalysis(_sampleB);
+            }
+            else
+            {
+                ResultsSP.setViewportView(null);
+                ResultsSP.repaint();
+            }
         }
     }
 

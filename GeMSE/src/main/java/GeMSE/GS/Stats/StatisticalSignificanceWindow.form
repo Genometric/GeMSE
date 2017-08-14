@@ -217,6 +217,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Sample 1"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Sample1CBActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -266,6 +269,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Sample 2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Sample2CBActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

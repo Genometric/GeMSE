@@ -13,15 +13,9 @@
  */
 package GeMSE.GS.Stats;
 
-import java.awt.Color;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.StyleContext;
 import org.apache.commons.math3.stat.descriptive.moment.Variance;
 import org.apache.commons.math3.stat.inference.TTest;
 
@@ -37,16 +31,29 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
     /**
      * Creates new form TTestPanel
      *
-     * @param sample1
-     * @param sample2
      */
     public TwoSampleTTestPanel()
     {
         initComponents();
+        _sample1 = new double[0];
+        _sample2 = new double[0];
+
+        _decFor = new DecimalFormat("#.#########");
+        _decFor.setRoundingMode(RoundingMode.CEILING);
+        DecimalFormatSymbols decFors = _decFor.getDecimalFormatSymbols();
+        decFors.setNaN("NaN");
+        decFors.setInfinity("∞");
+        _decFor.setDecimalFormatSymbols(decFors);
+
         _variance = new Variance();
+        _studentTest = new TTest();
     }
 
+    private double[] _sample1;
+    private double[] _sample2;
+    private DecimalFormat _decFor;
     private final Variance _variance;
+    private TTest _studentTest;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -370,6 +377,13 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
         AlphaTF.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         AlphaTF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         AlphaTF.setText("0.05");
+        AlphaTF.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AlphaTFActionPerformed(evt);
+            }
+        });
 
         jTextPane7.setText("equal subpopulation variances");
         jScrollPane7.setViewportView(jTextPane7);
@@ -429,6 +443,13 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
         AlphaTF1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         AlphaTF1.setText("0.05");
         AlphaTF1.setSize(new java.awt.Dimension(80, 26));
+        AlphaTF1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AlphaTF1ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Courier New", 0, 30)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -480,14 +501,13 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)))
+                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -513,6 +533,16 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void AlphaTFActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AlphaTFActionPerformed
+    {//GEN-HEADEREND:event_AlphaTFActionPerformed
+        RunHomoscedasticTTest();
+    }//GEN-LAST:event_AlphaTFActionPerformed
+
+    private void AlphaTF1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AlphaTF1ActionPerformed
+    {//GEN-HEADEREND:event_AlphaTF1ActionPerformed
+        RunTTest();
+    }//GEN-LAST:event_AlphaTF1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AlphaTF;
@@ -525,25 +555,16 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
     private javax.swing.JLabel DFL5;
     private javax.swing.JLabel DFL6;
     private javax.swing.JLabel DFL7;
-    private javax.swing.JLabel DFL8;
-    private javax.swing.JLabel DFL9;
     private javax.swing.JLabel DFLabel;
     private javax.swing.JLabel HomoscedasticityL;
     private javax.swing.JLabel PValue2;
-    private javax.swing.JLabel PValueL1;
     private javax.swing.JLabel PairedTStatisticL;
     private javax.swing.JLabel TStatisticL;
     private javax.swing.JLabel TStatisticL1;
-    private javax.swing.JLabel TStatisticL2;
     private javax.swing.JLabel TStatisticL3;
     private javax.swing.JLabel TStatisticL4;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -552,7 +573,6 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -576,29 +596,30 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
         if (sample1 == null || sample2 == null) return;
         if (sample1.length < 3 || sample2.length < 3) return;
 
-        DecimalFormat decFor = new DecimalFormat("#.#########");
-        decFor.setRoundingMode(RoundingMode.CEILING);
-        DecimalFormatSymbols decFors = decFor.getDecimalFormatSymbols();
-        decFors.setNaN("NaN");
-        decFors.setInfinity("∞");
-        decFor.setDecimalFormatSymbols(decFors);
+        _sample1 = sample1;
+        _sample2 = sample2;
 
-        TTest studentTest = new TTest();
-        TStatisticL.setText(String.valueOf(decFor.format(studentTest.t(sample1, sample2))));
+        TStatisticL.setText(String.valueOf(_decFor.format(_studentTest.t(sample1, sample2))));
         if (sample1.length == sample2.length)
         {
-            PairedTStatisticL.setText(String.valueOf(decFor.format(studentTest.pairedT(sample1, sample2))));
-            TStatisticL1.setText(String.valueOf(decFor.format(studentTest.pairedTTest(sample1, sample2))));
+            PairedTStatisticL.setText(String.valueOf(_decFor.format(_studentTest.pairedT(sample1, sample2))));
+            TStatisticL1.setText(String.valueOf(_decFor.format(_studentTest.pairedTTest(sample1, sample2))));
         }
         else
         {
             PairedTStatisticL.setText("NaN");
             TStatisticL1.setText("NaN");
         }
-        DFLabel.setText(String.valueOf(decFor.format(df(sample1, sample2))));
-        HomoscedasticityL.setText(String.valueOf(decFor.format(studentTest.homoscedasticT(sample1, sample2))));
-        PValue2.setText(String.valueOf(decFor.format(studentTest.homoscedasticTTest(sample1, sample2))));
+        DFLabel.setText(String.valueOf(_decFor.format(df(sample1, sample2))));
+        HomoscedasticityL.setText(String.valueOf(_decFor.format(_studentTest.homoscedasticT(sample1, sample2))));
+        PValue2.setText(String.valueOf(_decFor.format(_studentTest.homoscedasticTTest(sample1, sample2))));
 
+        RunHomoscedasticTTest();
+        RunTTest();
+    }
+
+    private void RunHomoscedasticTTest()
+    {
         double alpha;
         try
         {
@@ -611,8 +632,12 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
         if (alpha <= 0 || alpha >= 0.5)
             alpha = 0.05;
         AlphaTF.setText(String.valueOf(alpha));
-        TStatisticL3.setText(String.valueOf(studentTest.homoscedasticTTest(sample1, sample2, alpha)));
+        TStatisticL3.setText(String.valueOf(_studentTest.homoscedasticTTest(_sample1, _sample2, alpha)));
+    }
 
+    private void RunTTest()
+    {
+        double alpha;
         try
         {
             alpha = Double.parseDouble(AlphaTF1.getText());
@@ -624,9 +649,9 @@ public final class TwoSampleTTestPanel extends javax.swing.JPanel
         if (alpha <= 0 || alpha >= 0.5)
             alpha = 0.05;
         AlphaTF1.setText(String.valueOf(alpha));
-        TStatisticL4.setText(String.valueOf(studentTest.tTest(sample1, sample2, alpha)));
-
+        TStatisticL4.setText(String.valueOf(_studentTest.tTest(_sample1, _sample2, alpha)));
     }
+
     protected double df(double[] sample1, double[] sample2)
     {
         double s1V = _variance.evaluate(sample1);

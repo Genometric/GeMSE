@@ -20,15 +20,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="jPanel15" pref="640" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jPanel14" pref="640" max="32767" attributes="0"/>
-                      <Component id="jPanel6" alignment="0" pref="640" max="32767" attributes="0"/>
-                      <Component id="jPanel7" alignment="0" pref="640" max="32767" attributes="0"/>
-                      <Component id="jPanel8" alignment="0" pref="640" max="32767" attributes="0"/>
-                      <Component id="jPanel13" alignment="0" pref="640" max="32767" attributes="0"/>
-                      <Component id="jPanel11" alignment="0" pref="640" max="32767" attributes="0"/>
-                      <Component id="jPanel12" alignment="0" pref="640" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jPanel14" pref="640" max="32767" attributes="0"/>
+                  <Component id="jPanel6" alignment="0" pref="640" max="32767" attributes="0"/>
+                  <Component id="jPanel7" alignment="0" pref="640" max="32767" attributes="0"/>
+                  <Component id="jPanel8" alignment="0" pref="640" max="32767" attributes="0"/>
+                  <Component id="jPanel13" alignment="0" pref="640" max="32767" attributes="0"/>
+                  <Component id="jPanel11" alignment="0" pref="640" max="32767" attributes="0"/>
+                  <Component id="jPanel12" alignment="0" pref="640" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -650,6 +648,9 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="0.05"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AlphaTFActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane7">
           <AuxValues>
@@ -756,6 +757,9 @@
               <Dimension value="[80, 26]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AlphaTF1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
