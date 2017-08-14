@@ -45,6 +45,7 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import GeMSE.GS.Operations.Functions;
+import GeMSE.GS.Stats.StatisticalSignificanceWindow;
 import GeMSE.IO.Loader;
 import GeMSE.IO.Loader.LoadType;
 import GeMSE.IO.OpenWebpage;
@@ -167,6 +168,7 @@ public class GeMSE extends javax.swing.JFrame
         Exit_MI = new javax.swing.JMenuItem();
         Tools_JM = new javax.swing.JMenu();
         SearchPatternMI = new javax.swing.JMenuItem();
+        StatisticalHypothesisTestingMI = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
         HOnlineSupport = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
@@ -624,7 +626,7 @@ public class GeMSE extends javax.swing.JFrame
 
         Tools_JM.setText("  Analysis  ");
 
-        SearchPatternMI.setText("   Pattern Analysis          ");
+        SearchPatternMI.setText("     Pattern Analysis     ");
         SearchPatternMI.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -633,6 +635,16 @@ public class GeMSE extends javax.swing.JFrame
             }
         });
         Tools_JM.add(SearchPatternMI);
+
+        StatisticalHypothesisTestingMI.setText("     Statistical Hypothesis Testing     ");
+        StatisticalHypothesisTestingMI.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                StatisticalHypothesisTestingMIActionPerformed(evt);
+            }
+        });
+        Tools_JM.add(StatisticalHypothesisTestingMI);
 
         jMenuBar1.add(Tools_JM);
 
@@ -819,7 +831,7 @@ public class GeMSE extends javax.swing.JFrame
     private void Create_GS_BTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Create_GS_BTActionPerformed
     {//GEN-HEADEREND:event_Create_GS_BTActionPerformed
         UpdateGenometricSpace();
-        CreateOperationsTree();
+        CreateStateTransitionTree();
         EnableDisableSpaceManipulation(true);
         GlobalVariables.disablePopups = false;
 
@@ -877,7 +889,7 @@ public class GeMSE extends javax.swing.JFrame
         }
 
         GlobalVariables.space.RunOperation(selectedSpaceID, Operation_Title_TB.getText(), function, _operationsOptions.GetValues());
-        CreateOperationsTree();
+        CreateStateTransitionTree();
         GlobalVariables.sessionSerializationRequired = true;
     }//GEN-LAST:event_Apply_Op_BTActionPerformed
 
@@ -934,7 +946,7 @@ public class GeMSE extends javax.swing.JFrame
             SessionIO.Deserialize(this);
             UpdateCachedFeatures();
             EnableDisableSpaceGeneration(true);
-            CreateOperationsTree();
+            CreateStateTransitionTree();
             EnableDisableSpaceManipulation(true);
             GlobalVariables.disablePopups = false;
             GlobalVariables.space.UpdateSpace(GetSelectedNodeID());
@@ -1091,6 +1103,14 @@ public class GeMSE extends javax.swing.JFrame
         }
     }//GEN-LAST:event_HVSaveActionPerformed
 
+    private void StatisticalHypothesisTestingMIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_StatisticalHypothesisTestingMIActionPerformed
+    {//GEN-HEADEREND:event_StatisticalHypothesisTestingMIActionPerformed
+        StatisticalSignificanceWindow ssw = new StatisticalSignificanceWindow();
+        ssw.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        ssw.setLocationRelativeTo(this);
+        ssw.setVisible(true);
+    }//GEN-LAST:event_StatisticalHypothesisTestingMIActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1186,6 +1206,7 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JButton Plot_HeatMap_BT;
     private javax.swing.JMenuItem SaveSessionMI;
     private javax.swing.JMenuItem SearchPatternMI;
+    private javax.swing.JMenuItem StatisticalHypothesisTestingMI;
     private javax.swing.JMenu Tools_JM;
     private javax.swing.JScrollPane Tree_ScrollPane;
     private javax.swing.JTable _inputSamplesDG;
@@ -1378,7 +1399,7 @@ public class GeMSE extends javax.swing.JFrame
             return "null";
     }
 
-    public void CreateOperationsTree()
+    public void CreateStateTransitionTree()
     {
         A2MConverter converter = new A2MConverter();
 

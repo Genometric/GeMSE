@@ -252,7 +252,7 @@ public class PopupMenu extends JPopupMenu
                 "on gridview",
                 Functions.Extract,
                 new SelectOptions(colMin, colMax, rowMin, rowMax));
-        _parent.CreateOperationsTree();
+        _parent.CreateStateTransitionTree();
         GlobalVariables.sessionSerializationRequired = true;
     }
 

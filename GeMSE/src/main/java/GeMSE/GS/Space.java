@@ -187,4 +187,18 @@ public class Space implements Serializable
         this.rowsID = rowIDs;
         this.content = tmpSpace.content;
     }
+
+    public double[] GetVector()
+    {
+        if (content.length == 0) return new double[0];
+
+        double[] rtv = new double[content.length * content[0].length];
+        for (int i = 0 ; i < content.length ; i++)
+            for (int j = 0 ; j < content[0].length ; j++)
+                if (Double.isNaN(content[i][j]))
+                    rtv[i + j] = 0;
+                else
+                    rtv[i + j] = content[i][j];
+        return rtv;
+    }
 }

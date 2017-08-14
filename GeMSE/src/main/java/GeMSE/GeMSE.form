@@ -88,10 +88,18 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="SearchPatternMI">
               <Properties>
-                <Property name="text" type="java.lang.String" value="   Pattern Analysis          "/>
+                <Property name="text" type="java.lang.String" value="     Pattern Analysis     "/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SearchPatternMIActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="StatisticalHypothesisTestingMI">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="     Statistical Hypothesis Testing     "/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StatisticalHypothesisTestingMIActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
