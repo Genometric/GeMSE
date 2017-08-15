@@ -41,54 +41,59 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
         _tTestPanelTwoSample = new TwoSampleTTestPanel();
         _covariancePanelOneSample = new OneSampleCovariancePanel();
         _covariancePanelTwoSample = new TwoSampleCovariancePanel();
+        _pearsonPanelOneSample = new OneSamplePearsonsCorrelationPanel();
+        _pearsonPanelTwoSample = new TwoSamplePearsonsCorrelationPanel();
         _sampleAVector = new double[0];
         _sampleBVector = new double[0];
         _sampleAMatrix = new double[0][0];
         _sampleBMatrix = new double[0][0];
-        
+
         _treeA = new JTree();
         _treeA.addMouseListener(new TreeClickListener());
         _treeA.addTreeSelectionListener(this::TreeASelectionChanged);
         CreateStateTransitionTree(_treeA, Sample1SP);
         Sample1CB.setEnabled(false);
         _treeA.setEnabled(false);
-        
+
         _treeB = new JTree();
         _treeB.addMouseListener(new TreeClickListener());
         _treeB.addTreeSelectionListener(this::TreeBSelectionChanged);
         CreateStateTransitionTree(_treeB, Sample2SP);
         Sample2CB.setEnabled(false);
         _treeB.setEnabled(false);
-        
+
         AnalysisCB.addItem(_cctT);
         AnalysisCB.addItem(_shtT);
         AnalysisCB.setSelectedIndex(-1);
         TestCB.setEnabled(false);
         _sysCV = false;
     }
-    
+
     private Boolean _sysCV;
     private final JTree _treeA;
     private final JTree _treeB;
-    
+
     private double[] _sampleAVector;
     private double[] _sampleBVector;
-    
+
     private double[][] _sampleAMatrix;
     private double[][] _sampleBMatrix;
-    
+
     private final String _shtT = "Statistical hypothesis testing";
     private final String _cctT = "Covariance and correlation";
-    
+
     private final String _ttestT = "Student's t-test";
-    
+
     private final String _covT = "Covariance";
-    
-    
+    private final String _pcoT = "Pearson's product-moment correlation coefficients";
+
+
     private final OneSampleTTestPanel _tTestPanelOneSample;
     private final TwoSampleTTestPanel _tTestPanelTwoSample;
     private final OneSampleCovariancePanel _covariancePanelOneSample;
     private final TwoSampleCovariancePanel _covariancePanelTwoSample;
+    private final OneSamplePearsonsCorrelationPanel _pearsonPanelOneSample;
+    private final TwoSamplePearsonsCorrelationPanel _pearsonPanelTwoSample;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -315,10 +320,11 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
         else if (selectedAnalysis.equals(_cctT))
         {
             TestCB.addItem(_covT);
+            TestCB.addItem(_pcoT);
         }
         TestCB.setSelectedIndex(0);
         TestCB.setEnabled(true);
-        
+
         Boolean t = _sysCV;
         _sysCV = true;
         Sample1CB.setEnabled(true);
@@ -452,22 +458,45 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
                 ResultsSP.repaint();
             }
         }
+        else if (selectedTest.equals(_pcoT))
+        {
+            if (Sample1CB.isSelected() && Sample2CB.isSelected())
+            {
+                ResultsSP.setViewportView(_pearsonPanelTwoSample);
+                _pearsonPanelTwoSample.RunAnalysis(_sampleAVector, _sampleBVector);
+            }
+            else if (Sample1CB.isSelected())
+            {
+                ResultsSP.setViewportView(_pearsonPanelOneSample);
+                _pearsonPanelOneSample.RunAnalysis(_sampleAMatrix);
+            }
+            else if (Sample2CB.isSelected())
+            {
+                ResultsSP.setViewportView(_pearsonPanelOneSample);
+                _pearsonPanelOneSample.RunAnalysis(_sampleBMatrix);
+            }
+            else
+            {
+                ResultsSP.setViewportView(null);
+                ResultsSP.repaint();
+            }
+        }
     }
-    
+
     private void TreeASelectionChanged(TreeSelectionEvent e)
     {
         _sampleAVector = GetNodeVector(_treeA);
         _sampleAMatrix = GetNodeMatrix(_treeA);
         PerformStatInference();
     }
-    
+
     private void TreeBSelectionChanged(TreeSelectionEvent e)
     {
         _sampleBVector = GetNodeVector(_treeB);
         _sampleBMatrix = GetNodeMatrix(_treeB);
         PerformStatInference();
     }
-    
+
     private double[] GetNodeVector(JTree tree)
     {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
@@ -481,7 +510,7 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
             return new double[0];
         }
     }
-    
+
     private double[][] GetNodeMatrix(JTree tree)
     {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
@@ -495,27 +524,27 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
             return new double[0][0];
         }
     }
-    
+
     private void CreateStateTransitionTree(JTree tree, JScrollPane pane)
     {
         A2MConverter converter = new A2MConverter();
-        
+
         DefaultMutableTreeNode previouslySelectedNode = null;
-        
+
         if (tree != null)
             previouslySelectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        
+
         DefaultMutableTreeNode newTree = converter.GetNodes(GlobalVariables.space.GetTree());
-        
+
         tree.setModel(new DefaultTreeModel(newTree));
         tree.setOpaque(false);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.setRootVisible(true);
         TreeCellRenderer renderer = new StateSpaceTreeRenderer();
         tree.setCellRenderer(renderer);
-        
+
         pane.setViewportView(tree);
-        
+
         if (previouslySelectedNode != null)
         {
             TreePath newPath = converter.GetPath((NodeData) previouslySelectedNode.getUserObject(), newTree);
