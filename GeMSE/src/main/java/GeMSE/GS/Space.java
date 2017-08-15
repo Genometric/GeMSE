@@ -201,4 +201,21 @@ public class Space implements Serializable
                     rtv[i + j] = content[i][j];
         return rtv;
     }
+
+    public double[][] GetContent()
+    {
+        return GetContent(false);
+    }
+    public double[][] GetContent(Boolean replaceNaN)
+    {
+        if (!replaceNaN) return content;
+        double[][] rtv = new double[content.length][content[0].length];
+        for (int i = 0 ; i < content.length ; i++)
+            for (int j = 0 ; j < content[0].length ; j++)
+                if (Double.isNaN(content[i][j]))
+                    rtv[i][j] = 0;
+                else
+                    rtv[i][j] = content[i][j];
+        return rtv;
+    }
 }

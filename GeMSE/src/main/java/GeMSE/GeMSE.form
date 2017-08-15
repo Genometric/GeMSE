@@ -94,12 +94,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SearchPatternMIActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="StatisticalHypothesisTestingMI">
+            <MenuItem class="javax.swing.JMenuItem" name="StatisticalInferenceMI">
               <Properties>
-                <Property name="text" type="java.lang.String" value="     Statistical Hypothesis Testing     "/>
+                <Property name="text" type="java.lang.String" value="     Statistical Inference     "/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StatisticalHypothesisTestingMIActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="StatisticalInferenceMIActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

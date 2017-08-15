@@ -27,11 +27,6 @@ import org.apache.commons.math3.stat.inference.TTest;
  */
 public final class TwoSampleTTestPanel extends javax.swing.JPanel
 {
-
-    /**
-     * Creates new form TTestPanel
-     *
-     */
     public TwoSampleTTestPanel()
     {
         initComponents();

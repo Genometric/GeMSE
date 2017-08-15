@@ -45,7 +45,7 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import GeMSE.GS.Operations.Functions;
-import GeMSE.GS.Stats.StatisticalSignificanceWindow;
+import GeMSE.GS.Stats.StatisticalInferenceWindow;
 import GeMSE.IO.Loader;
 import GeMSE.IO.Loader.LoadType;
 import GeMSE.IO.OpenWebpage;
@@ -53,7 +53,6 @@ import GeMSE.OperationsOptions.ClusteringOptions;
 import GeMSE.OperationsOptions.DiscretizeOptions;
 import GeMSE.OperationsOptions.SelectOptions;
 import GeMSE.OperationsOptions.SortOptions;
-import GeMSE.Popups.DataGridClickListener;
 import GeMSE.Popups.GSDataGridClickListener;
 import GeMSE.Popups.HeatmapClickListener;
 import GeMSE.Popups.TreeClickListener;
@@ -168,7 +167,7 @@ public class GeMSE extends javax.swing.JFrame
         Exit_MI = new javax.swing.JMenuItem();
         Tools_JM = new javax.swing.JMenu();
         SearchPatternMI = new javax.swing.JMenuItem();
-        StatisticalHypothesisTestingMI = new javax.swing.JMenuItem();
+        StatisticalInferenceMI = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
         HOnlineSupport = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
@@ -636,15 +635,15 @@ public class GeMSE extends javax.swing.JFrame
         });
         Tools_JM.add(SearchPatternMI);
 
-        StatisticalHypothesisTestingMI.setText("     Statistical Hypothesis Testing     ");
-        StatisticalHypothesisTestingMI.addActionListener(new java.awt.event.ActionListener()
+        StatisticalInferenceMI.setText("     Statistical Inference     ");
+        StatisticalInferenceMI.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                StatisticalHypothesisTestingMIActionPerformed(evt);
+                StatisticalInferenceMIActionPerformed(evt);
             }
         });
-        Tools_JM.add(StatisticalHypothesisTestingMI);
+        Tools_JM.add(StatisticalInferenceMI);
 
         jMenuBar1.add(Tools_JM);
 
@@ -1103,13 +1102,13 @@ public class GeMSE extends javax.swing.JFrame
         }
     }//GEN-LAST:event_HVSaveActionPerformed
 
-    private void StatisticalHypothesisTestingMIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_StatisticalHypothesisTestingMIActionPerformed
-    {//GEN-HEADEREND:event_StatisticalHypothesisTestingMIActionPerformed
-        StatisticalSignificanceWindow ssw = new StatisticalSignificanceWindow();
-        ssw.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ssw.setLocationRelativeTo(this);
-        ssw.setVisible(true);
-    }//GEN-LAST:event_StatisticalHypothesisTestingMIActionPerformed
+    private void StatisticalInferenceMIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_StatisticalInferenceMIActionPerformed
+    {//GEN-HEADEREND:event_StatisticalInferenceMIActionPerformed
+        StatisticalInferenceWindow siw = new StatisticalInferenceWindow();
+        siw.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        siw.setLocationRelativeTo(this);
+        siw.setVisible(true);
+    }//GEN-LAST:event_StatisticalInferenceMIActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1206,7 +1205,7 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JButton Plot_HeatMap_BT;
     private javax.swing.JMenuItem SaveSessionMI;
     private javax.swing.JMenuItem SearchPatternMI;
-    private javax.swing.JMenuItem StatisticalHypothesisTestingMI;
+    private javax.swing.JMenuItem StatisticalInferenceMI;
     private javax.swing.JMenu Tools_JM;
     private javax.swing.JScrollPane Tree_ScrollPane;
     private javax.swing.JTable _inputSamplesDG;

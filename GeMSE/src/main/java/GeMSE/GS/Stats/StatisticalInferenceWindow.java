@@ -14,14 +14,10 @@
 package GeMSE.GS.Stats;
 
 import GeMSE.GS.History.NodeData;
-import GeMSE.GS.Space;
 import GeMSE.GlobalVariables;
-import GeMSE.OperationsOptions.ClusteringOptions;
-import GeMSE.OperationsPanels.OVDendrogramPanel;
 import GeMSE.Popups.TreeClickListener;
 import GeMSE.StateSpaceTree.A2MConverter;
 import GeMSE.StateSpaceTree.StateSpaceTreeRenderer;
-import GeMSE.StateSpaceTree.TreeNodeVector;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -35,44 +31,64 @@ import javax.swing.tree.TreeSelectionModel;
  *
  * @author Vahid Jalili
  */
-public class StatisticalSignificanceWindow extends javax.swing.JFrame
+public class StatisticalInferenceWindow extends javax.swing.JFrame
 {
-
-    /**
-     * Creates new form StatisticalSignificanceWindow
-     */
-    public StatisticalSignificanceWindow()
+    public StatisticalInferenceWindow()
     {
         initComponents();
+        _sysCV = true;
         _tTestPanelOneSample = new OneSampleTTestPanel();
         _tTestPanelTwoSample = new TwoSampleTTestPanel();
-        _sampleA = new double[0];
-        _sampleB = new double[0];
-
+        _covariancePanelOneSample = new OneSampleCovariancePanel();
+        _covariancePanelTwoSample = new TwoSampleCovariancePanel();
+        _sampleAVector = new double[0];
+        _sampleBVector = new double[0];
+        _sampleAMatrix = new double[0][0];
+        _sampleBMatrix = new double[0][0];
+        
         _treeA = new JTree();
         _treeA.addMouseListener(new TreeClickListener());
         _treeA.addTreeSelectionListener(this::TreeASelectionChanged);
         CreateStateTransitionTree(_treeA, Sample1SP);
-
+        Sample1CB.setEnabled(false);
+        _treeA.setEnabled(false);
+        
         _treeB = new JTree();
         _treeB.addMouseListener(new TreeClickListener());
         _treeB.addTreeSelectionListener(this::TreeBSelectionChanged);
         CreateStateTransitionTree(_treeB, Sample2SP);
-
-        TestCB.addItem(_ttest);
-        TestCB.setSelectedIndex(0);
+        Sample2CB.setEnabled(false);
+        _treeB.setEnabled(false);
+        
+        AnalysisCB.addItem(_cctT);
+        AnalysisCB.addItem(_shtT);
+        AnalysisCB.setSelectedIndex(-1);
+        TestCB.setEnabled(false);
+        _sysCV = false;
     }
-
+    
+    private Boolean _sysCV;
     private final JTree _treeA;
     private final JTree _treeB;
-
-    private double[] _sampleA;
-    private double[] _sampleB;
-
-    private String _ttest = "Student's t-test";
-
-    private OneSampleTTestPanel _tTestPanelOneSample;
-    private TwoSampleTTestPanel _tTestPanelTwoSample;
+    
+    private double[] _sampleAVector;
+    private double[] _sampleBVector;
+    
+    private double[][] _sampleAMatrix;
+    private double[][] _sampleBMatrix;
+    
+    private final String _shtT = "Statistical hypothesis testing";
+    private final String _cctT = "Covariance and correlation";
+    
+    private final String _ttestT = "Student's t-test";
+    
+    private final String _covT = "Covariance";
+    
+    
+    private final OneSampleTTestPanel _tTestPanelOneSample;
+    private final TwoSampleTTestPanel _tTestPanelTwoSample;
+    private final OneSampleCovariancePanel _covariancePanelOneSample;
+    private final TwoSampleCovariancePanel _covariancePanelTwoSample;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,13 +106,15 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
         TestDescriptionTP = new javax.swing.JTextPane();
         TestCB = new javax.swing.JComboBox<>();
         ChooseTestL = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        Sample1SP = new javax.swing.JScrollPane();
+        ChooseAnalysisL = new javax.swing.JLabel();
+        AnalysisCB = new javax.swing.JComboBox<>();
+        ResultsSP = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         Sample1CB = new javax.swing.JCheckBox();
-        jPanel7 = new javax.swing.JPanel();
+        Sample1SP = new javax.swing.JScrollPane();
         Sample2SP = new javax.swing.JScrollPane();
         Sample2CB = new javax.swing.JCheckBox();
-        ResultsSP = new javax.swing.JScrollPane();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -126,6 +144,16 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
 
         ChooseTestL.setText("Choose a test");
 
+        ChooseAnalysisL.setText("Choose an analysis category");
+
+        AnalysisCB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AnalysisCBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -138,24 +166,30 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(TestDescriptionL)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(ChooseTestL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ChooseTestL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AnalysisCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ChooseAnalysisL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(ChooseAnalysisL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AnalysisCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ChooseTestL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TestCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(TestDescriptionL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         Sample1CB.setText("Sample 1");
         Sample1CB.addActionListener(new java.awt.event.ActionListener()
@@ -166,31 +200,6 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Sample1SP)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(Sample1CB)
-                        .addGap(0, 125, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Sample1CB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Sample1SP, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         Sample2CB.setText("Sample 2");
         Sample2CB.addActionListener(new java.awt.event.ActionListener()
         {
@@ -200,26 +209,40 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
             }
         });
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        jLabel1.setText("Choose datasets (samples) for the test");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Sample2SP)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(Sample2CB)
-                        .addGap(0, 125, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Sample1SP, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Sample1CB))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Sample2CB)
+                            .addComponent(Sample2SP, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Sample2CB)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Sample1CB)
+                    .addComponent(Sample2CB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Sample2SP)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Sample1SP, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                    .addComponent(Sample2SP))
                 .addContainerGap())
         );
 
@@ -238,13 +261,10 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ResultsSP, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+                .addComponent(ResultsSP, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -255,9 +275,7 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(ResultsSP))
                 .addContainerGap())
         );
@@ -267,18 +285,46 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
 
     private void TestCBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_TestCBActionPerformed
     {//GEN-HEADEREND:event_TestCBActionPerformed
-        PerformSignificanceTest();
+        if (_sysCV) return;
+        PerformStatInference();
     }//GEN-LAST:event_TestCBActionPerformed
 
     private void Sample1CBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Sample1CBActionPerformed
     {//GEN-HEADEREND:event_Sample1CBActionPerformed
-        PerformSignificanceTest();
+        if (_sysCV) return;
+        _treeA.setEnabled(Sample1CB.isSelected());
+        PerformStatInference();
     }//GEN-LAST:event_Sample1CBActionPerformed
 
     private void Sample2CBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Sample2CBActionPerformed
     {//GEN-HEADEREND:event_Sample2CBActionPerformed
-        PerformSignificanceTest();
+        if (_sysCV) return;
+        _treeB.setEnabled(Sample1CB.isSelected());
+        PerformStatInference();
     }//GEN-LAST:event_Sample2CBActionPerformed
+
+    private void AnalysisCBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AnalysisCBActionPerformed
+    {//GEN-HEADEREND:event_AnalysisCBActionPerformed
+        if (AnalysisCB.getSelectedIndex() == -1 || _sysCV) return;
+        TestCB.removeAllItems();
+        String selectedAnalysis = (String) AnalysisCB.getSelectedItem();
+        if (selectedAnalysis.equals(_shtT))
+        {
+            TestCB.addItem(_ttestT);
+        }
+        else if (selectedAnalysis.equals(_cctT))
+        {
+            TestCB.addItem(_covT);
+        }
+        TestCB.setSelectedIndex(0);
+        TestCB.setEnabled(true);
+        
+        Boolean t = _sysCV;
+        _sysCV = true;
+        Sample1CB.setEnabled(true);
+        Sample2CB.setEnabled(true);
+        _sysCV = t;
+    }//GEN-LAST:event_AnalysisCBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,20 +349,21 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
         }
         catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(StatisticalSignificanceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StatisticalInferenceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(StatisticalSignificanceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StatisticalInferenceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(StatisticalSignificanceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StatisticalInferenceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(StatisticalSignificanceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(StatisticalInferenceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -324,12 +371,14 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
         {
             public void run()
             {
-                new StatisticalSignificanceWindow().setVisible(true);
+                new StatisticalInferenceWindow().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> AnalysisCB;
+    private javax.swing.JLabel ChooseAnalysisL;
     private javax.swing.JLabel ChooseTestL;
     private javax.swing.JScrollPane ResultsSP;
     private javax.swing.JCheckBox Sample1CB;
@@ -339,34 +388,63 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
     private javax.swing.JComboBox<String> TestCB;
     private javax.swing.JLabel TestDescriptionL;
     private javax.swing.JTextPane TestDescriptionTP;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private void PerformSignificanceTest()
+    private void PerformStatInference()
     {
         String selectedTest = (String) TestCB.getSelectedItem();
-        if (selectedTest.equals(_ttest))
+        if (selectedTest == null)
+        {
+            ResultsSP.setViewportView(null);
+            ResultsSP.repaint();
+            return;
+        }
+        if (selectedTest.equals(_ttestT))
         {
             if (Sample1CB.isSelected() && Sample2CB.isSelected())
             {
                 ResultsSP.setViewportView(_tTestPanelTwoSample);
-                _tTestPanelTwoSample.RunAnalysis(_sampleA, _sampleB);
+                _tTestPanelTwoSample.RunAnalysis(_sampleAVector, _sampleBVector);
             }
             else if (Sample1CB.isSelected())
             {
                 ResultsSP.setViewportView(_tTestPanelOneSample);
-                _tTestPanelOneSample.RunAnalysis(_sampleA);
+                _tTestPanelOneSample.RunAnalysis(_sampleAVector);
             }
             else if (Sample2CB.isSelected())
             {
                 ResultsSP.setViewportView(_tTestPanelOneSample);
-                _tTestPanelOneSample.RunAnalysis(_sampleB);
+                _tTestPanelOneSample.RunAnalysis(_sampleBVector);
+            }
+            else
+            {
+                ResultsSP.setViewportView(null);
+                ResultsSP.repaint();
+            }
+        }
+        else if (selectedTest.equals(_covT))
+        {
+            if (Sample1CB.isSelected() && Sample2CB.isSelected())
+            {
+                ResultsSP.setViewportView(_covariancePanelTwoSample);
+                _covariancePanelTwoSample.RunAnalysis(_sampleAVector, _sampleBVector);
+            }
+            else if (Sample1CB.isSelected())
+            {
+                ResultsSP.setViewportView(_covariancePanelOneSample);
+                _covariancePanelOneSample.RunAnalysis(_sampleAMatrix);
+            }
+            else if (Sample2CB.isSelected())
+            {
+                ResultsSP.setViewportView(_covariancePanelOneSample);
+                _covariancePanelOneSample.RunAnalysis(_sampleBMatrix);
             }
             else
             {
@@ -375,19 +453,21 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
             }
         }
     }
-
+    
     private void TreeASelectionChanged(TreeSelectionEvent e)
     {
-        _sampleA = GetNodeVector(_treeA);
-        PerformSignificanceTest();
+        _sampleAVector = GetNodeVector(_treeA);
+        _sampleAMatrix = GetNodeMatrix(_treeA);
+        PerformStatInference();
     }
-
+    
     private void TreeBSelectionChanged(TreeSelectionEvent e)
     {
-        _sampleB = GetNodeVector(_treeB);
-        PerformSignificanceTest();
+        _sampleBVector = GetNodeVector(_treeB);
+        _sampleBMatrix = GetNodeMatrix(_treeB);
+        PerformStatInference();
     }
-
+    
     private double[] GetNodeVector(JTree tree)
     {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
@@ -401,27 +481,41 @@ public class StatisticalSignificanceWindow extends javax.swing.JFrame
             return new double[0];
         }
     }
-
+    
+    private double[][] GetNodeMatrix(JTree tree)
+    {
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode != null)
+        {
+            NodeData nodeData = (NodeData) selectedNode.getUserObject();
+            return GlobalVariables.space.GetSpace(nodeData.GetSpaceID()).GetContent(true);
+        }
+        else
+        {
+            return new double[0][0];
+        }
+    }
+    
     private void CreateStateTransitionTree(JTree tree, JScrollPane pane)
     {
         A2MConverter converter = new A2MConverter();
-
+        
         DefaultMutableTreeNode previouslySelectedNode = null;
-
+        
         if (tree != null)
             previouslySelectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-
+        
         DefaultMutableTreeNode newTree = converter.GetNodes(GlobalVariables.space.GetTree());
-
+        
         tree.setModel(new DefaultTreeModel(newTree));
         tree.setOpaque(false);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.setRootVisible(true);
         TreeCellRenderer renderer = new StateSpaceTreeRenderer();
         tree.setCellRenderer(renderer);
-
+        
         pane.setViewportView(tree);
-
+        
         if (previouslySelectedNode != null)
         {
             TreePath newPath = converter.GetPath((NodeData) previouslySelectedNode.getUserObject(), newTree);
