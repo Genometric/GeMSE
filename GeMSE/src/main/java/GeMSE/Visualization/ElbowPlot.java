@@ -93,10 +93,8 @@ public class ElbowPlot extends JFrame
         plot.setDataset(2, dDataSeries);
 
         // use XYSplineRenderer if you want to smooth the lines.
-        //XYSplineRenderer pvRenderer = new XYSplineRenderer();
         XYLineAndShapeRenderer pvRenderer = new XYLineAndShapeRenderer();
         pvRenderer.setSeriesPaint(0, Color.getHSBColor(priYColor[0], priYColor[1], priYColor[2]));
-        //pvRenderer.setSeriesStroke(0, pvstroke);
 
         BasicStroke dstroke
                     = new BasicStroke(

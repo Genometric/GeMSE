@@ -15,8 +15,8 @@ package GeMSE;
 
 import GeMSE.GS.SampleData;
 import GeMSE.GS.GenometricSpace;
-import GeMSE.GraphVisualization.GraphType;
-import GeMSE.GraphVisualization.NodeGrouping;
+import GeMSE.Visualization.Graph.GraphType;
+import GeMSE.Visualization.Graph.NodeGrouping;
 import GeMSE.OperationsOptions.ClusteringOptions;
 import java.awt.Color;
 import java.awt.Dimension;

@@ -36,7 +36,7 @@ import ExternalLibraries.HeatChart;
 import GeMSE.Visualization.HeatMap;
 import GeMSE.GS.clustering.ClusterToGraphML;
 import GeMSE.GeMSE;
-import GeMSE.GraphVisualization.GraphVis;
+import GeMSE.Visualization.Graph.GraphVis;
 import GeMSE.IO.InProgress;
 import GeMSE.IO.OpenWebpage;
 import GeMSE.OperationsOptions.ClusteringOptions;

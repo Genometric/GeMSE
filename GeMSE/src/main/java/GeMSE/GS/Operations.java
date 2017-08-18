@@ -95,6 +95,9 @@ public class Operations implements Serializable
                 this.parameters = parameters;
                 break;
         }
+        
+        result.UpdateColumnsTitles();
+        result.UpdateRowsTitles();
     }
 
     public Space Extract(SelectOptions options)

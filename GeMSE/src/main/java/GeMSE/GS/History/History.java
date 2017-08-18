@@ -103,7 +103,7 @@ public class History implements Serializable
 
             operations.source = operations.result;
         }
-
+        
         return operations.result;
     }
 }
