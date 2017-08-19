@@ -14,6 +14,8 @@
 
 package GeMSE.GS.Transitions.Options;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Vahid Jalili
@@ -26,7 +28,7 @@ public class DiscretizeOptions implements Cloneable
     }
 
     public SelectOptions range;
-    public double[][] mappings;
+    public ArrayList<Map> maps;
 
     @Override
     protected Object clone() throws CloneNotSupportedException

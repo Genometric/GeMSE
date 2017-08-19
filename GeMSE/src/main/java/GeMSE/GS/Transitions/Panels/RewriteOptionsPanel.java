@@ -14,7 +14,9 @@
 package GeMSE.GS.Transitions.Panels;
 
 import GeMSE.GS.Transitions.Options.DiscretizeOptions;
+import GeMSE.GS.Transitions.Options.Map;
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,13 +25,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RewriteOptionsPanel extends javax.swing.JPanel
 {
-    ArrayList<double[]> mappings;
-
     public RewriteOptionsPanel()
     {
         initComponents();
-        mappings = new ArrayList<>();
+        _maps = new ArrayList<>();
+
+        NewValue_TB.setEnabled(true);
+        logBaseS.setEnabled(false);
+        ButtonGroup groupA = new ButtonGroup();
+        groupA.add(staticNewValueRB);
+        groupA.add(logTransformationRB);
+        staticNewValueRB.setSelected(true);
     }
+
+    private ArrayList<Map> _maps;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,11 +67,15 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
         Mapping_To_L = new javax.swing.JLabel();
         Mapping_From_L = new javax.swing.JLabel();
         New_Value_L = new javax.swing.JLabel();
-        NewValue_TB = new javax.swing.JTextField();
         Add_Mapping_BT = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Defined_Mappings = new javax.swing.JTable();
         Reset_BT = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        staticNewValueRB = new javax.swing.JRadioButton();
+        NewValue_TB = new javax.swing.JTextField();
+        logTransformationRB = new javax.swing.JRadioButton();
+        logBaseS = new javax.swing.JSpinner();
 
         setMaximumSize(new java.awt.Dimension(258, 32767));
         setMinimumSize(new java.awt.Dimension(258, 510));
@@ -153,9 +166,6 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
         New_Value_L.setMinimumSize(new java.awt.Dimension(60, 20));
         New_Value_L.setPreferredSize(new java.awt.Dimension(60, 20));
 
-        NewValue_TB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        NewValue_TB.setText("0");
-
         Add_Mapping_BT.setText("Add");
         Add_Mapping_BT.addActionListener(new java.awt.event.ActionListener()
         {
@@ -206,57 +216,107 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
             }
         });
 
+        staticNewValueRB.setText("Constant");
+        staticNewValueRB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                staticNewValueRBActionPerformed(evt);
+            }
+        });
+
+        NewValue_TB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        NewValue_TB.setText("0");
+
+        logTransformationRB.setText("Log trans. base: ");
+        logTransformationRB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                logTransformationRBActionPerformed(evt);
+            }
+        });
+
+        logBaseS.setModel(new javax.swing.SpinnerNumberModel(2, 2, 20, 1));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(logTransformationRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(logBaseS))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(staticNewValueRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(NewValue_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(staticNewValueRB)
+                    .addComponent(NewValue_TB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logTransformationRB)
+                    .addComponent(logBaseS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(Mapping_L, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Operation_Range_L1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(Columns_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(10, 10, 10)
-                                            .addComponent(ColumnsFrom_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(ColumnsTo_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(Rows_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(RowsFrom_TB)
-                                                .addComponent(From_L, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(To_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(RowsTo_TB))))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(Source_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(MappingFrom_TB)
-                                            .addComponent(Mapping_From_L, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(Mapping_To_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(MappingTo_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(Mapping_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Operation_Range_L1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(Columns_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(ColumnsFrom_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ColumnsTo_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(Rows_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(RowsFrom_TB)
+                                        .addComponent(From_L, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(To_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(RowsTo_TB))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(Source_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(New_Value_L, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                                    .addComponent(Reset_BT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Add_Mapping_BT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(NewValue_TB))))
-                        .addGap(2, 2, 2)))
+                                    .addComponent(MappingFrom_TB)
+                                    .addComponent(Mapping_From_L, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Mapping_To_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(MappingTo_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(New_Value_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Reset_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Add_Mapping_BT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -287,19 +347,20 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(MappingTo_TB)
-                    .addComponent(MappingFrom_TB)
-                    .addComponent(Source_Range_L, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(MappingFrom_TB)
+                        .addComponent(Source_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(New_Value_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(New_Value_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NewValue_TB))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Add_Mapping_BT)
-                    .addComponent(Reset_BT))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(Reset_BT)
+                    .addComponent(Add_Mapping_BT))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -307,21 +368,43 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
 
     private void Add_Mapping_BTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Add_Mapping_BTActionPerformed
     {//GEN-HEADEREND:event_Add_Mapping_BTActionPerformed
-        mappings.add(new double[]
+        if (staticNewValueRB.isSelected())
         {
-            Double.valueOf(MappingFrom_TB.getText()),
-            Double.valueOf(MappingTo_TB.getText()),
-            Double.valueOf(NewValue_TB.getText())
-        });
+            _maps.add(new Map(
+                    Double.valueOf(MappingFrom_TB.getText()),
+                    Double.valueOf(MappingTo_TB.getText()),
+                    Map.Function.Static,
+                    Double.valueOf(NewValue_TB.getText())));
+        }
+        else
+        {
+            _maps.add(new Map(
+                    Double.valueOf(MappingFrom_TB.getText()),
+                    Double.valueOf(MappingTo_TB.getText()),
+                    Map.Function.Log,
+                    (double) ((Integer) logBaseS.getValue())));
+        }
 
         UpdateDefinedMapsDG();
     }//GEN-LAST:event_Add_Mapping_BTActionPerformed
 
     private void Reset_BTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Reset_BTActionPerformed
     {//GEN-HEADEREND:event_Reset_BTActionPerformed
-        mappings.clear();
+        _maps.clear();
         UpdateDefinedMapsDG();
     }//GEN-LAST:event_Reset_BTActionPerformed
+
+    private void staticNewValueRBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_staticNewValueRBActionPerformed
+    {//GEN-HEADEREND:event_staticNewValueRBActionPerformed
+        NewValue_TB.setEnabled(true);
+        logBaseS.setEnabled(false);
+    }//GEN-LAST:event_staticNewValueRBActionPerformed
+
+    private void logTransformationRBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_logTransformationRBActionPerformed
+    {//GEN-HEADEREND:event_logTransformationRBActionPerformed
+        NewValue_TB.setEnabled(false);
+        logBaseS.setEnabled(true);
+    }//GEN-LAST:event_logTransformationRBActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -346,27 +429,22 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
     private javax.swing.JLabel Source_Range_L;
     private javax.swing.JLabel To_L;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner logBaseS;
+    private javax.swing.JRadioButton logTransformationRB;
+    private javax.swing.JRadioButton staticNewValueRB;
     // End of variables declaration//GEN-END:variables
 
     public DiscretizeOptions GetValues()
     {
-        double[][] mapping = new double[mappings.size()][3];
-
-        for (int i = 0 ; i < mappings.size() ; i++)
-        {
-            mapping[i][0] = mappings.get(i)[0];
-            mapping[i][1] = mappings.get(i)[1];
-            mapping[i][2] = mappings.get(i)[2];
-        }
-
         DiscretizeOptions options
                           = new DiscretizeOptions(
                         Integer.valueOf(ColumnsFrom_TB.getText()),
                         Integer.valueOf(ColumnsTo_TB.getText()),
                         Integer.valueOf(RowsFrom_TB.getText()),
                         Integer.valueOf(RowsTo_TB.getText()));
-        options.mappings = mapping;
+        options.maps = _maps;
         return options;
     }
 
@@ -379,19 +457,19 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
             RowsFrom_TB.setText(String.valueOf(values.range.RowFrom));
             RowsTo_TB.setText(String.valueOf(values.range.RowTo));
 
-            mappings.clear();
-            if (values.mappings != null)
-                for (double[] mapping : values.mappings)
-                    mappings.add(new double[]
-                    {
-                        mapping[0], mapping[1], mapping[2]
-                    });
-
+            _maps = new ArrayList<>();
+            if (values.maps != null)
+                for (Map map : values.maps)
+                    _maps.add(new Map(
+                            map.GetRangeStart(),
+                            map.GetRaneStop(),
+                            map.GetFunction(),
+                            map.GetArgument()));
             UpdateDefinedMapsDG();
         }
         else
         {
-            mappings.clear();
+            _maps.clear();
             ColumnsFrom_TB.setText("0");
             ColumnsTo_TB.setText("0");
             RowsFrom_TB.setText("0");
@@ -420,12 +498,26 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
             "From", "To", "New"
         });
 
-        for (int i = 0 ; i < mappings.size() ; i++)
+        for (int i = 0 ; i < _maps.size() ; i++)
         {
-            model.addRow(new Double[]
+            if (_maps.get(i).GetFunction() == Map.Function.Static)
             {
-                mappings.get(i)[0], mappings.get(i)[1], mappings.get(i)[2]
-            });
+                model.addRow(new String[]
+                {
+                    String.valueOf(_maps.get(i).GetRangeStart()),
+                    String.valueOf(_maps.get(i).GetRaneStop()),
+                    String.valueOf(_maps.get(i).GetArgument())
+                });
+            }
+            else
+            {
+                model.addRow(new String[]
+                {
+                    String.valueOf(_maps.get(i).GetRangeStart()),
+                    String.valueOf(_maps.get(i).GetRaneStop()),
+                    "Log_" + String.valueOf(_maps.get(i).GetArgument())
+                });
+            }
         }
 
         this.Defined_Mappings.setModel(model);

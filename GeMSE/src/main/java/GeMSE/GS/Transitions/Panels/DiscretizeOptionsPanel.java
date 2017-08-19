@@ -14,9 +14,9 @@
 package GeMSE.GS.Transitions.Panels;
 
 import GeMSE.GS.Transitions.Options.DiscretizeOptions;
+import GeMSE.GS.Transitions.Options.Map;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,8 +25,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DiscretizeOptionsPanel extends javax.swing.JPanel
 {
-    ArrayList<double[]> mappings;
-
     /**
      * Creates new form Select_Options
      */
@@ -34,18 +32,13 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
     {
         initComponents();
 
-        mappings = new ArrayList<>();
-        mappings.add(new double[]
-        {
-            Double.NEGATIVE_INFINITY, 0, 0
-        });
-        mappings.add(new double[]
-        {
-            0, Double.POSITIVE_INFINITY, 0
-        });
-
+        _maps = new ArrayList<>();
+        _maps.add(new Map(Double.NEGATIVE_INFINITY, 0, Map.Function.Static, 0));
+        _maps.add(new Map(0, Double.POSITIVE_INFINITY, Map.Function.Static, 0));
         UpdateDefinedMapsDG();
     }
+
+    private ArrayList<Map> _maps;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -398,7 +391,7 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
 
     private void Reset_BTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Reset_BTActionPerformed
     {//GEN-HEADEREND:event_Reset_BTActionPerformed
-        mappings.clear();
+        _maps.clear();
         UpdateDefinedMapsDG();
     }//GEN-LAST:event_Reset_BTActionPerformed
 
@@ -442,19 +435,19 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
     {//GEN-HEADEREND:event_Break_TBKeyReleased
         double input_Value = Double.valueOf(Break_TB.getText());
 
-        for (double[] range : mappings)
+        for (Map range : _maps)
         {
-            if (input_Value >= range[0] && input_Value <= range[1])
+            if (input_Value >= range.GetRangeStart() && input_Value <= range.GetRaneStop())
             {
-                if (range[0] == Double.NEGATIVE_INFINITY)
+                if (range.GetRangeStart() == Double.NEGATIVE_INFINITY)
                     FromValue_L.setText("- ∞");
                 else
-                    FromValue_L.setText(String.valueOf(range[0]));
+                    FromValue_L.setText(String.valueOf(range.GetRangeStart()));
 
-                if (range[1] == Double.POSITIVE_INFINITY)
+                if (range.GetRaneStop() == Double.POSITIVE_INFINITY)
                     ToValue_L.setText("+ ∞");
                 else
-                    ToValue_L.setText(String.valueOf(range[1]));
+                    ToValue_L.setText(String.valueOf(range.GetRaneStop()));
             }
         }
     }//GEN-LAST:event_Break_TBKeyReleased
@@ -492,24 +485,10 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
 
     public DiscretizeOptions GetValues()
     {
-        int unChangeCount = 0;
-        for (double[] item : mappings)
-            if (item[2] == Double.NaN)
-                unChangeCount++;
-
-        double[][] rtv = new double[mappings.size() - unChangeCount][3];
-
-        int insertPosition = 0;
-        for (int i = 0 ; i < mappings.size() ; i++)
-        {
-            if (mappings.get(i)[2] != Double.NaN)
-            {
-                rtv[insertPosition][0] = mappings.get(i)[0];
-                rtv[insertPosition][1] = mappings.get(i)[1];
-                rtv[insertPosition][2] = mappings.get(i)[2];
-                insertPosition++;
-            }
-        }
+        ArrayList<Map> maps = new ArrayList<>();
+        for (Map map : _maps)
+            if (!Double.isNaN(map.GetArgument()))
+                maps.add(map);
 
         DiscretizeOptions options
                           = new DiscretizeOptions(
@@ -517,7 +496,7 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
                         Integer.valueOf(ColumnsTo_TB.getText()),
                         Integer.valueOf(RowsFrom_TB.getText()),
                         Integer.valueOf(RowsTo_TB.getText()));
-        options.mappings = rtv;
+        options.maps = maps;
         return options;
     }
 
@@ -531,13 +510,12 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
             RowsFrom_TB.setText(String.valueOf(values.range.RowFrom));
             RowsTo_TB.setText(String.valueOf(values.range.RowTo));
 
-            mappings.clear();
-            if (values.mappings != null)
-                for (double[] mapping : values.mappings)
-                    mappings.add(new double[]
-                    {
-                        mapping[0], mapping[1], mapping[2]
-                    });
+            _maps.clear();
+            if (values.maps != null)
+                values.maps.forEach((map) ->
+                {
+                    _maps.add(map);
+                });
 
             UpdateDefinedMapsDG();
         }
@@ -547,7 +525,7 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
             ColumnsTo_TB.setText("0");
             RowsFrom_TB.setText("0");
             RowsTo_TB.setText("0");
-            mappings.clear();
+            _maps.clear();
         }
     }
 
@@ -568,13 +546,13 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
             "From", "To", "value"
         });
 
-        for (int i = 0 ; i < mappings.size() ; i++)
+        _maps.forEach((map) ->
         {
             DefinedMappingsTabModel.addRow(new Double[]
             {
-                mappings.get(i)[0], mappings.get(i)[1], mappings.get(i)[2]
+                map.GetRangeStart(), map.GetRaneStop(), map.GetArgument()
             });
-        }
+        });
 
         this.Defined_Mappings.setModel(DefinedMappingsTabModel);
     }
@@ -594,65 +572,55 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
         else
             to = Double.valueOf(ToValue_L.getText());
 
-        // search all current mappings and will remove the one 
-        // that is replaced by new intervals. 
-        for (int i = 0 ; i < mappings.size() ; i++)
-        {
-            double[] item = mappings.get(i);
-            if (item[0] == from)
+        for (int i = 0 ; i < _maps.size() ; i++)
+            if (_maps.get(i).GetRangeStart() == from)
             {
-                mappings.remove(i);
-                break;
+                _maps.remove(i);
+                i--;
             }
-        }
 
         if (LeftValue_CB.isSelected())
         {
-            mappings.add(new double[]
-            {
-                from,
-                Double.valueOf(Break_TB.getText()),
-                Double.valueOf(LeftValue_TB.getText())
-            });
+            _maps.add(new Map(
+                    from,
+                    Double.valueOf(Break_TB.getText()),
+                    Map.Function.Static,
+                    Double.valueOf(LeftValue_TB.getText())));
         }
         else
         {
-            mappings.add(new double[]
-            {
-                from,
-                Double.valueOf(Break_TB.getText()),
-                Double.NaN
-            });
+            _maps.add(new Map(
+                    from,
+                    Double.valueOf(Break_TB.getText()),
+                    Map.Function.Static,
+                    Double.NaN
+            ));
         }
 
         if (RightValue_CB.isSelected())
         {
-            mappings.add(new double[]
-            {
-                Double.valueOf(Break_TB.getText()),
-                to,
-                Double.valueOf(RightValue_TB.getText())
-            });
+            _maps.add(new Map(
+                    Double.valueOf(Break_TB.getText()),
+                    to,
+                    Map.Function.Static,
+                    Double.valueOf(RightValue_TB.getText())
+            ));
         }
         else
         {
-            mappings.add(new double[]
-            {
-                Double.valueOf(Break_TB.getText()),
-                to,
-                Double.NaN
-            });
+            _maps.add(new Map(
+                    Double.valueOf(Break_TB.getText()),
+                    to,
+                    Map.Function.Static,
+                    Double.NaN
+            ));
         }
 
-        Collections.sort(mappings, new Comparator<double[]>()
+        Collections.sort(_maps, (Map o1, Map o2) ->
                  {
-                     @Override
-                     public int compare(double[] This, double[] That)
-                     {
-                         if (This[0] < That[0]) return -1;
-                         else if (This[0] > That[0]) return 1;
-                         else return 0;
-                     }
+                     if (o1.GetRangeStart() < o2.GetRangeStart()) return -1;
+                     if (o1.GetRangeStart() > o2.GetRangeStart()) return 1;
+                     return 0;
                  });
     }
 }

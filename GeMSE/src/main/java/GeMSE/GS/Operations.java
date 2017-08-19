@@ -21,6 +21,7 @@ import GeMSE.GS.Transitions.Options.SortOptions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ExternalLibraries.Cluster;
+import GeMSE.GS.Transitions.Options.Map;
 import GeMSE.IO.InProgress;
 import java.io.Serializable;
 import javax.swing.SwingWorker;
@@ -96,7 +97,7 @@ public class Operations implements Serializable
                 this.parameters = parameters;
                 break;
         }
-        
+
         result.UpdateColumnsTitles();
         result.UpdateRowsTitles();
     }
@@ -126,11 +127,26 @@ public class Operations implements Serializable
             for (int col = 0 ; col < source.content[0].length ; col++)
                 rtv.content[row][col] = source.content[row][col];
 
-        for (double[] map : options.mappings)
+        for (Map map : options.maps)
             for (int row = options.range.RowFrom ; row < options.range.RowTo ; row++)
                 for (int col = options.range.ColumnFrom ; col < options.range.ColumnTo ; col++)
-                    if (source.content[row][col] >= map[0] && source.content[row][col] < map[1])
-                        rtv.content[row][col] = map[2];
+                    if (source.content[row][col] >= map.GetRangeStart() && source.content[row][col] < map.GetRaneStop())
+                    {
+                        switch (map.GetFunction())
+                        {
+                            case Log:
+                                rtv.content[row][col]
+                                = Math.log(source.content[row][col])
+                                  / Math.log(map.GetArgument());
+                                // This function implements Log_x(y) as: 
+                                // Log_e(x) / Log_e(y)
+                                break;
+
+                            case Static:
+                                rtv.content[row][col] = map.GetArgument();
+                                break;
+                        }
+                    }
 
         return rtv;
     }
