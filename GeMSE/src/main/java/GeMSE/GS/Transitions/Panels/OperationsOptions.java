@@ -11,13 +11,13 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package GeMSE.OperationsPanels;
+package GeMSE.GS.Transitions.Panels;
 
 import GeMSE.GS.Operations.Functions;
-import GeMSE.OperationsOptions.ClusteringOptions;
-import GeMSE.OperationsOptions.DiscretizeOptions;
-import GeMSE.OperationsOptions.SelectOptions;
-import GeMSE.OperationsOptions.SortOptions;
+import GeMSE.GS.Transitions.Options.ClusteringOptions;
+import GeMSE.GS.Transitions.Options.DiscretizeOptions;
+import GeMSE.GS.Transitions.Options.SelectOptions;
+import GeMSE.GS.Transitions.Options.SortOptions;
 import java.awt.Color;
 import javax.swing.JPanel;
 

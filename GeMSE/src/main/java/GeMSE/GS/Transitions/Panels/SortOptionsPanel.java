@@ -11,11 +11,11 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package GeMSE.OperationsPanels;
+package GeMSE.GS.Transitions.Panels;
 
 import GeMSE.GlobalVariables;
-import GeMSE.OperationsOptions.SortOptions;
-import GeMSE.OperationsOptions.SortOptions.Orders;
+import GeMSE.GS.Transitions.Options.SortOptions;
+import GeMSE.GS.Transitions.Options.SortOptions.Orders;
 import GeMSE.GS.SampleData;
 import java.util.ArrayList;
 import java.util.Arrays;

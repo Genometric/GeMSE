@@ -11,15 +11,15 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package GeMSE.PatternSearch;
+package GeMSE.GS.Analysis.PatternSearch;
 
 import GeMSE.GS.ClusteringFunctions;
-import GeMSE.OperationsOptions.ClusteringOptions.ClusteringDomains;
-import GeMSE.OperationsOptions.ClusteringOptions.DistanceType;
-import GeMSE.OperationsOptions.ClusteringOptions.LinkageCriterias;
+import GeMSE.GS.Transitions.Options.ClusteringOptions.ClusteringDomains;
+import GeMSE.GS.Transitions.Options.ClusteringOptions.DistanceType;
+import GeMSE.GS.Transitions.Options.ClusteringOptions.LinkageCriterias;
 import GeMSE.GS.Space;
-import GeMSE.OperationsOptions.ClusteringOptions;
-import GeMSE.OperationsOptions.ClusteringOptions.Metrics;
+import GeMSE.GS.Transitions.Options.ClusteringOptions;
+import GeMSE.GS.Transitions.Options.ClusteringOptions.Metrics;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

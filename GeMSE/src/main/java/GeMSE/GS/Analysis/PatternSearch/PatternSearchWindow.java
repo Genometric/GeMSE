@@ -11,13 +11,13 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package GeMSE.PatternSearch;
+package GeMSE.GS.Analysis.PatternSearch;
 
 import GeMSE.GS.SampleData;
-import GeMSE.OperationsOptions.ClusteringOptions.ClusteringDomains;
+import GeMSE.GS.Transitions.Options.ClusteringOptions.ClusteringDomains;
 import GeMSE.GS.Space;
 import GeMSE.GlobalVariables;
-import GeMSE.OperationsOptions.ClusteringOptions.Metrics;
+import GeMSE.GS.Transitions.Options.ClusteringOptions.Metrics;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -34,12 +34,12 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import ExternalLibraries.HeatChart;
 import GeMSE.Visualization.HeatMap;
-import GeMSE.GS.clustering.ClusterToGraphML;
+import GeMSE.GS.Analysis.Clustering.ClusterToGraphML;
 import GeMSE.GeMSE;
 import GeMSE.Visualization.Graph.GraphVis;
 import GeMSE.IO.InProgress;
 import GeMSE.IO.OpenWebpage;
-import GeMSE.OperationsOptions.ClusteringOptions;
+import GeMSE.GS.Transitions.Options.ClusteringOptions;
 import GeMSE.Popups.DataGridClickListener;
 import GeMSE.Popups.HeatmapClickListener;
 import java.awt.Color;

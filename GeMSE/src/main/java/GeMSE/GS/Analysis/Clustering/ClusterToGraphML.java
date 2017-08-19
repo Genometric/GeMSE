@@ -11,13 +11,13 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package GeMSE.GS.clustering;
+package GeMSE.GS.Analysis.Clustering;
 
 import ExternalLibraries.Cluster;
 import GeMSE.GS.Space;
 import GeMSE.GlobalVariables;
-import GeMSE.OperationsOptions.ClusteringOptions.ClusteringDomains;
-import GeMSE.OperationsOptions.ClusteringOptions.DistanceType;
+import GeMSE.GS.Transitions.Options.ClusteringOptions.ClusteringDomains;
+import GeMSE.GS.Transitions.Options.ClusteringOptions.DistanceType;
 import java.util.ArrayList;
 import java.io.File;
 import java.util.HashMap;

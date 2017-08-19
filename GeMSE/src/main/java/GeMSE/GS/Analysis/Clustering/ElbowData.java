@@ -14,7 +14,7 @@ Expression GeMSE is undefined on line 4, column 3 in Templates/Licenses/license-
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package GeMSE.GS.clustering;
+package GeMSE.GS.Analysis.Clustering;
 
 /**
  *

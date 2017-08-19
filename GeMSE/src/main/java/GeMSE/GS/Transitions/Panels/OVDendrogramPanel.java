@@ -11,16 +11,16 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package GeMSE.OperationsPanels;
+package GeMSE.GS.Transitions.Panels;
 
 import GeMSE.GS.ClusteringFunctions;
 import GeMSE.GS.Operations.Functions;
 import GeMSE.GS.Space;
 import ExternalLibraries.Cluster;
-import GeMSE.OperationsOptions.ClusteringOptions.DistanceType;
+import GeMSE.GS.Transitions.Options.ClusteringOptions.DistanceType;
 import ExternalLibraries.DendrogramPanel;
 import GeMSE.GlobalVariables;
-import GeMSE.OperationsOptions.ClusteringOptions;
+import GeMSE.GS.Transitions.Options.ClusteringOptions;
 import GeMSE.Popups.DendrogramClickListener;
 import java.util.HashMap;
 

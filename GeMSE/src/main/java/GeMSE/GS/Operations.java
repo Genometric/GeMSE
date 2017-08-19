@@ -13,10 +13,10 @@
  */
 package GeMSE.GS;
 
-import GeMSE.OperationsOptions.ClusteringOptions;
-import GeMSE.OperationsOptions.DiscretizeOptions;
-import GeMSE.OperationsOptions.SelectOptions;
-import GeMSE.OperationsOptions.SortOptions;
+import GeMSE.GS.Transitions.Options.ClusteringOptions;
+import GeMSE.GS.Transitions.Options.DiscretizeOptions;
+import GeMSE.GS.Transitions.Options.SelectOptions;
+import GeMSE.GS.Transitions.Options.SortOptions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ExternalLibraries.Cluster;

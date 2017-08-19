@@ -14,7 +14,7 @@
 package GeMSE.Visualization;
 
 import GeMSE.GS.Space;
-import GeMSE.OperationsOptions.ClusteringOptions;
+import GeMSE.GS.Transitions.Options.ClusteringOptions;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.BufferedWriter;
@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import ExternalLibraries.HeatChart;
-import GeMSE.GS.clustering.ClusterToNewick;
+import GeMSE.GS.Analysis.Clustering.ClusterToNewick;
 import GeMSE.IO.Exporter;
 import GeMSE.GeMSE;
 import GeMSE.GlobalVariables;

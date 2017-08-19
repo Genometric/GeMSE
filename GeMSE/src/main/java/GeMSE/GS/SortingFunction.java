@@ -14,7 +14,7 @@
 package GeMSE.GS;
 
 import GeMSE.GlobalVariables;
-import GeMSE.OperationsOptions.SortOptions;
+import GeMSE.GS.Transitions.Options.SortOptions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

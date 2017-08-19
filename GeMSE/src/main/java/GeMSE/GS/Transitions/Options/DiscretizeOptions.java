@@ -12,21 +12,25 @@
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 
-package GeMSE.PatternSearch;
+package GeMSE.GS.Transitions.Options;
 
 /**
  *
  * @author Vahid Jalili
  */
-class IDGenerationException extends Exception
+public class DiscretizeOptions implements Cloneable
 {
-    private final int _tries;
-    public IDGenerationException(int tries)
+    public DiscretizeOptions(int columnFrom, int columnTo, int rowFrom, int rowTo)
     {
-        _tries = tries;
+        range = new SelectOptions(columnFrom, columnTo, rowFrom, rowTo);
     }
-    public int GetTries()
+
+    public SelectOptions range;
+    public double[][] mappings;
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException
     {
-        return _tries;
+        return super.clone();
     }
 }
