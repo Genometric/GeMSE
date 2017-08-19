@@ -13,6 +13,7 @@
  */
 package GeMSE.GS;
 
+import GeMSE.GS.Transitions.SortingFunction;
 import GeMSE.GS.Transitions.Options.ClusteringOptions;
 import GeMSE.GS.Transitions.Options.DiscretizeOptions;
 import GeMSE.GS.Transitions.Options.SelectOptions;
