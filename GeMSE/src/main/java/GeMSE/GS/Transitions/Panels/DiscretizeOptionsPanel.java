@@ -39,6 +39,8 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
     }
 
     private ArrayList<Map> _maps;
+    private double _minValue;
+    private double _maxValue;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -492,6 +494,8 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
 
         DiscretizeOptions options
                           = new DiscretizeOptions(
+                        _minValue,
+                        _maxValue,
                         Integer.valueOf(ColumnsFrom_TB.getText()),
                         Integer.valueOf(ColumnsTo_TB.getText()),
                         Integer.valueOf(RowsFrom_TB.getText()),
@@ -517,6 +521,8 @@ public class DiscretizeOptionsPanel extends javax.swing.JPanel
                     _maps.add(map);
                 });
 
+            _minValue = values.GetMinValue();
+            _maxValue = values.GetMaxValue();
             UpdateDefinedMapsDG();
         }
         else

@@ -15,6 +15,9 @@ package GeMSE.GS.Transitions.Panels;
 
 import GeMSE.GS.Transitions.Options.DiscretizeOptions;
 import GeMSE.GS.Transitions.Options.Map;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 import javax.swing.table.DefaultTableModel;
@@ -36,9 +39,19 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
         groupA.add(staticNewValueRB);
         groupA.add(logTransformationRB);
         staticNewValueRB.setSelected(true);
+
+        _decFor = new DecimalFormat("#.#");
+        _decFor.setRoundingMode(RoundingMode.CEILING);
+        DecimalFormatSymbols decFors = _decFor.getDecimalFormatSymbols();
+        decFors.setNaN("NaN");
+        decFors.setInfinity("∞");
+        _decFor.setDecimalFormatSymbols(decFors);
     }
 
+    private DecimalFormat _decFor;
     private ArrayList<Map> _maps;
+    private double _minValue;
+    private double _maxValue;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,23 +72,28 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
         ColumnsTo_TB = new javax.swing.JTextField();
         From_L = new javax.swing.JLabel();
         To_L = new javax.swing.JLabel();
-        Mapping_L = new javax.swing.JLabel();
         Operation_Range_L1 = new javax.swing.JLabel();
-        Source_Range_L = new javax.swing.JLabel();
-        MappingFrom_TB = new javax.swing.JTextField();
-        MappingTo_TB = new javax.swing.JTextField();
-        Mapping_To_L = new javax.swing.JLabel();
-        Mapping_From_L = new javax.swing.JLabel();
-        New_Value_L = new javax.swing.JLabel();
-        Add_Mapping_BT = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Defined_Mappings = new javax.swing.JTable();
-        Reset_BT = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         staticNewValueRB = new javax.swing.JRadioButton();
         NewValue_TB = new javax.swing.JTextField();
         logTransformationRB = new javax.swing.JRadioButton();
         logBaseS = new javax.swing.JSpinner();
+        New_Value_L = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        Mapping_L = new javax.swing.JLabel();
+        Mapping_From_L = new javax.swing.JLabel();
+        Mapping_To_L = new javax.swing.JLabel();
+        Source_Range_L = new javax.swing.JLabel();
+        MappingFrom_TB = new javax.swing.JTextField();
+        MappingTo_TB = new javax.swing.JTextField();
+        minMaxValueL = new javax.swing.JLabel();
+        minValue = new javax.swing.JLabel();
+        maxValue = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        Reset_BT = new javax.swing.JButton();
+        Add_Mapping_BT = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(258, 32767));
         setMinimumSize(new java.awt.Dimension(258, 510));
@@ -122,58 +140,11 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
         To_L.setMinimumSize(new java.awt.Dimension(60, 20));
         To_L.setPreferredSize(new java.awt.Dimension(60, 20));
 
-        Mapping_L.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Mapping_L.setText("Mapping ");
-        Mapping_L.setMaximumSize(new java.awt.Dimension(60, 20));
-        Mapping_L.setMinimumSize(new java.awt.Dimension(60, 20));
-        Mapping_L.setPreferredSize(new java.awt.Dimension(60, 20));
-
         Operation_Range_L1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Operation_Range_L1.setText("Operation Application Range");
         Operation_Range_L1.setMaximumSize(new java.awt.Dimension(60, 20));
         Operation_Range_L1.setMinimumSize(new java.awt.Dimension(60, 20));
         Operation_Range_L1.setPreferredSize(new java.awt.Dimension(60, 20));
-
-        Source_Range_L.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        Source_Range_L.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        Source_Range_L.setText("Source Range");
-        Source_Range_L.setMaximumSize(new java.awt.Dimension(60, 20));
-        Source_Range_L.setMinimumSize(new java.awt.Dimension(60, 20));
-        Source_Range_L.setPreferredSize(new java.awt.Dimension(60, 20));
-
-        MappingFrom_TB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        MappingFrom_TB.setText("0");
-
-        MappingTo_TB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        MappingTo_TB.setText("100");
-
-        Mapping_To_L.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Mapping_To_L.setText("To");
-        Mapping_To_L.setMaximumSize(new java.awt.Dimension(60, 20));
-        Mapping_To_L.setMinimumSize(new java.awt.Dimension(60, 20));
-        Mapping_To_L.setPreferredSize(new java.awt.Dimension(60, 20));
-
-        Mapping_From_L.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Mapping_From_L.setText("From");
-        Mapping_From_L.setMaximumSize(new java.awt.Dimension(60, 20));
-        Mapping_From_L.setMinimumSize(new java.awt.Dimension(60, 20));
-        Mapping_From_L.setPreferredSize(new java.awt.Dimension(60, 20));
-
-        New_Value_L.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        New_Value_L.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        New_Value_L.setText("New Value");
-        New_Value_L.setMaximumSize(new java.awt.Dimension(60, 20));
-        New_Value_L.setMinimumSize(new java.awt.Dimension(60, 20));
-        New_Value_L.setPreferredSize(new java.awt.Dimension(60, 20));
-
-        Add_Mapping_BT.setText("Add");
-        Add_Mapping_BT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                Add_Mapping_BTActionPerformed(evt);
-            }
-        });
 
         Defined_Mappings.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
@@ -207,15 +178,6 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
         });
         jScrollPane1.setViewportView(Defined_Mappings);
 
-        Reset_BT.setText("Reset");
-        Reset_BT.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                Reset_BTActionPerformed(evt);
-            }
-        });
-
         staticNewValueRB.setText("Constant");
         staticNewValueRB.addActionListener(new java.awt.event.ActionListener()
         {
@@ -239,84 +201,209 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
 
         logBaseS.setModel(new javax.swing.SpinnerNumberModel(2, 2, 20, 1));
 
+        New_Value_L.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        New_Value_L.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        New_Value_L.setText("New Value");
+        New_Value_L.setMaximumSize(new java.awt.Dimension(60, 20));
+        New_Value_L.setMinimumSize(new java.awt.Dimension(60, 20));
+        New_Value_L.setPreferredSize(new java.awt.Dimension(60, 20));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(logTransformationRB)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(logBaseS))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(staticNewValueRB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NewValue_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(NewValue_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(logTransformationRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(logBaseS, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(New_Value_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(New_Value_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(staticNewValueRB)
                     .addComponent(NewValue_TB))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logTransformationRB)
                     .addComponent(logBaseS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1))
+        );
+
+        Mapping_L.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Mapping_L.setText("Mapping ");
+        Mapping_L.setMaximumSize(new java.awt.Dimension(60, 20));
+        Mapping_L.setMinimumSize(new java.awt.Dimension(60, 20));
+        Mapping_L.setPreferredSize(new java.awt.Dimension(60, 20));
+
+        Mapping_From_L.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Mapping_From_L.setText("From");
+        Mapping_From_L.setMaximumSize(new java.awt.Dimension(60, 20));
+        Mapping_From_L.setMinimumSize(new java.awt.Dimension(60, 20));
+        Mapping_From_L.setPreferredSize(new java.awt.Dimension(60, 20));
+
+        Mapping_To_L.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Mapping_To_L.setText("To");
+        Mapping_To_L.setMaximumSize(new java.awt.Dimension(60, 20));
+        Mapping_To_L.setMinimumSize(new java.awt.Dimension(60, 20));
+        Mapping_To_L.setPreferredSize(new java.awt.Dimension(60, 20));
+
+        Source_Range_L.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Source_Range_L.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Source_Range_L.setText("Source Range");
+        Source_Range_L.setMaximumSize(new java.awt.Dimension(60, 20));
+        Source_Range_L.setMinimumSize(new java.awt.Dimension(60, 20));
+        Source_Range_L.setPreferredSize(new java.awt.Dimension(60, 20));
+
+        MappingFrom_TB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        MappingFrom_TB.setText("0");
+
+        MappingTo_TB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        MappingTo_TB.setText("100");
+
+        minMaxValueL.setFont(new java.awt.Font("Lucida Grande", 2, 11)); // NOI18N
+        minMaxValueL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        minMaxValueL.setText("min/max");
+
+        minValue.setFont(new java.awt.Font("Lucida Grande", 2, 11)); // NOI18N
+        minValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minValue.setText("NaN");
+
+        maxValue.setFont(new java.awt.Font("Lucida Grande", 2, 11)); // NOI18N
+        maxValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maxValue.setText("NaN");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Mapping_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(Source_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(Mapping_From_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Mapping_To_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(MappingFrom_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(MappingTo_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(minMaxValueL, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(minValue, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(maxValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(Mapping_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Mapping_From_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Mapping_To_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Source_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MappingFrom_TB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MappingTo_TB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(minMaxValueL)
+                    .addComponent(minValue)
+                    .addComponent(maxValue)))
+        );
+
+        Reset_BT.setText("Reset");
+        Reset_BT.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                Reset_BTActionPerformed(evt);
+            }
+        });
+
+        Add_Mapping_BT.setText("Add");
+        Add_Mapping_BT.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                Add_Mapping_BTActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Reset_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Add_Mapping_BT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Reset_BT)
+                    .addComponent(Add_Mapping_BT))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(Mapping_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Operation_Range_L1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(Columns_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(ColumnsFrom_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(ColumnsTo_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(Rows_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(RowsFrom_TB)
-                                        .addComponent(From_L, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(To_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(RowsTo_TB))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(Operation_Range_L1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(Source_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Columns_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(ColumnsFrom_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ColumnsTo_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Rows_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(RowsFrom_TB)
+                                    .addComponent(From_L, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(MappingFrom_TB)
-                                    .addComponent(Mapping_From_L, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(Mapping_To_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(MappingTo_TB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(New_Value_L, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 8, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Reset_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Add_Mapping_BT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(To_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(RowsTo_TB))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -338,29 +425,15 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
                     .addComponent(ColumnsTo_TB)
                     .addComponent(Columns_Range_L, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ColumnsFrom_TB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addComponent(Mapping_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Mapping_From_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Mapping_To_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(MappingTo_TB)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(MappingFrom_TB)
-                        .addComponent(Source_Range_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(New_Value_L, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Reset_BT)
-                    .addComponent(Add_Mapping_BT))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);
@@ -430,9 +503,14 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
     private javax.swing.JLabel To_L;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner logBaseS;
     private javax.swing.JRadioButton logTransformationRB;
+    private javax.swing.JLabel maxValue;
+    private javax.swing.JLabel minMaxValueL;
+    private javax.swing.JLabel minValue;
     private javax.swing.JRadioButton staticNewValueRB;
     // End of variables declaration//GEN-END:variables
 
@@ -440,6 +518,8 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
     {
         DiscretizeOptions options
                           = new DiscretizeOptions(
+                        _minValue,
+                        _maxValue,
                         Integer.valueOf(ColumnsFrom_TB.getText()),
                         Integer.valueOf(ColumnsTo_TB.getText()),
                         Integer.valueOf(RowsFrom_TB.getText()),
@@ -457,6 +537,9 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
             RowsFrom_TB.setText(String.valueOf(values.range.RowFrom));
             RowsTo_TB.setText(String.valueOf(values.range.RowTo));
 
+            minValue.setText(String.valueOf(_decFor.format(values.GetMinValue())));
+            maxValue.setText(String.valueOf(_decFor.format(values.GetMaxValue())));
+
             _maps = new ArrayList<>();
             if (values.maps != null)
                 for (Map map : values.maps)
@@ -465,6 +548,8 @@ public class RewriteOptionsPanel extends javax.swing.JPanel
                             map.GetRaneStop(),
                             map.GetFunction(),
                             map.GetArgument()));
+            _minValue = values.GetMinValue();
+            _maxValue = values.GetMaxValue();
             UpdateDefinedMapsDG();
         }
         else

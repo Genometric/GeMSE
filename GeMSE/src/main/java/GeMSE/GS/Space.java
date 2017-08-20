@@ -29,12 +29,40 @@ public class Space implements Serializable
     public String[] colsID;
     public String[] rowTitle;
     public String[] colTitle;
+    private double _minValue = Double.NaN;
+    private double _maxValue = Double.NaN;
 
     public Space(int rowsCount, int columnsCount)
     {
         content = new double[rowsCount][columnsCount];
         rowsID = new String[rowsCount];
         colsID = new String[columnsCount];
+    }
+
+    public double GetMinValue()
+    {
+        if (Double.isNaN(_minValue))
+        {
+            _minValue = Double.POSITIVE_INFINITY;
+            for (int r = 0 ; r < content.length ; r++)
+                for (int c = 0 ; c < content[0].length ; c++)
+                    if (!Double.isNaN(content[r][c]))
+                        _minValue = Math.min(_minValue, content[r][c]);
+        }
+        return _minValue;
+    }
+
+    public double GetMaxValue()
+    {
+        if (Double.isNaN(_maxValue))
+        {
+            _maxValue = Double.NEGATIVE_INFINITY;
+            for (int r = 0 ; r < content.length ; r++)
+                for (int c = 0 ; c < content[0].length ; c++)
+                    if (!Double.isNaN(content[r][c]))
+                        _maxValue = Math.max(_maxValue, content[r][c]);
+        }
+        return _maxValue;
     }
 
     public void UpdateColumnsTitles()
@@ -206,6 +234,7 @@ public class Space implements Serializable
     {
         return GetContent(false);
     }
+
     public double[][] GetContent(Boolean replaceNaN)
     {
         if (!replaceNaN) return content;

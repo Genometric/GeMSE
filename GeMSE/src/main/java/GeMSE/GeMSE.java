@@ -1523,6 +1523,8 @@ public class GeMSE extends javax.swing.JFrame
                 else
                     Operations_Options_SP.setViewportView(_operationsOptions.GetPanel(
                             Functions.Rewrite, new DiscretizeOptions(
+                                    GlobalVariables.space.space.GetMinValue(),
+                                    GlobalVariables.space.space.GetMaxValue(),
                                     0, GlobalVariables.space.space.colsID.length,
                                     0, GlobalVariables.space.space.rowsID.length)));
 
@@ -1535,6 +1537,8 @@ public class GeMSE extends javax.swing.JFrame
                 else
                     Operations_Options_SP.setViewportView(_operationsOptions.GetPanel(
                             Functions.Discretize, new DiscretizeOptions(
+                                    GlobalVariables.space.space.GetMinValue(),
+                                    GlobalVariables.space.space.GetMaxValue(),
                                     0, GlobalVariables.space.space.colsID.length,
                                     0, GlobalVariables.space.space.rowsID.length)));
                 break;
