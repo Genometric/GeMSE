@@ -71,12 +71,14 @@ public class GraphVis extends javax.swing.JFrame
             RadialGraphRB.setSelected(true);
             EnableDisableAngularPanel(true);
             GroupingAgg.setEnabled(false);
+            enforceLayoutBoundsCB.setEnabled(false);
         }
         else
         {
             ForceDirectedGraphRB.setSelected(true);
             EnableDisableAngularPanel(false);
             GroupingAgg.setEnabled(true);
+            enforceLayoutBoundsCB.setEnabled(true);
         }
 
         ButtonGroup groupB = new ButtonGroup();
@@ -210,8 +212,6 @@ public class GraphVis extends javax.swing.JFrame
         jMenuItem1 = new javax.swing.JMenuItem();
         ControllersPanel = new javax.swing.JPanel();
         GraphTypeL = new javax.swing.JLabel();
-        RadialGraphRB = new javax.swing.JRadioButton();
-        ForceDirectedGraphRB = new javax.swing.JRadioButton();
         AngularBoundsJP = new javax.swing.JPanel();
         SetAngularBoundsL = new javax.swing.JLabel();
         AngularBoundStartL = new javax.swing.JLabel();
@@ -219,6 +219,7 @@ public class GraphVis extends javax.swing.JFrame
         AngularBoundStopL = new javax.swing.JLabel();
         AngularBoundRadius = new javax.swing.JSpinner();
         EnforceAngularBounds = new javax.swing.JCheckBox();
+        RadialGraphRB = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         GroupingLabel = new javax.swing.JLabel();
         GroupingNone = new javax.swing.JRadioButton();
@@ -234,6 +235,9 @@ public class GraphVis extends javax.swing.JFrame
         jPanel1 = new javax.swing.JPanel();
         LightThemeRB = new javax.swing.JRadioButton();
         DarkThemeRB = new javax.swing.JRadioButton();
+        jPanel3 = new javax.swing.JPanel();
+        ForceDirectedGraphRB = new javax.swing.JRadioButton();
+        enforceLayoutBoundsCB = new javax.swing.JCheckBox();
         graphPanel = new javax.swing.JPanel();
         jMenuBar19 = new javax.swing.JMenuBar();
         jMenu38 = new javax.swing.JMenu();
@@ -366,28 +370,11 @@ public class GraphVis extends javax.swing.JFrame
 
         GraphTypeL.setText("Graph type");
 
-        RadialGraphRB.setText("Radial graph");
-        RadialGraphRB.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                RadialGraphRBActionPerformed(evt);
-            }
-        });
-
-        ForceDirectedGraphRB.setText("Force directed graph");
-        ForceDirectedGraphRB.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                ForceDirectedGraphRBActionPerformed(evt);
-            }
-        });
-
         AngularBoundsJP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         SetAngularBoundsL.setText("Set angular bounds");
 
+        AngularBoundStartL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         AngularBoundStartL.setText("degree");
 
         AngularBoundDegree.addChangeListener(new javax.swing.event.ChangeListener()
@@ -398,6 +385,7 @@ public class GraphVis extends javax.swing.JFrame
             }
         });
 
+        AngularBoundStopL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         AngularBoundStopL.setText("radius");
 
         AngularBoundRadius.addChangeListener(new javax.swing.event.ChangeListener()
@@ -417,44 +405,59 @@ public class GraphVis extends javax.swing.JFrame
             }
         });
 
+        RadialGraphRB.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        RadialGraphRB.setText("Radial graph");
+        RadialGraphRB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                RadialGraphRBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout AngularBoundsJPLayout = new javax.swing.GroupLayout(AngularBoundsJP);
         AngularBoundsJP.setLayout(AngularBoundsJPLayout);
         AngularBoundsJPLayout.setHorizontalGroup(
-            AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AngularBoundsJPLayout.createSequentialGroup()
+            AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AngularBoundsJPLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RadialGraphRB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AngularBoundsJPLayout.createSequentialGroup()
+                        .addComponent(AngularBoundStartL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AngularBoundDegree, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AngularBoundsJPLayout.createSequentialGroup()
+                        .addComponent(AngularBoundStopL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(AngularBoundRadius, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AngularBoundsJPLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AngularBoundStartL, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(AngularBoundStopL, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(AngularBoundRadius)
-                            .addComponent(AngularBoundDegree, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(AngularBoundsJPLayout.createSequentialGroup()
-                        .addComponent(SetAngularBoundsL)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(EnforceAngularBounds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(AngularBoundsJPLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(SetAngularBoundsL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(EnforceAngularBounds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         AngularBoundsJPLayout.setVerticalGroup(
             AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AngularBoundsJPLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RadialGraphRB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EnforceAngularBounds)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SetAngularBoundsL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AngularBoundDegree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AngularBoundStartL))
+                    .addComponent(AngularBoundStartL)
+                    .addComponent(AngularBoundDegree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AngularBoundStopL)
-                    .addComponent(AngularBoundRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(AngularBoundRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AngularBoundStopL))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -570,7 +573,7 @@ public class GraphVis extends javax.swing.JFrame
                                     .addComponent(BeforeCut, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(BeforeCutL, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                    .addComponent(BeforeCutL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(AfterCutL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -652,37 +655,88 @@ public class GraphVis extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        ForceDirectedGraphRB.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        ForceDirectedGraphRB.setText("Force directed graph");
+        ForceDirectedGraphRB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                ForceDirectedGraphRBActionPerformed(evt);
+            }
+        });
+
+        enforceLayoutBoundsCB.setText("Enforce layout bounds");
+        enforceLayoutBoundsCB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                enforceLayoutBoundsCBActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(enforceLayoutBoundsCB)
+                        .addContainerGap(10, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(ForceDirectedGraphRB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ForceDirectedGraphRB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enforceLayoutBoundsCB)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout ControllersPanelLayout = new javax.swing.GroupLayout(ControllersPanel);
         ControllersPanel.setLayout(ControllersPanelLayout);
         ControllersPanelLayout.setHorizontalGroup(
             ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ControllersPanelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AngularBoundsJP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ForceDirectedGraphRB, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(RadialGraphRB, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GraphTypeL)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ControllersPanelLayout.createSequentialGroup()
+                .addGroup(ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(ControllersPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(GraphTypeL)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(ControllersPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(AngularBoundsJP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ControllersPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         ControllersPanelLayout.setVerticalGroup(
             ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ControllersPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(GraphTypeL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(RadialGraphRB)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ForceDirectedGraphRB)
-                .addGap(18, 18, 18)
-                .addComponent(AngularBoundsJP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AngularBoundsJP, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         graphPanel.setLayout(new java.awt.BorderLayout());
@@ -749,8 +803,8 @@ public class GraphVis extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(ControllersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+                .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -769,6 +823,7 @@ public class GraphVis extends javax.swing.JFrame
         if (RadialGraphRB.isSelected())
         {
             EnforceAngularBounds.setEnabled(true);
+            enforceLayoutBoundsCB.setEnabled(false);
             EnableDisableAngularPanel(true);
             if (GroupingAgg.isSelected())
                 GroupingNone.setSelected(true);
@@ -785,6 +840,7 @@ public class GraphVis extends javax.swing.JFrame
             EnforceAngularBounds.setEnabled(false);
             EnableDisableAngularPanel(false);
             GroupingAgg.setEnabled(true);
+            enforceLayoutBoundsCB.setEnabled(true);
             UpdateGraph();
         }
     }//GEN-LAST:event_ForceDirectedGraphRBActionPerformed
@@ -950,6 +1006,12 @@ public class GraphVis extends javax.swing.JFrame
         }
     }//GEN-LAST:event_HOnlineActionPerformed
 
+    private void enforceLayoutBoundsCBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_enforceLayoutBoundsCBActionPerformed
+    {//GEN-HEADEREND:event_enforceLayoutBoundsCBActionPerformed
+        if (sysChanging) return;
+        UpdateGraph();
+    }//GEN-LAST:event_enforceLayoutBoundsCBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AfterCut;
@@ -982,6 +1044,7 @@ public class GraphVis extends javax.swing.JFrame
     private javax.swing.JLabel SetAngularBoundsL;
     private javax.swing.JRadioButton SolidColorAgg;
     private javax.swing.JButton SolidColorB;
+    private javax.swing.JCheckBox enforceLayoutBoundsCB;
     private javax.swing.JPanel graphPanel;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JMenu jMenu1;
@@ -1044,6 +1107,7 @@ public class GraphVis extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 
     private void EnableDisableAngularPanel(Boolean enable)
@@ -1107,9 +1171,18 @@ public class GraphVis extends javax.swing.JFrame
         ThemeSetup();
         graphPanel.removeAll();
         if (EnforceAngularBounds.isSelected())
-            graphPanel.add(gtv.Visualize(_graph, grouping, gType, (int) AngularBoundDegree.getValue(), (int) AngularBoundRadius.getValue(), graphPanel.getSize()));
+            graphPanel.add(gtv.Visualize(
+                    _graph, grouping, gType,
+                    (int) AngularBoundDegree.getValue(),
+                    (int) AngularBoundRadius.getValue(),
+                    graphPanel.getSize(), false));
         else
-            graphPanel.add(gtv.Visualize(_graph, grouping, gType, graphPanel.getSize()));
+            graphPanel.add(gtv.Visualize(
+                    _graph,
+                    grouping,
+                    gType,
+                    graphPanel.getSize(),
+                    enforceLayoutBoundsCB.isSelected()));
         revalidate();
         repaint();
 
