@@ -26,17 +26,17 @@ public class ColorTheme
     {
         public static Color background = Color.white;
         public static Color foreground = Color.black;
-        public static int edgeColor = ColorLib.rgb(90, 90, 90);
-        public static int textColor = ColorLib.rgb(0, 10, 10);
-        public static int nodeColor = ColorLib.rgb(215, 215, 215);
-        public static int textColorHover = ColorLib.rgb(200, 230, 230);
-        public static int nodeColorHover = ColorLib.rgb(0, 10, 10);
+        public static int edgeColor = ColorLib.rgb(0, 0, 0);
+        public static int textColor = ColorLib.rgb(0, 0, 0);
+        public static int nodeColor = ColorLib.rgb(230, 230, 255);
+        public static int textColorHover = ColorLib.rgb(255, 255, 255);
+        public static int nodeColorHover = ColorLib.rgb(57, 0, 63);
         public static int nodeColorSelected = ColorLib.rgb(233, 255, 0);
         public static int nodeColorSearchResult = ColorLib.rgb(0, 255, 255);
         public static int nodeAggHoverStroke = ColorLib.rgb(255, 0, 0);
         public static int nodeAggDefaultStroke = ColorLib.rgb(0, 255, 0);
         public static int aggHoverStroke = ColorLib.rgb(255, 0, 120);
-        public static int aggDefaultStroke = ColorLib.rgb(0, 10, 10);
+        public static int aggDefaultStroke = ColorLib.rgb(0, 0, 102);
     }
 
     public static class DarkTheme
