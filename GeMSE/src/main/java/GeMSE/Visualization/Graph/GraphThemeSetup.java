@@ -463,6 +463,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Edge color", ColorLib.getColor(_edgeColor));
         _edgeColor = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_EdgeBActionPerformed
 
     private void TextBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_TextBActionPerformed
@@ -470,6 +471,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Text color", ColorLib.getColor(_textColor));
         _textColor = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_TextBActionPerformed
 
     private void TextHoverBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_TextHoverBActionPerformed
@@ -477,6 +479,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Text color (hover)", ColorLib.getColor(_textColorHover));
         _textColorHover = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_TextHoverBActionPerformed
 
     private void TextSelectedBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_TextSelectedBActionPerformed
@@ -484,6 +487,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Text color (selected)", ColorLib.getColor(_nodeColorSelected));
         _nodeColorSelected = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_TextSelectedBActionPerformed
 
     private void TextSearchResultBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_TextSearchResultBActionPerformed
@@ -491,6 +495,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Text color (search result)", ColorLib.getColor(_nodeColorSearchResult));
         _nodeColorSearchResult = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_TextSearchResultBActionPerformed
 
     private void NodeBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_NodeBActionPerformed
@@ -498,6 +503,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Node color", ColorLib.getColor(_nodeColor));
         _nodeColor = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_NodeBActionPerformed
 
     private void NodeAggregateStrokeBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_NodeAggregateStrokeBActionPerformed
@@ -505,6 +511,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Node aggregate stroke", ColorLib.getColor(_nodeAggDefaultStroke));
         _nodeAggDefaultStroke = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_NodeAggregateStrokeBActionPerformed
 
     private void NodeAggregateHoverStrokeBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_NodeAggregateHoverStrokeBActionPerformed
@@ -512,6 +519,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Node aggregate stroke (hover)", ColorLib.getColor(_nodeAggHoverStroke));
         _nodeAggHoverStroke = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_NodeAggregateHoverStrokeBActionPerformed
 
     private void AggregateStrokeBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AggregateStrokeBActionPerformed
@@ -519,6 +527,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Aggregate stroke", ColorLib.getColor(_aggDefaultStroke));
         _aggDefaultStroke = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_AggregateStrokeBActionPerformed
 
     private void AggregateHoverStrokeBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AggregateHoverStrokeBActionPerformed
@@ -526,6 +535,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Aggregate stroke (hover)", ColorLib.getColor(_aggHoverStroke));
         _aggHoverStroke = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_AggregateHoverStrokeBActionPerformed
 
     private void NodeHoverBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_NodeHoverBActionPerformed
@@ -533,6 +543,7 @@ public class GraphThemeSetup extends javax.swing.JDialog
         Color tmp = JColorChooser.showDialog(
                 new JFrame("Color_Chooser"), "Node color (color)", ColorLib.getColor(_nodeColorHover));
         _nodeColorHover = ColorLib.rgb(tmp.getRed(), tmp.getGreen(), tmp.getBlue());
+        ApplyColors();
     }//GEN-LAST:event_NodeHoverBActionPerformed
 
     private void CopyFromDarkThemeBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CopyFromDarkThemeBActionPerformed

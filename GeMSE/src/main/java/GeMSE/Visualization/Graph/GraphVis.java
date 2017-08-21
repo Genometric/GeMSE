@@ -1033,10 +1033,12 @@ public class GraphVis extends javax.swing.JFrame
 
     private void SetupCustomThemeBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SetupCustomThemeBActionPerformed
     {//GEN-HEADEREND:event_SetupCustomThemeBActionPerformed
+        if (sysChanging) return;
         GraphThemeSetup themeSetup = new GraphThemeSetup(this);
         themeSetup.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         themeSetup.setLocationRelativeTo(this);
         themeSetup.setVisible(true);
+        UpdateGraph();
     }//GEN-LAST:event_SetupCustomThemeBActionPerformed
 
 
@@ -1268,7 +1270,7 @@ public class GraphVis extends javax.swing.JFrame
             gtv.aggHoverStroke = ColorTheme.BrightTheme.aggHoverStroke;
             gtv.aggDefaultStroke = ColorTheme.BrightTheme.aggDefaultStroke;
         }
-        else
+        else if(DarkThemeRB.isSelected())
         {
             gtv.background = ColorTheme.DarkTheme.background;
             gtv.foreground = ColorTheme.DarkTheme.foreground;
@@ -1287,6 +1289,23 @@ public class GraphVis extends javax.swing.JFrame
             float[] hsb = new float[4];
             Color.RGBtoHSB(0, 4, 40, hsb);
             SolidColorB.setBackground(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
+        }
+        else
+        {
+            gtv.background = GlobalVariables.GraphOptions.background;
+            gtv.foreground = GlobalVariables.GraphOptions.foreground;
+            gtv.edgeColor = GlobalVariables.GraphOptions.edgeColor;
+            gtv.textColor = GlobalVariables.GraphOptions.textColor;
+            gtv.nodeColor = GlobalVariables.GraphOptions.nodeColor;
+            gtv.textColorHover = GlobalVariables.GraphOptions.textColorHover;
+            gtv.nodeColorHover = GlobalVariables.GraphOptions.nodeColorHover;
+            gtv.nodeColorSelected = GlobalVariables.GraphOptions.nodeColorSelected;
+            gtv.nodeColorSearchResult = GlobalVariables.GraphOptions.nodeColorSearchResult;
+            gtv.nodeAggHoverStroke = GlobalVariables.GraphOptions.nodeAggHoverStroke;
+            gtv.nodeAggDefaultStroke = GlobalVariables.GraphOptions.nodeAggDefaultStroke;
+            gtv.aggHoverStroke = GlobalVariables.GraphOptions.aggHoverStroke;
+            gtv.aggDefaultStroke = GlobalVariables.GraphOptions.aggDefaultStroke;
+
         }
 
         int[] palette = null;
