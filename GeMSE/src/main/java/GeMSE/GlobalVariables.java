@@ -27,6 +27,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import prefuse.util.ColorLib;
 
 /**
  *
@@ -52,19 +53,6 @@ public class GlobalVariables implements Serializable
     public static Color hightValueColor = Color.BLUE;
 
     public static Boolean disablePopups;
-
-    // The followings are the graph visualization parameters.
-    public static GraphType graphType = GraphType.Radial;
-    public static NodeGrouping grouping = NodeGrouping.None;
-    public static Boolean useLightGraphTheme = false;
-    public static Boolean useSolidAggColor = true;
-    public static Color beforeCutColor = Color.RED;
-    public static Color afterCutColor = Color.YELLOW;
-    public static Color solidColor = Color.LIGHT_GRAY;
-    public static Boolean enforceAngularBound = false;
-    public static int angularBoundDegree = 0;
-    public static int angularBoundRadius = 6;
-
 
     private static String _lastBrowsedDirectory;
     public static String GetLastBrowsedDirectory()
@@ -185,16 +173,29 @@ public class GlobalVariables implements Serializable
         stream.writeBoolean(HeatmapOptions.autoFitRPlotSize);
         stream.writeBoolean(HeatmapOptions.RBAOptions);
         stream.writeDouble(HeatmapOptions.epsilonDistance);
-        stream.writeObject(graphType);
-        stream.writeObject(grouping);
-        stream.writeObject(useLightGraphTheme);
-        stream.writeObject(useSolidAggColor);
-        stream.writeObject(beforeCutColor);
-        stream.writeObject(afterCutColor);
-        stream.writeObject(solidColor);
-        stream.writeObject(enforceAngularBound);
-        stream.writeInt(angularBoundDegree);
-        stream.writeInt(angularBoundRadius);
+        stream.writeObject(GraphOptions.graphType);
+        stream.writeObject(GraphOptions.grouping);
+        stream.writeObject(GraphOptions.theme);
+        stream.writeObject(GraphOptions.useSolidAggColor);
+        stream.writeObject(GraphOptions.beforeCutColor);
+        stream.writeObject(GraphOptions.afterCutColor);
+        stream.writeObject(GraphOptions.solidColor);
+        stream.writeObject(GraphOptions.enforceAngularBound);
+        stream.writeInt(GraphOptions.angularBoundDegree);
+        stream.writeInt(GraphOptions.angularBoundRadius);
+        stream.writeObject(GraphOptions.background);
+        stream.writeObject(GraphOptions.foreground);
+        stream.writeInt(GraphOptions.edgeColor);
+        stream.writeInt(GraphOptions.textColor);
+        stream.writeInt(GraphOptions.nodeColor);
+        stream.writeInt(GraphOptions.textColorHover);
+        stream.writeInt(GraphOptions.nodeColorHover);
+        stream.writeInt(GraphOptions.nodeColorSelected);
+        stream.writeInt(GraphOptions.nodeColorSearchResult);
+        stream.writeInt(GraphOptions.nodeAggHoverStroke);
+        stream.writeInt(GraphOptions.nodeAggDefaultStroke);
+        stream.writeInt(GraphOptions.aggHoverStroke);
+        stream.writeInt(GraphOptions.aggDefaultStroke);
     }
 
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException
@@ -226,16 +227,29 @@ public class GlobalVariables implements Serializable
         HeatmapOptions.autoFitRPlotSize = stream.readBoolean();
         HeatmapOptions.RBAOptions = stream.readBoolean();
         HeatmapOptions.epsilonDistance = stream.readDouble();
-        graphType = (GraphType) stream.readObject();
-        grouping = (NodeGrouping) stream.readObject();
-        useLightGraphTheme = (Boolean) stream.readObject();
-        useSolidAggColor = (Boolean) stream.readObject();
-        beforeCutColor = (Color) stream.readObject();
-        afterCutColor = (Color) stream.readObject();
-        solidColor = (Color) stream.readObject();
-        enforceAngularBound = (Boolean) stream.readObject();
-        angularBoundDegree = (int) stream.readInt();
-        angularBoundRadius = (int) stream.readInt();
+        GraphOptions.graphType = (GraphType) stream.readObject();
+        GraphOptions.grouping = (NodeGrouping) stream.readObject();
+        GraphOptions.theme = (GraphOptions.Theme) stream.readObject();
+        GraphOptions.useSolidAggColor = (Boolean) stream.readObject();
+        GraphOptions.beforeCutColor = (Color) stream.readObject();
+        GraphOptions.afterCutColor = (Color) stream.readObject();
+        GraphOptions.solidColor = (Color) stream.readObject();
+        GraphOptions.enforceAngularBound = (Boolean) stream.readObject();
+        GraphOptions.angularBoundDegree = (int) stream.readInt();
+        GraphOptions.angularBoundRadius = (int) stream.readInt();
+        GraphOptions.background = (Color) stream.readObject();
+        GraphOptions.foreground = (Color) stream.readObject();
+        GraphOptions.edgeColor = (int) stream.readInt();
+        GraphOptions.textColor = (int) stream.readInt();
+        GraphOptions.nodeColor = (int) stream.readInt();
+        GraphOptions.textColorHover = (int) stream.readInt();
+        GraphOptions.nodeColorHover = (int) stream.readInt();
+        GraphOptions.nodeColorSelected = (int) stream.readInt();
+        GraphOptions.nodeColorSearchResult = (int) stream.readInt();
+        GraphOptions.nodeAggHoverStroke = (int) stream.readInt();
+        GraphOptions.nodeAggDefaultStroke = (int) stream.readInt();
+        GraphOptions.aggHoverStroke = (int) stream.readInt();
+        GraphOptions.aggDefaultStroke = (int) stream.readInt();
     }
 
 
@@ -283,5 +297,40 @@ public class GlobalVariables implements Serializable
          * tree or any further manipulations.
          */
         public static double epsilonDistance = 0.0001;
+    }
+
+    public static class GraphOptions implements Serializable
+    {
+        public static final long serialVersionUID = 1;
+
+        public enum Theme
+        {
+            Bright, Dark, Custom
+        };
+
+        // The followings are the graph visualization parameters.
+        public static GraphType graphType = GraphType.Radial;
+        public static NodeGrouping grouping = NodeGrouping.None;
+        public static Theme theme = Theme.Dark;
+        public static Boolean useSolidAggColor = true;
+        public static Color beforeCutColor = Color.RED;
+        public static Color afterCutColor = Color.YELLOW;
+        public static Color solidColor = Color.LIGHT_GRAY;
+        public static Boolean enforceAngularBound = false;
+        public static int angularBoundDegree = 0;
+        public static int angularBoundRadius = 6;
+        public static Color background = Color.black;
+        public static Color foreground = Color.yellow;
+        public static int edgeColor = ColorLib.rgb(40, 117, 254);
+        public static int textColor = ColorLib.rgb(200, 255, 255);
+        public static int nodeColor = ColorLib.rgb(0, 0, 20);
+        public static int textColorHover = ColorLib.rgb(255, 165, 255);
+        public static int nodeColorHover = ColorLib.rgb(30, 0, 60);
+        public static int nodeColorSelected = ColorLib.rgb(7, 2, 30);
+        public static int nodeColorSearchResult = ColorLib.rgb(80, 80, 0);
+        public static int nodeAggHoverStroke = ColorLib.rgb(255, 0, 0);
+        public static int nodeAggDefaultStroke = ColorLib.rgb(0, 255, 0);
+        public static int aggHoverStroke = ColorLib.rgb(255, 244, 0);
+        public static int aggDefaultStroke = ColorLib.rgb(60, 70, 150);
     }
 }

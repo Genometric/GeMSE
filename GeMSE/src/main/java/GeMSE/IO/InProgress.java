@@ -13,8 +13,6 @@
  */
 package GeMSE.IO;
 
-import java.awt.Color;
-
 /**
  *
  * @author Vahid Jalili

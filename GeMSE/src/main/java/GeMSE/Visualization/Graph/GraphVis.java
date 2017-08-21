@@ -15,6 +15,7 @@ package GeMSE.Visualization.Graph;
 
 import GeMSE.GeMSE;
 import GeMSE.GlobalVariables;
+import GeMSE.GlobalVariables.GraphOptions.Theme;
 import GeMSE.IO.OpenWebpage;
 import com.itextpdf.awt.PdfGraphics2D;
 import com.itextpdf.text.Document;
@@ -66,7 +67,7 @@ public class GraphVis extends javax.swing.JFrame
         ButtonGroup groupA = new ButtonGroup();
         groupA.add(RadialGraphRB);
         groupA.add(ForceDirectedGraphRB);
-        if (GlobalVariables.graphType == GraphType.Radial)
+        if (GlobalVariables.GraphOptions.graphType == GraphType.Radial)
         {
             RadialGraphRB.setSelected(true);
             EnableDisableAngularPanel(true);
@@ -85,7 +86,7 @@ public class GraphVis extends javax.swing.JFrame
         groupB.add(GroupingNone);
         groupB.add(GroupingColor);
         groupB.add(GroupingAgg);
-        switch (GlobalVariables.grouping)
+        switch (GlobalVariables.GraphOptions.grouping)
         {
             case None:
                 GroupingNone.setSelected(true);
@@ -105,29 +106,43 @@ public class GraphVis extends javax.swing.JFrame
         }
 
         ButtonGroup groupC = new ButtonGroup();
-        groupC.add(LightThemeRB);
+        groupC.add(BrightThemeRB);
         groupC.add(DarkThemeRB);
-        if (GlobalVariables.useLightGraphTheme)
-            LightThemeRB.setSelected(true);
-        else
-            DarkThemeRB.setSelected(true);
+        groupC.add(CustomThemeRB);
+        switch (GlobalVariables.GraphOptions.theme)
+        {
+            case Bright:
+                BrightThemeRB.setSelected(true);
+                SetupCustomThemeB.setEnabled(false);
+                break;
+
+            case Dark:
+                DarkThemeRB.setSelected(true);
+                SetupCustomThemeB.setEnabled(false);
+                break;
+
+            case Custom:
+                CustomThemeRB.setSelected(true);
+                SetupCustomThemeB.setEnabled(true);
+                break;
+        }
 
         ButtonGroup groupD = new ButtonGroup();
         groupD.add(SolidColorAgg);
         groupD.add(FullSpectralColorAgg);
-        if (GlobalVariables.useSolidAggColor)
+        if (GlobalVariables.GraphOptions.useSolidAggColor)
             SolidColorAgg.setSelected(true);
         else
             FullSpectralColorAgg.setSelected(true);
 
-        AngularBoundDegree.setValue(GlobalVariables.angularBoundDegree);
-        AngularBoundRadius.setValue(GlobalVariables.angularBoundRadius);
+        AngularBoundDegree.setValue(GlobalVariables.GraphOptions.angularBoundDegree);
+        AngularBoundRadius.setValue(GlobalVariables.GraphOptions.angularBoundRadius);
 
         sysChanging = false;
 
-        BeforeCut.setBackground(GlobalVariables.beforeCutColor);
-        AfterCut.setBackground(GlobalVariables.afterCutColor);
-        SolidColorB.setBackground(GlobalVariables.solidColor);
+        BeforeCut.setBackground(GlobalVariables.GraphOptions.beforeCutColor);
+        AfterCut.setBackground(GlobalVariables.GraphOptions.afterCutColor);
+        SolidColorB.setBackground(GlobalVariables.GraphOptions.solidColor);
 
         try
         {
@@ -211,7 +226,6 @@ public class GraphVis extends javax.swing.JFrame
         jMenu37 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         ControllersPanel = new javax.swing.JPanel();
-        GraphTypeL = new javax.swing.JLabel();
         AngularBoundsJP = new javax.swing.JPanel();
         SetAngularBoundsL = new javax.swing.JLabel();
         AngularBoundStartL = new javax.swing.JLabel();
@@ -220,6 +234,9 @@ public class GraphVis extends javax.swing.JFrame
         AngularBoundRadius = new javax.swing.JSpinner();
         EnforceAngularBounds = new javax.swing.JCheckBox();
         RadialGraphRB = new javax.swing.JRadioButton();
+        ForceDirectedGraphRB = new javax.swing.JRadioButton();
+        enforceLayoutBoundsCB = new javax.swing.JCheckBox();
+        GraphTypeL = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         GroupingLabel = new javax.swing.JLabel();
         GroupingNone = new javax.swing.JRadioButton();
@@ -233,11 +250,10 @@ public class GraphVis extends javax.swing.JFrame
         SolidColorB = new javax.swing.JButton();
         FullSpectralColorAgg = new javax.swing.JRadioButton();
         jPanel1 = new javax.swing.JPanel();
-        LightThemeRB = new javax.swing.JRadioButton();
+        BrightThemeRB = new javax.swing.JRadioButton();
         DarkThemeRB = new javax.swing.JRadioButton();
-        jPanel3 = new javax.swing.JPanel();
-        ForceDirectedGraphRB = new javax.swing.JRadioButton();
-        enforceLayoutBoundsCB = new javax.swing.JCheckBox();
+        CustomThemeRB = new javax.swing.JRadioButton();
+        SetupCustomThemeB = new javax.swing.JButton();
         graphPanel = new javax.swing.JPanel();
         jMenuBar19 = new javax.swing.JMenuBar();
         jMenu38 = new javax.swing.JMenu();
@@ -364,11 +380,10 @@ public class GraphVis extends javax.swing.JFrame
         jMenuItem1.setText("jMenuItem1");
 
         setMinimumSize(new java.awt.Dimension(600, 400));
-        setSize(new java.awt.Dimension(1000, 600));
+        setPreferredSize(new java.awt.Dimension(1300, 780));
+        setSize(new java.awt.Dimension(1300, 780));
 
         ControllersPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        GraphTypeL.setText("Graph type");
 
         AngularBoundsJP.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -415,11 +430,32 @@ public class GraphVis extends javax.swing.JFrame
             }
         });
 
+        ForceDirectedGraphRB.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        ForceDirectedGraphRB.setText("Force directed graph");
+        ForceDirectedGraphRB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                ForceDirectedGraphRBActionPerformed(evt);
+            }
+        });
+
+        enforceLayoutBoundsCB.setText("Enforce layout bounds");
+        enforceLayoutBoundsCB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                enforceLayoutBoundsCBActionPerformed(evt);
+            }
+        });
+
+        GraphTypeL.setText("Graph type");
+
         javax.swing.GroupLayout AngularBoundsJPLayout = new javax.swing.GroupLayout(AngularBoundsJP);
         AngularBoundsJP.setLayout(AngularBoundsJPLayout);
         AngularBoundsJPLayout.setHorizontalGroup(
             AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AngularBoundsJPLayout.createSequentialGroup()
+            .addGroup(AngularBoundsJPLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(RadialGraphRB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -431,19 +467,22 @@ public class GraphVis extends javax.swing.JFrame
                         .addComponent(AngularBoundStopL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(AngularBoundRadius, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ForceDirectedGraphRB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AngularBoundsJPLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(AngularBoundsJPLayout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(SetAngularBoundsL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(EnforceAngularBounds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(EnforceAngularBounds, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(SetAngularBoundsL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(enforceLayoutBoundsCB, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(GraphTypeL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         AngularBoundsJPLayout.setVerticalGroup(
             AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AngularBoundsJPLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(GraphTypeL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RadialGraphRB)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EnforceAngularBounds)
@@ -455,9 +494,13 @@ public class GraphVis extends javax.swing.JFrame
                     .addComponent(AngularBoundDegree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(AngularBoundsJPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AngularBoundRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AngularBoundStopL))
-                .addContainerGap())
+                    .addComponent(AngularBoundStopL)
+                    .addComponent(AngularBoundRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ForceDirectedGraphRB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(enforceLayoutBoundsCB)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -616,12 +659,12 @@ public class GraphVis extends javax.swing.JFrame
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        LightThemeRB.setText("Light theme");
-        LightThemeRB.addActionListener(new java.awt.event.ActionListener()
+        BrightThemeRB.setText("Bright theme");
+        BrightThemeRB.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                LightThemeRBActionPerformed(evt);
+                BrightThemeRBActionPerformed(evt);
             }
         });
 
@@ -634,6 +677,24 @@ public class GraphVis extends javax.swing.JFrame
             }
         });
 
+        CustomThemeRB.setText("Custom theme");
+        CustomThemeRB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                CustomThemeRBActionPerformed(evt);
+            }
+        });
+
+        SetupCustomThemeB.setText("Setup");
+        SetupCustomThemeB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                SetupCustomThemeBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -641,63 +702,25 @@ public class GraphVis extends javax.swing.JFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LightThemeRB)
-                    .addComponent(DarkThemeRB))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(CustomThemeRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(SetupCustomThemeB))
+                    .addComponent(DarkThemeRB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BrightThemeRB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LightThemeRB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BrightThemeRB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(DarkThemeRB)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        ForceDirectedGraphRB.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        ForceDirectedGraphRB.setText("Force directed graph");
-        ForceDirectedGraphRB.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                ForceDirectedGraphRBActionPerformed(evt);
-            }
-        });
-
-        enforceLayoutBoundsCB.setText("Enforce layout bounds");
-        enforceLayoutBoundsCB.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                enforceLayoutBoundsCBActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(enforceLayoutBoundsCB)
-                        .addContainerGap(10, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(ForceDirectedGraphRB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ForceDirectedGraphRB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(enforceLayoutBoundsCB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CustomThemeRB)
+                    .addComponent(SetupCustomThemeB))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -705,38 +728,24 @@ public class GraphVis extends javax.swing.JFrame
         ControllersPanel.setLayout(ControllersPanelLayout);
         ControllersPanelLayout.setHorizontalGroup(
             ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ControllersPanelLayout.createSequentialGroup()
-                .addGroup(ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(ControllersPanelLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(GraphTypeL)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(ControllersPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(AngularBoundsJP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ControllersPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(ControllersPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AngularBoundsJP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         ControllersPanelLayout.setVerticalGroup(
             ControllersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ControllersPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(GraphTypeL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AngularBoundsJP, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(AngularBoundsJP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         graphPanel.setLayout(new java.awt.BorderLayout());
@@ -803,7 +812,7 @@ public class GraphVis extends javax.swing.JFrame
                 .addContainerGap()
                 .addComponent(ControllersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE)
+                .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1041, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -892,16 +901,18 @@ public class GraphVis extends javax.swing.JFrame
         }
     }//GEN-LAST:event_EnforceAngularBoundsActionPerformed
 
-    private void LightThemeRBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_LightThemeRBActionPerformed
-    {//GEN-HEADEREND:event_LightThemeRBActionPerformed
+    private void BrightThemeRBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BrightThemeRBActionPerformed
+    {//GEN-HEADEREND:event_BrightThemeRBActionPerformed
         if (sysChanging) return;
-        if (LightThemeRB.isSelected())
+        SetupCustomThemeB.setEnabled(false);
+        if (BrightThemeRB.isSelected())
             UpdateGraph();
-    }//GEN-LAST:event_LightThemeRBActionPerformed
+    }//GEN-LAST:event_BrightThemeRBActionPerformed
 
     private void DarkThemeRBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_DarkThemeRBActionPerformed
     {//GEN-HEADEREND:event_DarkThemeRBActionPerformed
         if (sysChanging) return;
+        SetupCustomThemeB.setEnabled(false);
         if (DarkThemeRB.isSelected())
             UpdateGraph();
     }//GEN-LAST:event_DarkThemeRBActionPerformed
@@ -1012,6 +1023,22 @@ public class GraphVis extends javax.swing.JFrame
         UpdateGraph();
     }//GEN-LAST:event_enforceLayoutBoundsCBActionPerformed
 
+    private void CustomThemeRBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CustomThemeRBActionPerformed
+    {//GEN-HEADEREND:event_CustomThemeRBActionPerformed
+        if (sysChanging) return;
+        SetupCustomThemeB.setEnabled(true);
+        if (BrightThemeRB.isSelected())
+            UpdateGraph();
+    }//GEN-LAST:event_CustomThemeRBActionPerformed
+
+    private void SetupCustomThemeBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SetupCustomThemeBActionPerformed
+    {//GEN-HEADEREND:event_SetupCustomThemeBActionPerformed
+        GraphThemeSetup themeSetup = new GraphThemeSetup(this);
+        themeSetup.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        themeSetup.setLocationRelativeTo(this);
+        themeSetup.setVisible(true);
+    }//GEN-LAST:event_SetupCustomThemeBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AfterCut;
@@ -1023,7 +1050,9 @@ public class GraphVis extends javax.swing.JFrame
     private javax.swing.JPanel AngularBoundsJP;
     private javax.swing.JButton BeforeCut;
     private javax.swing.JLabel BeforeCutL;
+    private javax.swing.JRadioButton BrightThemeRB;
     private javax.swing.JPanel ControllersPanel;
+    private javax.swing.JRadioButton CustomThemeRB;
     private javax.swing.JRadioButton DarkThemeRB;
     private javax.swing.JCheckBox EnforceAngularBounds;
     private javax.swing.JMenuItem ExitMenuItem;
@@ -1038,10 +1067,10 @@ public class GraphVis extends javax.swing.JFrame
     private javax.swing.JMenu HOnline;
     private javax.swing.JMenu HOnlineDocs;
     private javax.swing.JMenu HelpMenu;
-    private javax.swing.JRadioButton LightThemeRB;
     private javax.swing.JRadioButton RadialGraphRB;
     private javax.swing.JMenuItem SaveMenuItem;
     private javax.swing.JLabel SetAngularBoundsL;
+    private javax.swing.JButton SetupCustomThemeB;
     private javax.swing.JRadioButton SolidColorAgg;
     private javax.swing.JButton SolidColorB;
     private javax.swing.JCheckBox enforceLayoutBoundsCB;
@@ -1107,7 +1136,6 @@ public class GraphVis extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 
     private void EnableDisableAngularPanel(Boolean enable)
@@ -1187,72 +1215,74 @@ public class GraphVis extends javax.swing.JFrame
         repaint();
 
         if (RadialGraphRB.isSelected())
-            GlobalVariables.graphType = GraphType.Radial;
+            GlobalVariables.GraphOptions.graphType = GraphType.Radial;
         else
-            GlobalVariables.graphType = GraphType.ForceDirected;
+            GlobalVariables.GraphOptions.graphType = GraphType.ForceDirected;
 
         if (EnforceAngularBounds.isSelected())
-            GlobalVariables.enforceAngularBound = true;
+            GlobalVariables.GraphOptions.enforceAngularBound = true;
         else
-            GlobalVariables.enforceAngularBound = false;
-        GlobalVariables.angularBoundDegree = (int) AngularBoundDegree.getValue();
-        GlobalVariables.angularBoundRadius = (int) AngularBoundRadius.getValue();
+            GlobalVariables.GraphOptions.enforceAngularBound = false;
+        GlobalVariables.GraphOptions.angularBoundDegree = (int) AngularBoundDegree.getValue();
+        GlobalVariables.GraphOptions.angularBoundRadius = (int) AngularBoundRadius.getValue();
 
         if (GroupingNone.isSelected())
-            GlobalVariables.grouping = NodeGrouping.None;
+            GlobalVariables.GraphOptions.grouping = NodeGrouping.None;
         else if (GroupingColor.isSelected())
-            GlobalVariables.grouping = NodeGrouping.Color;
+            GlobalVariables.GraphOptions.grouping = NodeGrouping.Color;
         else
-            GlobalVariables.grouping = NodeGrouping.Aggregate;
+            GlobalVariables.GraphOptions.grouping = NodeGrouping.Aggregate;
 
-        if (LightThemeRB.isSelected())
-            GlobalVariables.useLightGraphTheme = true;
+        if (BrightThemeRB.isSelected())
+            GlobalVariables.GraphOptions.theme = Theme.Bright;
+        else if (DarkThemeRB.isSelected())
+            GlobalVariables.GraphOptions.theme = Theme.Dark;
         else
-            GlobalVariables.useLightGraphTheme = false;
+            GlobalVariables.GraphOptions.theme = Theme.Custom;
 
-        GlobalVariables.beforeCutColor = BeforeCut.getBackground();
-        GlobalVariables.afterCutColor = AfterCut.getBackground();
-        GlobalVariables.solidColor = SolidColorB.getBackground();
+        GlobalVariables.GraphOptions.beforeCutColor = BeforeCut.getBackground();
+        GlobalVariables.GraphOptions.afterCutColor = AfterCut.getBackground();
+        GlobalVariables.GraphOptions.solidColor = SolidColorB.getBackground();
 
         if (SolidColorAgg.isSelected())
-            GlobalVariables.useSolidAggColor = true;
+            GlobalVariables.GraphOptions.useSolidAggColor = true;
         else
-            GlobalVariables.useSolidAggColor = false;
+            GlobalVariables.GraphOptions.useSolidAggColor = false;
     }
 
     private void ThemeSetup()
     {
-        if (LightThemeRB.isSelected())
+        if (BrightThemeRB.isSelected())
         {
-            gtv.background = Color.white;
-            gtv.foreground = Color.black;
-            gtv.edgeColor = ColorLib.rgb(90, 90, 90);
-            gtv.textColor = ColorLib.rgb(0, 10, 10);
-            gtv.nodeColor = ColorLib.rgb(215, 215, 215);
-            gtv.textColorHover = ColorLib.rgb(200, 230, 230);
-            gtv.nodeColorHover = ColorLib.rgb(0, 10, 10);
-            gtv.nodeColorSelected = ColorLib.rgb(233, 255, 0);
-            gtv.nodeColorSearchResult = ColorLib.rgb(0, 255, 255);
-            gtv.nodeAggHoverStroke = ColorLib.rgb(255, 0, 0);
-            gtv.nodeAggDefaultStroke = ColorLib.rgb(0, 255, 0);
-            gtv.aggHoverStroke = ColorLib.rgb(255, 0, 120);
-            gtv.aggDefaultStroke = ColorLib.rgb(0, 10, 10);
+            gtv.background = ColorTheme.BrightTheme.background;
+            gtv.foreground = ColorTheme.BrightTheme.foreground;
+            gtv.edgeColor = ColorTheme.BrightTheme.edgeColor;
+            gtv.textColor = ColorTheme.BrightTheme.textColor;
+            gtv.nodeColor = ColorTheme.BrightTheme.nodeColor;
+            gtv.textColorHover = ColorTheme.BrightTheme.textColorHover;
+            gtv.nodeColorHover = ColorTheme.BrightTheme.nodeColorHover;
+            gtv.nodeColorSelected = ColorTheme.BrightTheme.nodeColorSelected;
+            gtv.nodeColorSearchResult = ColorTheme.BrightTheme.nodeColorSearchResult;
+            gtv.nodeAggHoverStroke = ColorTheme.BrightTheme.nodeAggHoverStroke;
+            gtv.nodeAggDefaultStroke = ColorTheme.BrightTheme.nodeAggDefaultStroke;
+            gtv.aggHoverStroke = ColorTheme.BrightTheme.aggHoverStroke;
+            gtv.aggDefaultStroke = ColorTheme.BrightTheme.aggDefaultStroke;
         }
         else
         {
-            gtv.background = Color.black;
-            gtv.foreground = Color.yellow;
-            gtv.edgeColor = ColorLib.rgb(40, 117, 254);
-            gtv.textColor = ColorLib.rgb(200, 255, 255);
-            gtv.nodeColor = ColorLib.rgb(0, 0, 20);
-            gtv.textColorHover = ColorLib.rgb(255, 165, 255);
-            gtv.nodeColorHover = ColorLib.rgb(30, 0, 60);
-            gtv.nodeColorSelected = ColorLib.rgb(7, 2, 30);
-            gtv.nodeColorSearchResult = ColorLib.rgb(80, 80, 0);
-            gtv.nodeAggHoverStroke = ColorLib.rgb(255, 0, 0);
-            gtv.nodeAggDefaultStroke = ColorLib.rgb(0, 255, 0);
-            gtv.aggHoverStroke = ColorLib.rgb(255, 244, 0);
-            gtv.aggDefaultStroke = ColorLib.rgb(60, 70, 150);
+            gtv.background = ColorTheme.DarkTheme.background;
+            gtv.foreground = ColorTheme.DarkTheme.foreground;
+            gtv.edgeColor = ColorTheme.DarkTheme.edgeColor;
+            gtv.textColor = ColorTheme.DarkTheme.textColor;
+            gtv.nodeColor = ColorTheme.DarkTheme.nodeColor;
+            gtv.textColorHover = ColorTheme.DarkTheme.textColorHover;
+            gtv.nodeColorHover = ColorTheme.DarkTheme.nodeColorHover;
+            gtv.nodeColorSelected = ColorTheme.DarkTheme.nodeColorSelected;
+            gtv.nodeColorSearchResult = ColorTheme.DarkTheme.nodeColorSearchResult;
+            gtv.nodeAggHoverStroke = ColorTheme.DarkTheme.nodeAggHoverStroke;
+            gtv.nodeAggDefaultStroke = ColorTheme.DarkTheme.nodeAggDefaultStroke;
+            gtv.aggHoverStroke = ColorTheme.DarkTheme.aggHoverStroke;
+            gtv.aggDefaultStroke = ColorTheme.DarkTheme.aggDefaultStroke;
 
             float[] hsb = new float[4];
             Color.RGBtoHSB(0, 4, 40, hsb);
