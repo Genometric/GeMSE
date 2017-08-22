@@ -45,7 +45,7 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import GeMSE.GS.Operations.Functions;
-import GeMSE.GS.Stats.StatisticalInferenceWindow;
+import GeMSE.GS.Analysis.Stats.StatisticalInferenceWindow;
 import GeMSE.IO.Loader;
 import GeMSE.IO.Loader.LoadType;
 import GeMSE.IO.OpenWebpage;

@@ -11,21 +11,22 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package GeMSE.GS.Stats;
+package GeMSE.GS.Analysis.Stats;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
+import org.apache.commons.math3.stat.correlation.Covariance;
+
 
 
 /**
  *
  * @author Vahid Jalili
  */
-public final class TwoSamplePearsonsCorrelationPanel extends javax.swing.JPanel
+public final class TwoSampleCovariancePanel extends javax.swing.JPanel
 {
-    public TwoSamplePearsonsCorrelationPanel()
+    public TwoSampleCovariancePanel()
     {
         initComponents();
 
@@ -35,12 +36,16 @@ public final class TwoSamplePearsonsCorrelationPanel extends javax.swing.JPanel
         decFors.setNaN("NaN");
         decFors.setInfinity("∞");
         _decFor.setDecimalFormatSymbols(decFors);
+
+        _biasCorrected = false;
+        BiasCorrectedCB.setSelected(_biasCorrected);
     }
-    
+
+    private Boolean _biasCorrected;
     private double[] _xArray;
     private double[] _yArray;
     private final DecimalFormat _decFor;
-    private PearsonsCorrelation _pearsonCorrelation;
+    private Covariance _covariance;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,9 +57,19 @@ public final class TwoSamplePearsonsCorrelationPanel extends javax.swing.JPanel
     private void initComponents()
     {
 
+        BiasCorrectedCB = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         CovarianceL = new javax.swing.JLabel();
+
+        BiasCorrectedCB.setText("bias corrected");
+        BiasCorrectedCB.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                BiasCorrectedCBActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -90,7 +105,9 @@ public final class TwoSamplePearsonsCorrelationPanel extends javax.swing.JPanel
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(298, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(BiasCorrectedCB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -98,12 +115,21 @@ public final class TwoSamplePearsonsCorrelationPanel extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BiasCorrectedCB)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BiasCorrectedCBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_BiasCorrectedCBActionPerformed
+    {//GEN-HEADEREND:event_BiasCorrectedCBActionPerformed
+        _biasCorrected = BiasCorrectedCB.isSelected();
+        RunAnalysis();
+    }//GEN-LAST:event_BiasCorrectedCBActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox BiasCorrectedCB;
     private javax.swing.JLabel CovarianceL;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -131,7 +157,7 @@ public final class TwoSamplePearsonsCorrelationPanel extends javax.swing.JPanel
             CovarianceL.setText("NaN");
             return;
         }
-        _pearsonCorrelation = new PearsonsCorrelation();
-        CovarianceL.setText(String.valueOf(_decFor.format(_pearsonCorrelation.correlation(_xArray, _yArray))));
+        _covariance = new Covariance();
+        CovarianceL.setText(String.valueOf(_decFor.format(_covariance.covariance(_xArray, _yArray, _biasCorrected))));
     }
 }

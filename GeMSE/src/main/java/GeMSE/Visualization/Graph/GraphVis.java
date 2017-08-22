@@ -225,6 +225,7 @@ public class GraphVis extends javax.swing.JFrame
         jMenu36 = new javax.swing.JMenu();
         jMenu37 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         ControllersPanel = new javax.swing.JPanel();
         AngularBoundsJP = new javax.swing.JPanel();
         SetAngularBoundsL = new javax.swing.JLabel();
@@ -260,7 +261,8 @@ public class GraphVis extends javax.swing.JFrame
         SaveMenuItem = new javax.swing.JMenuItem();
         ExitMenuItem = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
-        HOnline = new javax.swing.JMenu();
+        OnlineSupportMI = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         HOnlineDocs = new javax.swing.JMenu();
         HDInterface = new javax.swing.JMenuItem();
 
@@ -379,8 +381,9 @@ public class GraphVis extends javax.swing.JFrame
 
         jMenuItem1.setText("jMenuItem1");
 
+        jMenuItem2.setText("jMenuItem2");
+
         setMinimumSize(new java.awt.Dimension(600, 400));
-        setPreferredSize(new java.awt.Dimension(1300, 780));
         setSize(new java.awt.Dimension(1300, 780));
 
         ControllersPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -776,15 +779,16 @@ public class GraphVis extends javax.swing.JFrame
 
         HelpMenu.setText("  Help  ");
 
-        HOnline.setText("     Online Support     ");
-        HOnline.addActionListener(new java.awt.event.ActionListener()
+        OnlineSupportMI.setText("     Online Support     ");
+        OnlineSupportMI.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                HOnlineActionPerformed(evt);
+                OnlineSupportMIActionPerformed(evt);
             }
         });
-        HelpMenu.add(HOnline);
+        HelpMenu.add(OnlineSupportMI);
+        HelpMenu.add(jSeparator1);
 
         HOnlineDocs.setText("     Online Docs     ");
 
@@ -1005,18 +1009,6 @@ public class GraphVis extends javax.swing.JFrame
         }
     }//GEN-LAST:event_HDInterfaceActionPerformed
 
-    private void HOnlineActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_HOnlineActionPerformed
-    {//GEN-HEADEREND:event_HOnlineActionPerformed
-        try
-        {
-            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/issues"));
-        }
-        catch (URISyntaxException ex)
-        {
-            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_HOnlineActionPerformed
-
     private void enforceLayoutBoundsCBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_enforceLayoutBoundsCBActionPerformed
     {//GEN-HEADEREND:event_enforceLayoutBoundsCBActionPerformed
         if (sysChanging) return;
@@ -1040,6 +1032,18 @@ public class GraphVis extends javax.swing.JFrame
         themeSetup.setVisible(true);
         UpdateGraph();
     }//GEN-LAST:event_SetupCustomThemeBActionPerformed
+
+    private void OnlineSupportMIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_OnlineSupportMIActionPerformed
+    {//GEN-HEADEREND:event_OnlineSupportMIActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/issues"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_OnlineSupportMIActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1066,9 +1070,9 @@ public class GraphVis extends javax.swing.JFrame
     private javax.swing.JLabel GroupingLabel;
     private javax.swing.JRadioButton GroupingNone;
     private javax.swing.JMenuItem HDInterface;
-    private javax.swing.JMenu HOnline;
     private javax.swing.JMenu HOnlineDocs;
     private javax.swing.JMenu HelpMenu;
+    private javax.swing.JMenuItem OnlineSupportMI;
     private javax.swing.JRadioButton RadialGraphRB;
     private javax.swing.JMenuItem SaveMenuItem;
     private javax.swing.JLabel SetAngularBoundsL;
@@ -1136,8 +1140,10 @@ public class GraphVis extends javax.swing.JFrame
     private javax.swing.JMenuBar jMenuBar8;
     private javax.swing.JMenuBar jMenuBar9;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
     private void EnableDisableAngularPanel(Boolean enable)
@@ -1270,7 +1276,7 @@ public class GraphVis extends javax.swing.JFrame
             gtv.aggHoverStroke = ColorTheme.BrightTheme.aggHoverStroke;
             gtv.aggDefaultStroke = ColorTheme.BrightTheme.aggDefaultStroke;
         }
-        else if(DarkThemeRB.isSelected())
+        else if (DarkThemeRB.isSelected())
         {
             gtv.background = ColorTheme.DarkTheme.background;
             gtv.foreground = ColorTheme.DarkTheme.foreground;

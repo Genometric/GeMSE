@@ -11,14 +11,20 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package GeMSE.GS.Stats;
+package GeMSE.GS.Analysis.Stats;
 
 import GeMSE.GS.History.NodeData;
 import GeMSE.GS.TreeInfo;
+import GeMSE.GeMSE;
 import GeMSE.GlobalVariables;
+import GeMSE.IO.OpenWebpage;
 import GeMSE.Popups.TreeClickListener;
 import GeMSE.StateSpaceTree.A2MConverter;
 import GeMSE.StateSpaceTree.StateSpaceTreeRenderer;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -116,7 +122,11 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        ExitMI = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        OnlineSupportMI = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        OnlineDocsMI = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -246,9 +256,42 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
         );
 
         jMenu1.setText(" File ");
+
+        ExitMI.setText("     Exit     ");
+        ExitMI.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                ExitMIActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ExitMI);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText(" Edit ");
+        jMenu2.setText(" Help ");
+
+        OnlineSupportMI.setText("     Online Support     ");
+        OnlineSupportMI.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                OnlineSupportMIActionPerformed(evt);
+            }
+        });
+        jMenu2.add(OnlineSupportMI);
+        jMenu2.add(jSeparator1);
+
+        OnlineDocsMI.setText("     Online Docs     ");
+        OnlineDocsMI.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                OnlineDocsMIActionPerformed(evt);
+            }
+        });
+        jMenu2.add(OnlineDocsMI);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -329,6 +372,35 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
         _sysCV = t;
     }//GEN-LAST:event_AnalysisCBActionPerformed
 
+    private void ExitMIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ExitMIActionPerformed
+    {//GEN-HEADEREND:event_ExitMIActionPerformed
+        dispose();
+    }//GEN-LAST:event_ExitMIActionPerformed
+
+    private void OnlineDocsMIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_OnlineDocsMIActionPerformed
+    {//GEN-HEADEREND:event_OnlineDocsMIActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/wiki/Statistical-Inference"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_OnlineDocsMIActionPerformed
+
+    private void OnlineSupportMIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_OnlineSupportMIActionPerformed
+    {//GEN-HEADEREND:event_OnlineSupportMIActionPerformed
+        try
+        {
+            OpenWebpage.open(new URI("https://github.com/Genometric/GeMSE/issues"));
+        }
+        catch (URISyntaxException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_OnlineSupportMIActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -383,6 +455,9 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
     private javax.swing.JComboBox<String> AnalysisCB;
     private javax.swing.JLabel ChooseAnalysisL;
     private javax.swing.JLabel ChooseTestL;
+    private javax.swing.JMenuItem ExitMI;
+    private javax.swing.JMenuItem OnlineDocsMI;
+    private javax.swing.JMenuItem OnlineSupportMI;
     private javax.swing.JScrollPane ResultsSP;
     private javax.swing.JCheckBox Sample1CB;
     private javax.swing.JScrollPane Sample1SP;
@@ -398,6 +473,7 @@ public class StatisticalInferenceWindow extends javax.swing.JFrame
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
     private void PerformStatInference()
