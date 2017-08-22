@@ -13,11 +13,13 @@
  */
 package GeMSE.GS.Transitions.Options;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Vahid Jalili
  */
-public class SortOptions implements Cloneable
+public class SortOptions implements Cloneable, Serializable
 {
     public SortOptions(int colCount, int rowCount)
     {
@@ -26,6 +28,8 @@ public class SortOptions implements Cloneable
         _colCount = colCount;
         _rowCount = rowCount;
     }
+    
+    public static final long serialVersionUID = 1;
 
     public enum Orders
     {
