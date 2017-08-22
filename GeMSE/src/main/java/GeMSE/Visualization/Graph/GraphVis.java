@@ -33,6 +33,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -63,6 +66,7 @@ public class GraphVis extends javax.swing.JFrame
     {
         initComponents();
         sysChanging = true;
+        _graphMLFile = graphMLFile;
 
         ButtonGroup groupA = new ButtonGroup();
         groupA.add(RadialGraphRB);
@@ -146,7 +150,7 @@ public class GraphVis extends javax.swing.JFrame
 
         try
         {
-            _graph = new GraphMLReader().readGraph(graphMLFile);
+            _graph = new GraphMLReader().readGraph(_graphMLFile);
         }
         catch (DataIOException ex)
         {
@@ -157,6 +161,7 @@ public class GraphVis extends javax.swing.JFrame
     private Boolean sysChanging;
     private GraphTreeVis gtv;
     private Graph _graph;
+    private String _graphMLFile;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -384,7 +389,15 @@ public class GraphVis extends javax.swing.JFrame
         jMenuItem2.setText("jMenuItem2");
 
         setMinimumSize(new java.awt.Dimension(600, 400));
+        setPreferredSize(new java.awt.Dimension(1300, 780));
         setSize(new java.awt.Dimension(1300, 780));
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
+            }
+        });
 
         ControllersPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -972,22 +985,29 @@ public class GraphVis extends javax.swing.JFrame
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF (Portable Document Format)", "PDF", "pdf"));
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("PNG (Portable Network Graphics)", "PNG", "png"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("GraphML", "XML", "xml"));
 
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
         {
             GlobalVariables.SetLastBrowsedDirectoryFromFile((chooser.getSelectedFile()).getAbsolutePath());
             File file;
-            if (chooser.getFileFilter().getDescription().equals("PNG (Portable Network Graphics)"))
+            switch (chooser.getFileFilter().getDescription())
             {
-                file = new File((chooser.getSelectedFile()).getAbsolutePath().concat(".png"));
-                if (CheckWritePermission(file))
-                    SaveAsPNG(file);
-            }
-            else
-            {
-                file = new File((chooser.getSelectedFile()).getAbsolutePath().concat(".pdf"));
-                if (CheckWritePermission(file))
-                    SaveAsPDF(file);
+                case "PNG (Portable Network Graphics)":
+                    file = new File((chooser.getSelectedFile()).getAbsolutePath().concat(".png"));
+                    if (CheckWritePermission(file))
+                        SaveAsPNG(file);
+                    break;
+                case "PDF (Portable Document Format)":
+                    file = new File((chooser.getSelectedFile()).getAbsolutePath().concat(".pdf"));
+                    if (CheckWritePermission(file))
+                        SaveAsPDF(file);
+                    break;
+                default:
+                    file = new File((chooser.getSelectedFile()).getAbsolutePath().concat(".xml"));
+                    if (CheckWritePermission(file))
+                        SaveAsGraphML(file);
+                    break;
             }
         }
     }//GEN-LAST:event_SaveMenuItemActionPerformed
@@ -1044,6 +1064,11 @@ public class GraphVis extends javax.swing.JFrame
             Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_OnlineSupportMIActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+        new File(_graphMLFile).delete();
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1377,6 +1402,18 @@ public class GraphVis extends javax.swing.JFrame
         {
             if (document.isOpen())
                 document.close();
+        }
+    }
+
+    private void SaveAsGraphML(File file)
+    {
+        try
+        {
+            Files.copy(Paths.get(_graphMLFile), file.toPath());
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(GraphVis.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -1128,7 +1128,7 @@ public class PatternSearchWindow extends javax.swing.JFrame
         gVis.setLocationRelativeTo(this);
         gVis.setVisible(true);
         gVis.UpdateGraph();
-        new File(filename).delete();
+        //new File(filename).delete();
     }//GEN-LAST:event_GraphVisualizationActionPerformed
 
     private void UseReferenceAnnotation_RBActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_UseReferenceAnnotation_RBActionPerformed
