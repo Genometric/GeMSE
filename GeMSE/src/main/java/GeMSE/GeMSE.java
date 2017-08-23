@@ -56,6 +56,7 @@ import GeMSE.GS.Transitions.Options.SortOptions;
 import GeMSE.Popups.GSDataGridClickListener;
 import GeMSE.Popups.HeatmapClickListener;
 import GeMSE.Popups.TreeClickListener;
+import GeMSE.Visualization.BoxAndWhiskerPlot;
 import java.awt.Component;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -169,6 +170,8 @@ public class GeMSE extends javax.swing.JFrame
         Tools_JM = new javax.swing.JMenu();
         SearchPatternMI = new javax.swing.JMenuItem();
         StatisticalInferenceMI = new javax.swing.JMenuItem();
+        ViewMenu = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
         HOnlineSupport = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
@@ -648,6 +651,20 @@ public class GeMSE extends javax.swing.JFrame
 
         jMenuBar1.add(Tools_JM);
 
+        ViewMenu.setText("  View  ");
+
+        jMenuItem4.setText("     Box-and-whisker plot     ");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        ViewMenu.add(jMenuItem4);
+
+        jMenuBar1.add(ViewMenu);
+
         HelpMenu.setText("  Help  ");
 
         HOnlineSupport.setLabel("     Online Support     ");
@@ -1111,6 +1128,14 @@ public class GeMSE extends javax.swing.JFrame
         siw.setVisible(true);
     }//GEN-LAST:event_StatisticalInferenceMIActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem4ActionPerformed
+        BoxAndWhiskerPlot boxPlot = new BoxAndWhiskerPlot(GlobalVariables.space.space);
+        boxPlot.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        boxPlot.setLocationRelativeTo(this);
+        boxPlot.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1209,6 +1234,7 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JMenuItem StatisticalInferenceMI;
     private javax.swing.JMenu Tools_JM;
     private javax.swing.JScrollPane Tree_ScrollPane;
+    private javax.swing.JMenu ViewMenu;
     private javax.swing.JTable _inputSamplesDG;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel gridView_tab;
@@ -1217,6 +1243,7 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
