@@ -43,7 +43,6 @@ import GeMSE.GS.Transitions.Options.ClusteringOptions;
 import GeMSE.Popups.DataGridClickListener;
 import GeMSE.Popups.HeatmapClickListener;
 import java.awt.Color;
-import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashSet;

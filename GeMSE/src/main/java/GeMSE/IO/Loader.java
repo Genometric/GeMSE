@@ -13,12 +13,10 @@
  */
 package GeMSE.IO;
 
+import GeMSE.GS.Analysis.PatternSearch.PatternSearchWindow;
 import GeMSE.GS.SampleData;
 import GeMSE.GlobalVariables;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -142,16 +140,12 @@ public class Loader
 
         if (_samplesAreHeterogeneous)
         {
-            int dialogResult
-                = JOptionPane.showConfirmDialog(
-                            null,
-                            "The files you have selected differ with each other (and/or with previously loaded samples) in the number of parsed features.\n"
-                            + "This happens when you provide heterogeneous input data.\n"
-                            + "GeMSE can help loading such datasets, by mapping the features on a reference sample (e.g., annotations).\n\n"
-                            + "Do you want to provide a reference sample to fix the issue?\n"
-                            + "You may choose to cancel loading these samples.",
-                            "Heterogeneous data!", 2);
-            if (dialogResult == JOptionPane.YES_OPTION)
+            ConfirmHetroDataLoad cHL = new ConfirmHetroDataLoad(null, true);
+            cHL.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            cHL.setLocationRelativeTo(null);
+            cHL.setVisible(true);
+
+            if (cHL.IsOKSelected())
             {
                 if (!CreatehomogeneousSamples()) return false;
             }
