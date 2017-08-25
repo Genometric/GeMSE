@@ -42,8 +42,8 @@ public class ConfirmHetroDataLoad extends javax.swing.JDialog
         setResizable(false);
         try
         {
-            HetroDataIcon.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/hetroData.png"))));
-            HomoDataIcon.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/homoData.png"))));
+            HetroDataIcon.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/images/hetroData.png"))));
+            HomoDataIcon.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/images/homoData.png"))));
         }
         catch (IOException ex)
         {
