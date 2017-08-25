@@ -22,7 +22,7 @@ import GeMSE.GS.History.NodeData;
 import GeMSE.GS.GenometricSpace;
 import GeMSE.StateSpaceTree.StateSpaceTreeRenderer;
 import GeMSE.StateSpaceTree.TreeNodeVector;
-import GeMSE.GS.Transitions.Panels.OVDendrogramPanel;
+import GeMSE.Views.OVDendrogramPanel;
 import GeMSE.GS.Transitions.Panels.OperationsOptions;
 import GeMSE.GS.Analysis.PatternSearch.PatternSearchWindow;
 import javax.swing.table.DefaultTableModel;
@@ -56,6 +56,9 @@ import GeMSE.GS.Transitions.Options.SortOptions;
 import GeMSE.Popups.GSDataGridClickListener;
 import GeMSE.Popups.HeatmapClickListener;
 import GeMSE.Popups.TreeClickListener;
+import GeMSE.Views.GridView;
+import GeMSE.Views.HeatmapView;
+import GeMSE.Views.WelcomeView;
 import GeMSE.Visualization.BoxAndWhiskerPlot;
 import java.awt.Component;
 import java.net.URI;
@@ -78,6 +81,8 @@ public class GeMSE extends javax.swing.JFrame
     private Object _selectedNodeOperationParameters = null;
     private final OperationsOptions _operationsOptions = new OperationsOptions();
     private OVDendrogramPanel _dendrogramPanel;
+    private GridView _gridView;
+    private HeatmapView _heatmapView;
 
     /**
      * Creates new form MainWindow
@@ -103,9 +108,6 @@ public class GeMSE extends javax.swing.JFrame
         EnableDisableTransformation(false);
 
         GlobalVariables.plotElbowMethodOutput = true;
-
-        HeatMapPlot.addMouseListener(new HeatmapClickListener());
-        space_DG.addMouseListener(new GSDataGridClickListener(this));
     }
 
     /**
@@ -150,12 +152,8 @@ public class GeMSE extends javax.swing.JFrame
         Operations_Options_SP = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
         spaceIllustrationTab = new javax.swing.JTabbedPane();
-        heatMap_tab = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        HeatMapPlot = new javax.swing.JLabel();
-        gridView_tab = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        space_DG = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        WelcomePageSP = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         File_JM = new javax.swing.JMenu();
         Load_MI = new javax.swing.JMenuItem();
@@ -171,7 +169,7 @@ public class GeMSE extends javax.swing.JFrame
         SearchPatternMI = new javax.swing.JMenuItem();
         StatisticalInferenceMI = new javax.swing.JMenuItem();
         ViewMenu = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        boxWhiskerPlotMI = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
         HOnlineSupport = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
@@ -482,66 +480,18 @@ public class GeMSE extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        HeatMapPlot.setBackground(new java.awt.Color(255, 0, 102));
-        HeatMapPlot.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        HeatMapPlot.setText("No Plot");
-        HeatMapPlot.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jScrollPane4.setViewportView(HeatMapPlot);
-
-        javax.swing.GroupLayout heatMap_tabLayout = new javax.swing.GroupLayout(heatMap_tab);
-        heatMap_tab.setLayout(heatMap_tabLayout);
-        heatMap_tabLayout.setHorizontalGroup(
-            heatMap_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, heatMap_tabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(WelcomePageSP, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
         );
-        heatMap_tabLayout.setVerticalGroup(
-            heatMap_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(heatMap_tabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4)
-                .addContainerGap())
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(WelcomePageSP, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
         );
 
-        spaceIllustrationTab.addTab("   Heat Map   ", heatMap_tab);
-
-        space_DG.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String []
-            {
-
-            }
-        ));
-        space_DG.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        space_DG.setCellSelectionEnabled(true);
-        jScrollPane1.setViewportView(space_DG);
-
-        javax.swing.GroupLayout gridView_tabLayout = new javax.swing.GroupLayout(gridView_tab);
-        gridView_tab.setLayout(gridView_tabLayout);
-        gridView_tabLayout.setHorizontalGroup(
-            gridView_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gridView_tabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        gridView_tabLayout.setVerticalGroup(
-            gridView_tabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gridView_tabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        spaceIllustrationTab.addTab("   Grid View   ", gridView_tab);
+        spaceIllustrationTab.addTab("     Welcome Page     ", jPanel3);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -653,15 +603,15 @@ public class GeMSE extends javax.swing.JFrame
 
         ViewMenu.setText("  View  ");
 
-        jMenuItem4.setText("     Box-and-whisker plot     ");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener()
+        boxWhiskerPlotMI.setText("     Box-and-whisker plot     ");
+        boxWhiskerPlotMI.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jMenuItem4ActionPerformed(evt);
+                boxWhiskerPlotMIActionPerformed(evt);
             }
         });
-        ViewMenu.add(jMenuItem4);
+        ViewMenu.add(boxWhiskerPlotMI);
 
         jMenuBar1.add(ViewMenu);
 
@@ -841,8 +791,11 @@ public class GeMSE extends javax.swing.JFrame
 
     private void formWindowStateChanged(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowStateChanged
     {//GEN-HEADEREND:event_formWindowStateChanged
-        HeatMapPlot.setIcon(null);
-        HeatMapPlot.setText("GeMSE");
+        if (GlobalVariables.space != null
+            && GlobalVariables.space.space != null
+            && GlobalVariables.space.space.content != null
+            && GlobalVariables.space.space.content.length > 0)
+            UpdatePlot();
     }//GEN-LAST:event_formWindowStateChanged
 
     private void Create_GS_BTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Create_GS_BTActionPerformed
@@ -855,7 +808,7 @@ public class GeMSE extends javax.swing.JFrame
         GlobalVariables.space.UpdateSpace(GetSelectedNodeID());
         GlobalVariables.space.space.UpdateColumnsTitles();
         GlobalVariables.space.space.UpdateRowsTitles();
-        UpdateGenometricSpaceDataGrid();
+        _gridView.Display(GlobalVariables.space.space);
         GlobalVariables.sessionSerializationRequired = true;
     }//GEN-LAST:event_Create_GS_BTActionPerformed
 
@@ -944,7 +897,7 @@ public class GeMSE extends javax.swing.JFrame
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
         HeatmapOptions hmO = new HeatmapOptions();
-        hmO.SetDefaultPlotSize(HeatMapPlot.getSize());
+        //hmO.SetDefaultPlotSize(HeatMapPlot.getSize());
         hmO.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         hmO.setLocationRelativeTo(this);
         hmO.setVisible(true);
@@ -969,7 +922,7 @@ public class GeMSE extends javax.swing.JFrame
             GlobalVariables.space.UpdateSpace(GetSelectedNodeID());
             GlobalVariables.space.space.UpdateColumnsTitles();
             GlobalVariables.space.space.UpdateRowsTitles();
-            UpdateGenometricSpaceDataGrid();
+            _gridView.Display(GlobalVariables.space.space);
             GlobalVariables.sessionSerializationRequired = false;
         }
         catch (Exception ex)
@@ -1128,13 +1081,13 @@ public class GeMSE extends javax.swing.JFrame
         siw.setVisible(true);
     }//GEN-LAST:event_StatisticalInferenceMIActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem4ActionPerformed
-    {//GEN-HEADEREND:event_jMenuItem4ActionPerformed
+    private void boxWhiskerPlotMIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_boxWhiskerPlotMIActionPerformed
+    {//GEN-HEADEREND:event_boxWhiskerPlotMIActionPerformed
         BoxAndWhiskerPlot boxPlot = new BoxAndWhiskerPlot(GlobalVariables.space.space);
         boxPlot.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         boxPlot.setLocationRelativeTo(this);
         boxPlot.setVisible(true);
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_boxWhiskerPlotMIActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1217,7 +1170,6 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JMenuItem HVOverview;
     private javax.swing.JMenuItem HVSave;
     private javax.swing.JMenu HVideoTutorial;
-    private javax.swing.JLabel HeatMapPlot;
     private javax.swing.JPopupMenu HeatmapPopupMenu;
     private javax.swing.JMenu HelpMenu;
     private javax.swing.JMenuItem LoadSessionMI;
@@ -1235,30 +1187,27 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JMenu Tools_JM;
     private javax.swing.JScrollPane Tree_ScrollPane;
     private javax.swing.JMenu ViewMenu;
+    private javax.swing.JScrollPane WelcomePageSP;
     private javax.swing.JTable _inputSamplesDG;
+    private javax.swing.JMenuItem boxWhiskerPlotMI;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JPanel gridView_tab;
-    private javax.swing.JPanel heatMap_tab;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JTabbedPane spaceIllustrationTab;
-    private javax.swing.JTable space_DG;
     // End of variables declaration//GEN-END:variables
 
 
@@ -1368,47 +1317,6 @@ public class GeMSE extends javax.swing.JFrame
                 selectedFeature,
                 Determined_Atts_CB.getSelectedItem().toString(),
                 mnr);
-    }
-
-    private void UpdateGenometricSpaceDataGrid()
-    {
-        DefaultTableModel spaceTabMod = new DefaultTableModel()
-        {
-            @Override
-            public boolean isCellEditable(int row, int column)
-            {
-                return false;
-            }
-        };
-
-        String[] gotColumnTitle = GlobalVariables.space.space.colTitle;
-        String[] gotRowTitle = GlobalVariables.space.space.rowTitle;
-        String[] columnTitle = new String[gotColumnTitle.length + 2];
-        columnTitle[0] = "index";
-        columnTitle[1] = "Region label";
-        System.arraycopy(gotColumnTitle, 0, columnTitle, 2, gotColumnTitle.length);
-
-        spaceTabMod.setColumnIdentifiers(columnTitle);
-
-        int spaceColSize = GlobalVariables.space.space.content[0].length;
-
-        int col = 0;
-        for (int r = 0 ; r < GlobalVariables.space.space.content.length ; r++)
-        {
-            String[] row = new String[spaceColSize + 2];
-            row[0] = Integer.toString(r);
-            row[1] = gotRowTitle[r];
-
-            for (col = 0 ; col < spaceColSize ; col++)
-                row[col + 2] = Double.toString(GlobalVariables.space.space.content[r][col]);
-
-            spaceTabMod.addRow(row);
-        }
-
-        this.space_DG.setModel(spaceTabMod);
-        this.space_DG.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        this.space_DG.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        ResizeColumnWidth(this.space_DG);
     }
 
     private String GetSelectedNodeID()
@@ -1608,9 +1516,24 @@ public class GeMSE extends javax.swing.JFrame
         Auto_Cell_Dimension_CB.setEnabled(enable);
         AutoUpdatePlotCB.setEnabled(enable);
         Plot_HeatMap_BT.setEnabled(enable);
-        spaceIllustrationTab.setEnabled(enable);
+        //spaceIllustrationTab.setEnabled(enable);
         SearchPatternMI.setEnabled(enable);
         StatisticalInferenceMI.setEnabled(enable);
+        boxWhiskerPlotMI.setEnabled(enable);
+
+        if (enable)
+        {
+            spaceIllustrationTab.removeAll();
+            _heatmapView = new HeatmapView();
+            spaceIllustrationTab.addTab("   Heatmap   ", _heatmapView);
+            _gridView = new GridView();
+            spaceIllustrationTab.addTab("   Grid View   ", _gridView);
+        }
+        else
+        {
+            spaceIllustrationTab.removeAll();
+            spaceIllustrationTab.add("   Welcome   ", new WelcomeView());
+        }
     }
 
     private void EnableDisableTransformation(Boolean enable)
@@ -1654,41 +1577,22 @@ public class GeMSE extends javax.swing.JFrame
 
     public void UpdatePlot()
     {
-        HeatMapPlot.setText("");
-
-        Dimension dimension = new Dimension(spaceIllustrationTab.getSize().width - 75, spaceIllustrationTab.getSize().height - 75);
-
         GlobalVariables.space.UpdateSpace(GetSelectedNodeID());
         GlobalVariables.space.space.UpdateColumnsTitles();
         GlobalVariables.space.space.UpdateRowsTitles();
-        HeatMap.InitializeChart(GlobalVariables.space.space);
 
-        if (Auto_Cell_Dimension_CB.isSelected() == true)
-        {
-            dimension.height = (int) Math.round((dimension.height - (HeatMap.GetChartMargin() * 8.00)) / GlobalVariables.space.space.content.length);
-            dimension.width = (int) Math.round((dimension.width - (HeatMap.GetChartMargin() * 5.0)) / GlobalVariables.space.space.content[0].length);
+        Dimension dimension
+                  = new Dimension(
+                        Integer.parseInt(HM_Cell_Dim_MinW_TB.getText()),
+                        Integer.parseInt(HM_Cell_Dim_MinH_TB.getText()));
+        Dimension calDimension
+                  = _heatmapView.Plot(
+                        GlobalVariables.space.space,
+                        spaceIllustrationTab.getSize(),
+                        Auto_Cell_Dimension_CB.isSelected(),
+                        dimension);
 
-            if (dimension.height < 1) dimension.height = 1;
-            if (dimension.width < 1) dimension.width = 1;
-
-            HM_Cell_Dim_MinH_TB.setText(String.valueOf(dimension.height));
-            HM_Cell_Dim_MinW_TB.setText(String.valueOf(dimension.width));
-        }
-        else
-        {
-            dimension.height = Integer.parseInt(HM_Cell_Dim_MinH_TB.getText());
-            dimension.width = Integer.parseInt(HM_Cell_Dim_MinW_TB.getText());
-        }
-
-        try
-        {
-            HeatMapPlot.setIcon(new javax.swing.ImageIcon(HeatMap.GetHeatMap(dimension)));
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        UpdateGenometricSpaceDataGrid();
+        HM_Cell_Dim_MinH_TB.setText(String.valueOf(calDimension.height));
+        HM_Cell_Dim_MinW_TB.setText(String.valueOf(calDimension.width));
     }
 }
