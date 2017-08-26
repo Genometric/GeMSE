@@ -13,11 +13,13 @@
  */
 package GeMSE.GS.Transitions.Options;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Vahid Jalili
  */
-public class Map implements Cloneable
+public class Map implements Cloneable, Serializable
 {
     public Map(double rangeStart, double rangeStop, Function function, double argument)
     {
@@ -26,6 +28,8 @@ public class Map implements Cloneable
         _function = function;
         _argument = argument;
     }
+    
+    public static final long serialVersionUID = 1;
 
     private final double _rangeStart;
     private final double _rangeStop;
