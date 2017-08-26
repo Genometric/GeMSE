@@ -15,7 +15,6 @@ package GeMSE;
 
 import GeMSE.IO.SessionIO;
 import GeMSE.Visualization.HeatmapOptions;
-import GeMSE.Visualization.HeatMap;
 import GeMSE.GS.SampleData;
 import GeMSE.StateSpaceTree.A2MConverter;
 import GeMSE.GS.History.NodeData;
@@ -28,7 +27,6 @@ import GeMSE.GS.Analysis.PatternSearch.PatternSearchWindow;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.awt.Dimension;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
@@ -53,8 +51,6 @@ import GeMSE.GS.Transitions.Options.ClusteringOptions;
 import GeMSE.GS.Transitions.Options.DiscretizeOptions;
 import GeMSE.GS.Transitions.Options.SelectOptions;
 import GeMSE.GS.Transitions.Options.SortOptions;
-import GeMSE.Popups.GSDataGridClickListener;
-import GeMSE.Popups.HeatmapClickListener;
 import GeMSE.Popups.TreeClickListener;
 import GeMSE.Views.GridView;
 import GeMSE.Views.HeatmapView;
@@ -66,7 +62,6 @@ import java.net.URISyntaxException;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -1532,7 +1527,7 @@ public class GeMSE extends javax.swing.JFrame
         else
         {
             spaceIllustrationTab.removeAll();
-            spaceIllustrationTab.add("   Welcome   ", new WelcomeView());
+            //spaceIllustrationTab.add("   Welcome   ", new WelcomeView());
         }
     }
 
