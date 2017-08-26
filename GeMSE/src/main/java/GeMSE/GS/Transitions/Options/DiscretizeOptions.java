@@ -13,13 +13,14 @@
  */
 package GeMSE.GS.Transitions.Options;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Vahid Jalili
  */
-public class DiscretizeOptions implements Cloneable
+public class DiscretizeOptions implements Cloneable, Serializable
 {
     public DiscretizeOptions(double minValue, double maxValue, int columnFrom, int columnTo, int rowFrom, int rowTo)
     {
@@ -27,6 +28,8 @@ public class DiscretizeOptions implements Cloneable
         _minValue = minValue;
         _maxValue = maxValue;
     }
+    
+    public static final long serialVersionUID = 1;
 
     private double _minValue;
     private double _maxValue;
