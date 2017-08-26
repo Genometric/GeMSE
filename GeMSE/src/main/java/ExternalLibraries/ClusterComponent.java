@@ -20,13 +20,15 @@ package ExternalLibraries;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
 
-public class ClusterComponent implements Paintable
+public class ClusterComponent implements Paintable, Serializable
 {
+    public static final long serialVersionUID = 1;
     private Cluster cluster;
     private VCoord linkPoint;
     private VCoord initPoint;

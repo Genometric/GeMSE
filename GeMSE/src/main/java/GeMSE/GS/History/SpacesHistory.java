@@ -11,10 +11,10 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package GeMSE.GS.History;
 
 import GeMSE.GS.Space;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,11 +22,10 @@ import java.util.Map;
  *
  * @author Vahid Jalili
  */
-public class SpacesHistory
+public class SpacesHistory implements Serializable
 {
-
+    public static final long serialVersionUID = 1;
     private final HashMap<String, Space> _history;
-
     public int maximumNumberOfSpacesToBeCached = 1;
 
     public SpacesHistory()

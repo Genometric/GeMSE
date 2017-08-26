@@ -15,20 +15,29 @@ package GeMSE;
 
 import GeMSE.GS.SampleData;
 import GeMSE.GS.GenometricSpace;
-import GeMSE.OperationsOptions.ClusteringOptions;
+import GeMSE.Visualization.Graph.GraphType;
+import GeMSE.Visualization.Graph.NodeGrouping;
+import GeMSE.GS.Transitions.Options.ClusteringOptions;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import prefuse.util.ColorLib;
 
 /**
  *
  * @author Vahid Jalili
  */
-public class GlobalVariables
+public class GlobalVariables implements Serializable
 {
+    public static final long serialVersionUID = 1;
     public static GenometricSpace space;
+    public static String selectedNodeID;
 
     public static ArrayList<SampleData> samples = new ArrayList<>();
     public static SampleData annotations = new SampleData();
@@ -38,14 +47,12 @@ public class GlobalVariables
     public static String selectedColumnLabelOption;
 
     public static String[] availableRowLabelOptions;
-    public static String selectedRowLabelOption;
     public static int columnIndexToReadRowsInfoFrom;
 
     public static Color lowValueColor = Color.YELLOW;
     public static Color hightValueColor = Color.BLUE;
 
     public static Boolean disablePopups;
-
 
     private static String _lastBrowsedDirectory;
     public static String GetLastBrowsedDirectory()
@@ -78,11 +85,11 @@ public class GlobalVariables
         SetLastBrowsedDirectory. However, to enable both options 
         I created two functions. If you want to use a., then
         simply uncomment options a. and comment out b.
-        */
-        
+         */
+
         // a. 
         //_lastBrowsedDirectory = path;
-        
+
         // b. 
         _lastBrowsedDirectory = path.substring(0, path.lastIndexOf(File.separator));
     }
@@ -131,14 +138,124 @@ public class GlobalVariables
         ID, SampleAttributes, ReferenceAttributes
     }
     public static RLS rowLabelsSource = RLS.ID;
-
-    public static String rowLabelsSourceSelectedSample;
-    public static String rowLabelsSourceSelectedAttribute;
+    public static String rowLabelsSourceSelectedSample = "";
+    public static String rowLabelsSourceSelectedAttribute = "";
 
     public static Boolean plotElbowMethodOutput;
+    public static Boolean sessionSerializationRequired = false;
 
-    public static class HeatmapOptions
+    private void writeObject(ObjectOutputStream stream) throws IOException
     {
+        stream.writeObject(space);
+        stream.writeObject(samples);
+        stream.writeObject(annotations);
+        stream.writeObject(featuresCount);
+        stream.writeObject(availableColumnLabelOptions);
+        stream.writeObject(selectedColumnLabelOption);
+        stream.writeObject(availableRowLabelOptions);
+        stream.writeInt(columnIndexToReadRowsInfoFrom);
+        stream.writeObject(lowValueColor);
+        stream.writeObject(hightValueColor);
+        stream.writeBoolean(disablePopups);
+        stream.writeObject(_lastBrowsedDirectory);
+        stream.writeObject(rowLabelsSource);
+        stream.writeObject(rowLabelsSourceSelectedSample);
+        stream.writeObject(rowLabelsSourceSelectedAttribute);
+        stream.writeBoolean(plotElbowMethodOutput);
+        stream.writeBoolean(HeatmapOptions.heatmpaType);
+        stream.writeObject(HeatmapOptions.heatmapCommand);
+        stream.writeObject(HeatmapOptions.heatmapParameters);
+        stream.writeObject(HeatmapOptions.heatmapTitle);
+        stream.writeObject(HeatmapOptions.horizontalAxisTitle);
+        stream.writeObject(HeatmapOptions.verticalAxisTitle);
+        stream.writeObject(HeatmapOptions.size);
+        stream.writeObject(HeatmapOptions.RScriptPath);
+        stream.writeBoolean(HeatmapOptions.autoFitRPlotSize);
+        stream.writeBoolean(HeatmapOptions.RBAOptions);
+        stream.writeDouble(HeatmapOptions.epsilonDistance);
+        stream.writeObject(GraphOptions.graphType);
+        stream.writeObject(GraphOptions.grouping);
+        stream.writeObject(GraphOptions.theme);
+        stream.writeObject(GraphOptions.useSolidAggColor);
+        stream.writeObject(GraphOptions.beforeCutColor);
+        stream.writeObject(GraphOptions.afterCutColor);
+        stream.writeObject(GraphOptions.solidColor);
+        stream.writeObject(GraphOptions.enforceAngularBound);
+        stream.writeInt(GraphOptions.angularBoundDegree);
+        stream.writeInt(GraphOptions.angularBoundRadius);
+        stream.writeObject(GraphOptions.background);
+        stream.writeObject(GraphOptions.foreground);
+        stream.writeInt(GraphOptions.edgeColor);
+        stream.writeInt(GraphOptions.textColor);
+        stream.writeInt(GraphOptions.nodeColor);
+        stream.writeInt(GraphOptions.textColorHover);
+        stream.writeInt(GraphOptions.nodeColorHover);
+        stream.writeInt(GraphOptions.nodeColorSelected);
+        stream.writeInt(GraphOptions.nodeColorSearchResult);
+        stream.writeInt(GraphOptions.nodeAggHoverStroke);
+        stream.writeInt(GraphOptions.nodeAggDefaultStroke);
+        stream.writeInt(GraphOptions.aggHoverStroke);
+        stream.writeInt(GraphOptions.aggDefaultStroke);
+    }
+
+    private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException
+    {
+        space = (GenometricSpace) stream.readObject();
+        samples = (ArrayList<SampleData>) stream.readObject();
+        annotations = (SampleData) stream.readObject();
+        featuresCount = (HashMap<String, Integer>) stream.readObject();
+        availableColumnLabelOptions = (String[]) stream.readObject();
+        selectedColumnLabelOption = (String) stream.readObject();
+        availableRowLabelOptions = (String[]) stream.readObject();
+        columnIndexToReadRowsInfoFrom = stream.readInt();
+        lowValueColor = (Color) stream.readObject();
+        hightValueColor = (Color) stream.readObject();
+        disablePopups = stream.readBoolean();
+        _lastBrowsedDirectory = (String) stream.readObject();
+        rowLabelsSource = (RLS) stream.readObject();
+        rowLabelsSourceSelectedSample = (String) stream.readObject();
+        rowLabelsSourceSelectedAttribute = (String) stream.readObject();
+        plotElbowMethodOutput = stream.readBoolean();
+        HeatmapOptions.heatmpaType = stream.readBoolean();
+        HeatmapOptions.heatmapCommand = (String) stream.readObject();
+        HeatmapOptions.heatmapParameters = (ClusteringOptions) stream.readObject();
+        HeatmapOptions.heatmapTitle = (String) stream.readObject();
+        HeatmapOptions.horizontalAxisTitle = (String) stream.readObject();
+        HeatmapOptions.verticalAxisTitle = (String) stream.readObject();
+        HeatmapOptions.size = (Dimension) stream.readObject();
+        HeatmapOptions.RScriptPath = (String) stream.readObject();
+        HeatmapOptions.autoFitRPlotSize = stream.readBoolean();
+        HeatmapOptions.RBAOptions = stream.readBoolean();
+        HeatmapOptions.epsilonDistance = stream.readDouble();
+        GraphOptions.graphType = (GraphType) stream.readObject();
+        GraphOptions.grouping = (NodeGrouping) stream.readObject();
+        GraphOptions.theme = (GraphOptions.Theme) stream.readObject();
+        GraphOptions.useSolidAggColor = (Boolean) stream.readObject();
+        GraphOptions.beforeCutColor = (Color) stream.readObject();
+        GraphOptions.afterCutColor = (Color) stream.readObject();
+        GraphOptions.solidColor = (Color) stream.readObject();
+        GraphOptions.enforceAngularBound = (Boolean) stream.readObject();
+        GraphOptions.angularBoundDegree = (int) stream.readInt();
+        GraphOptions.angularBoundRadius = (int) stream.readInt();
+        GraphOptions.background = (Color) stream.readObject();
+        GraphOptions.foreground = (Color) stream.readObject();
+        GraphOptions.edgeColor = (int) stream.readInt();
+        GraphOptions.textColor = (int) stream.readInt();
+        GraphOptions.nodeColor = (int) stream.readInt();
+        GraphOptions.textColorHover = (int) stream.readInt();
+        GraphOptions.nodeColorHover = (int) stream.readInt();
+        GraphOptions.nodeColorSelected = (int) stream.readInt();
+        GraphOptions.nodeColorSearchResult = (int) stream.readInt();
+        GraphOptions.nodeAggHoverStroke = (int) stream.readInt();
+        GraphOptions.nodeAggDefaultStroke = (int) stream.readInt();
+        GraphOptions.aggHoverStroke = (int) stream.readInt();
+        GraphOptions.aggDefaultStroke = (int) stream.readInt();
+    }
+
+
+    public static class HeatmapOptions implements Serializable
+    {
+        public static final long serialVersionUID = 1;
         /**
          * If false, use integrated heatmap package. If true, use R to generate
          * heatmap.
@@ -157,17 +274,11 @@ public class GlobalVariables
          * R for proper dendrogram creation for heatmap.
          */
         public static ClusteringOptions heatmapParameters = null;
-
         public static String heatmapTitle = "";
-
         public static String horizontalAxisTitle = "Samples";
-
         public static String verticalAxisTitle = "Regions";
-
         public static Dimension size;
-
         public static String RScriptPath = "C:\\Program Files\\R\\R-3.2.0\\bin\\Rscript.exe";
-
         public static Boolean autoFitRPlotSize = true;
 
         /**
@@ -186,5 +297,40 @@ public class GlobalVariables
          * tree or any further manipulations.
          */
         public static double epsilonDistance = 0.0001;
+    }
+
+    public static class GraphOptions implements Serializable
+    {
+        public static final long serialVersionUID = 1;
+
+        public enum Theme
+        {
+            Bright, Dark, Custom
+        };
+
+        // The followings are the graph visualization parameters.
+        public static GraphType graphType = GraphType.Radial;
+        public static NodeGrouping grouping = NodeGrouping.None;
+        public static Theme theme = Theme.Dark;
+        public static Boolean useSolidAggColor = true;
+        public static Color beforeCutColor = Color.RED;
+        public static Color afterCutColor = Color.YELLOW;
+        public static Color solidColor = Color.LIGHT_GRAY;
+        public static Boolean enforceAngularBound = false;
+        public static int angularBoundDegree = 0;
+        public static int angularBoundRadius = 6;
+        public static Color background = Color.black;
+        public static Color foreground = Color.yellow;
+        public static int edgeColor = ColorLib.rgb(40, 117, 254);
+        public static int textColor = ColorLib.rgb(200, 255, 255);
+        public static int nodeColor = ColorLib.rgb(0, 0, 20);
+        public static int textColorHover = ColorLib.rgb(255, 165, 255);
+        public static int nodeColorHover = ColorLib.rgb(30, 0, 60);
+        public static int nodeColorSelected = ColorLib.rgb(7, 2, 30);
+        public static int nodeColorSearchResult = ColorLib.rgb(80, 80, 0);
+        public static int nodeAggHoverStroke = ColorLib.rgb(255, 0, 0);
+        public static int nodeAggDefaultStroke = ColorLib.rgb(0, 255, 0);
+        public static int aggHoverStroke = ColorLib.rgb(255, 244, 0);
+        public static int aggDefaultStroke = ColorLib.rgb(60, 70, 150);
     }
 }

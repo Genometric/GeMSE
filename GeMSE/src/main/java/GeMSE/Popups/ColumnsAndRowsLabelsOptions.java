@@ -387,11 +387,12 @@ public class ColumnsAndRowsLabelsOptions extends javax.swing.JFrame
             GlobalVariables.rowLabelsSourceSelectedAttribute = ReferenceSampleAttributes_CB.getSelectedItem().toString();
         }
 
-        GlobalVariables.selectedRowLabelOption = (String) ReferenceSampleAttributes_CB.getSelectedItem();
+        //GlobalVariables.selectedRowLabelOption = (String) ReferenceSampleAttributes_CB.getSelectedItem();
 
         GlobalVariables.HeatmapOptions.heatmapTitle = HeatmapTitle_TB.getText();
         GlobalVariables.HeatmapOptions.horizontalAxisTitle = HorizontalAxisTitle_TB.getText();
         GlobalVariables.HeatmapOptions.verticalAxisTitle = VerticalAxisTitle_TB.getText();
+        GlobalVariables.sessionSerializationRequired = true;
 
         this.dispose();
     }//GEN-LAST:event_OK_BT10ActionPerformed
@@ -536,6 +537,6 @@ public class ColumnsAndRowsLabelsOptions extends javax.swing.JFrame
                 ReferenceSampleAttributes_CB.addItem(attribute);
 
         Columns_CB.setSelectedItem(GlobalVariables.selectedColumnLabelOption);
-        ReferenceSampleAttributes_CB.setSelectedItem(GlobalVariables.selectedRowLabelOption);
+        // ReferenceSampleAttributes_CB.setSelectedItem(GlobalVariables.selectedRowLabelOption);
     }
 }

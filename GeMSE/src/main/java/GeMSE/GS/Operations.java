@@ -11,25 +11,28 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package GeMSE.GS;
 
-import GeMSE.OperationsOptions.ClusteringOptions;
-import GeMSE.OperationsOptions.DiscretizeOptions;
-import GeMSE.OperationsOptions.SelectOptions;
-import GeMSE.OperationsOptions.SortOptions;
+import GeMSE.GS.Transitions.SortingFunction;
+import GeMSE.GS.Transitions.Options.ClusteringOptions;
+import GeMSE.GS.Transitions.Options.DiscretizeOptions;
+import GeMSE.GS.Transitions.Options.SelectOptions;
+import GeMSE.GS.Transitions.Options.SortOptions;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ExternalLibraries.Cluster;
+import GeMSE.GS.Transitions.Options.Map;
+import GeMSE.IO.InProgress;
+import java.io.Serializable;
+import javax.swing.SwingWorker;
 
 
 /**
  *
  * @author Vahid Jalili
  */
-public class Operations
+public class Operations implements Serializable
 {
-
     public Operations()
     {
         source = null;
@@ -40,6 +43,7 @@ public class Operations
     public Space source;
     public Space result;
     public Object parameters;
+    public static final long serialVersionUID = 1;
 
     public enum Functions
     {
@@ -62,7 +66,25 @@ public class Operations
                 break;
 
             case Clustering:
-                result = Clustering((ClusteringOptions) parameters);
+                if (((ClusteringOptions) parameters).dendrogram == null)
+                {
+                    InProgress inProgress = new InProgress(null, "Clustering data, please wait ...");
+                    inProgress.setLocationRelativeTo(null);
+                    SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>()
+                    {
+                        @Override
+                        protected Void doInBackground()
+                        {
+                            result = Clustering((ClusteringOptions) parameters);
+                            inProgress.dispose();
+                            return null;
+                        }
+                    };
+                    worker.execute();
+                    inProgress.setVisible(true);
+                }
+                else
+                    result = Clustering((ClusteringOptions) parameters);
                 break;
 
             case UpdateClustering:
@@ -75,6 +97,9 @@ public class Operations
                 this.parameters = parameters;
                 break;
         }
+
+        result.UpdateColumnsTitles();
+        result.UpdateRowsTitles();
     }
 
     public Space Extract(SelectOptions options)
@@ -102,11 +127,26 @@ public class Operations
             for (int col = 0 ; col < source.content[0].length ; col++)
                 rtv.content[row][col] = source.content[row][col];
 
-        for (double[] map : options.mappings)
+        for (Map map : options.maps)
             for (int row = options.range.RowFrom ; row < options.range.RowTo ; row++)
                 for (int col = options.range.ColumnFrom ; col < options.range.ColumnTo ; col++)
-                    if (source.content[row][col] >= map[0] && source.content[row][col] < map[1])
-                        rtv.content[row][col] = map[2];
+                    if (source.content[row][col] >= map.GetRangeStart() && source.content[row][col] < map.GetRaneStop())
+                    {
+                        switch (map.GetFunction())
+                        {
+                            case Log:
+                                rtv.content[row][col]
+                                = Math.log(source.content[row][col])
+                                  / Math.log(map.GetArgument());
+                                // This function implements Log_x(y) as: 
+                                // Log_e(x) / Log_e(y)
+                                break;
+
+                            case Static:
+                                rtv.content[row][col] = map.GetArgument();
+                                break;
+                        }
+                    }
 
         return rtv;
     }

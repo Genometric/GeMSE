@@ -11,7 +11,6 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package GeMSE.GS;
 
 import GeMSE.GS.History.History;
@@ -21,6 +20,7 @@ import GeMSE.GS.Operations.Functions;
 import ExternalLibraries.DendrogramPanel;
 import GeMSE.GlobalVariables;
 import java.awt.Dimension;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -28,7 +28,7 @@ import java.util.Set;
  *
  * @author Vahid Jalili
  */
-public class GenometricSpace
+public class GenometricSpace implements Serializable
 {
     public GenometricSpace()
     {
@@ -36,6 +36,7 @@ public class GenometricSpace
         _operations = new Operations();
     }
 
+    public static final long serialVersionUID = 1;
     /**
      * Private Genometric Space populated by Initialize() function.
      */

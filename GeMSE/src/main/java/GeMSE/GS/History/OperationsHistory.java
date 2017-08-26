@@ -16,6 +16,7 @@ package GeMSE.GS.History;
 
 import GeMSE.GS.Operations.Functions;
 import GeMSE.GS.Space;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,14 +24,12 @@ import java.util.List;
  *
  * @author Vahid Jalili
  */
-public final class OperationsHistory
+public final class OperationsHistory implements Serializable
 {
+    public static final long serialVersionUID = 1;
     public String rootID = "Root";
-
     private String _parentIDToSearch = "rewrew";
-
     private final Node<NodeData> _history;
-
     private final HashMap<String, int[]> _generatedSpaces;
 
     public OperationsHistory()

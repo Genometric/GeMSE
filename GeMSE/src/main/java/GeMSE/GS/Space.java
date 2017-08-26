@@ -11,29 +11,58 @@
  *  along with this program; if not, write to the Free Software Foundation,
  *  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package GeMSE.GS;
 
 import GeMSE.GlobalVariables;
 import GeMSE.GlobalVariables.RLS;
+import java.io.Serializable;
 
 /**
  *
  * @author Vahid Jalili
  */
-public class Space
+public class Space implements Serializable
 {
+    public static final long serialVersionUID = 1;
     public double[][] content;
     public String[] rowsID;
     public String[] colsID;
     public String[] rowTitle;
     public String[] colTitle;
+    private double _minValue = Double.NaN;
+    private double _maxValue = Double.NaN;
 
     public Space(int rowsCount, int columnsCount)
     {
         content = new double[rowsCount][columnsCount];
         rowsID = new String[rowsCount];
         colsID = new String[columnsCount];
+    }
+
+    public double GetMinValue()
+    {
+        if (Double.isNaN(_minValue))
+        {
+            _minValue = Double.POSITIVE_INFINITY;
+            for (int r = 0 ; r < content.length ; r++)
+                for (int c = 0 ; c < content[0].length ; c++)
+                    if (!Double.isNaN(content[r][c]))
+                        _minValue = Math.min(_minValue, content[r][c]);
+        }
+        return _minValue;
+    }
+
+    public double GetMaxValue()
+    {
+        if (Double.isNaN(_maxValue))
+        {
+            _maxValue = Double.NEGATIVE_INFINITY;
+            for (int r = 0 ; r < content.length ; r++)
+                for (int c = 0 ; c < content[0].length ; c++)
+                    if (!Double.isNaN(content[r][c]))
+                        _maxValue = Math.max(_maxValue, content[r][c]);
+        }
+        return _maxValue;
     }
 
     public void UpdateColumnsTitles()
@@ -99,8 +128,8 @@ public class Space
     public void UpdateRowsTitles()
     {
         rowTitle = GetRowTitles(GlobalVariables.rowLabelsSource,
-                GlobalVariables.rowLabelsSourceSelectedSample,
-                GlobalVariables.rowLabelsSourceSelectedAttribute);
+                                GlobalVariables.rowLabelsSourceSelectedSample,
+                                GlobalVariables.rowLabelsSourceSelectedAttribute);
     }
 
     public String[] GetRowTitles(RLS rowLabelSource, String sampleFileName, String attribute)
@@ -185,5 +214,37 @@ public class Space
 
         this.rowsID = rowIDs;
         this.content = tmpSpace.content;
+    }
+
+    public double[] GetVector()
+    {
+        if (content.length == 0) return new double[0];
+
+        double[] rtv = new double[content.length * content[0].length];
+        for (int i = 0 ; i < content.length ; i++)
+            for (int j = 0 ; j < content[0].length ; j++)
+                if (Double.isNaN(content[i][j]))
+                    rtv[i + j] = 0;
+                else
+                    rtv[i + j] = content[i][j];
+        return rtv;
+    }
+
+    public double[][] GetContent()
+    {
+        return GetContent(false);
+    }
+
+    public double[][] GetContent(Boolean replaceNaN)
+    {
+        if (!replaceNaN) return content;
+        double[][] rtv = new double[content.length][content[0].length];
+        for (int i = 0 ; i < content.length ; i++)
+            for (int j = 0 ; j < content[0].length ; j++)
+                if (Double.isNaN(content[i][j]))
+                    rtv[i][j] = 0;
+                else
+                    rtv[i][j] = content[i][j];
+        return rtv;
     }
 }

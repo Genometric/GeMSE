@@ -24,17 +24,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 import javax.swing.*;
 
 
-public class DendrogramPanel extends JPanel
+public class DendrogramPanel extends JPanel implements Serializable
 {
-
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1;
     final static BasicStroke solidStroke = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND);
-
     private Cluster model;
     private ClusterComponent component;
     private Color lineColor = Color.BLACK;
@@ -346,19 +344,19 @@ public class DendrogramPanel extends JPanel
         {
             {
                 0, 1, 9, 7, 11, 14
-            }, 
+            },
             {
                 1, 0, 4, 3, 8, 10
-            }, 
+            },
             {
                 9, 4, 0, 9, 2, 8
             },
             {
                 7, 3, 9, 0, 6, 13
-            }, 
+            },
             {
                 11, 8, 2, 6, 0, 10
-            }, 
+            },
             {
                 14, 10, 8, 13, 10, 0
             }
