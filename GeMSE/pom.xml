@@ -20,18 +20,6 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <outputDirectory>${basedir}/target/classes</outputDirectory>
-                    <includeEmptyDirs>true</includeEmptyDirs>
-                    <resources>
-                        <resource>
-                            <directory>${basedir}/src/main/resources/images/</directory>
-                            <filtering>false</filtering>
-                            <includes>
-                                <include>hetroData.png</include>
-                                <include>homoData.png</include>
-                            </includes>
-                        </resource>
-                    </resources>
                 </configuration>
                 <executions>
                     <execution>
@@ -40,6 +28,32 @@
                         <goals>
                             <goal>single</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/images/</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>src/main/resources/images</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>hetroData.png</include>
+                                        <include>homoData.png</include>
+                                    </includes>
+                                </resource>
+                            </resources>              
+                        </configuration>            
                     </execution>
                 </executions>
             </plugin>
@@ -76,6 +90,12 @@
             <artifactId>prefuse</artifactId>
             <version>0.21</version>
             <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>de.sciss</groupId>
+                    <artifactId>prefuse-demos</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>unknown.binary</groupId>
