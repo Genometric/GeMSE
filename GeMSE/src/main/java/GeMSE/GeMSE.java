@@ -54,15 +54,11 @@ import GeMSE.GS.Transitions.Options.SortOptions;
 import GeMSE.Popups.TreeClickListener;
 import GeMSE.Views.GridView;
 import GeMSE.Views.HeatmapView;
-import GeMSE.Views.WelcomeView;
 import GeMSE.Visualization.BoxAndWhiskerPlot;
 import java.awt.Component;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -768,7 +764,7 @@ public class GeMSE extends javax.swing.JFrame
 
     private void Plot_HeatMap_BTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Plot_HeatMap_BTActionPerformed
     {//GEN-HEADEREND:event_Plot_HeatMap_BTActionPerformed
-        UpdatePlot();
+        UpdatePlotDatagrid();
     }//GEN-LAST:event_Plot_HeatMap_BTActionPerformed
 
     private void Load_MIActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Load_MIActionPerformed
@@ -793,7 +789,7 @@ public class GeMSE extends javax.swing.JFrame
             && GlobalVariables.space.space != null
             && GlobalVariables.space.space.content != null
             && GlobalVariables.space.space.content.length > 0)
-            UpdatePlot();
+            UpdatePlotDatagrid();
     }//GEN-LAST:event_formWindowStateChanged
 
     private void Create_GS_BTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_Create_GS_BTActionPerformed
@@ -1427,7 +1423,7 @@ public class GeMSE extends javax.swing.JFrame
             }
 
             if (AutoUpdatePlotCB.isSelected())
-                UpdatePlot();
+                UpdatePlotDatagrid();
         }
         else
         {
@@ -1573,7 +1569,7 @@ public class GeMSE extends javax.swing.JFrame
         }
     }
 
-    public void UpdatePlot()
+    public void UpdatePlotDatagrid()
     {
         GlobalVariables.space.UpdateSpace(GetSelectedNodeID());
         GlobalVariables.space.space.UpdateColumnsTitles();
@@ -1592,5 +1588,7 @@ public class GeMSE extends javax.swing.JFrame
 
         HM_Cell_Dim_MinH_TB.setText(String.valueOf(calDimension.height));
         HM_Cell_Dim_MinW_TB.setText(String.valueOf(calDimension.width));
+        
+        _gridView.Display(GlobalVariables.space.space);
     }
 }
