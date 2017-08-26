@@ -57,9 +57,12 @@ import GeMSE.Views.HeatmapView;
 import GeMSE.Views.WelcomeView;
 import GeMSE.Visualization.BoxAndWhiskerPlot;
 import java.awt.Component;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
@@ -88,7 +91,6 @@ public class GeMSE extends javax.swing.JFrame
         _tree = new JTree();
         _tree.addMouseListener(new TreeClickListener());
         _tree.addTreeSelectionListener(this::TreeSelectionChanged);
-
         this.setExtendedState(GeMSE.MAXIMIZED_BOTH);
 
         GlobalVariables.disablePopups = true;
@@ -187,6 +189,7 @@ public class GeMSE extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("GeMSE (GenoMetric Space Explorer)");
+        setIconImages(null);
         setName("MainWindow"); // NOI18N
         addWindowStateListener(new java.awt.event.WindowStateListener()
         {

@@ -230,6 +230,9 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="GeMSE (GenoMetric Space Explorer)"/>
+    <Property name="iconImages" type="java.util.List" editor="org.netbeans.modules.form.ComponentChooserEditor">
+      <ComponentRef name="null"/>
+    </Property>
     <Property name="name" type="java.lang.String" value="MainWindow" noResource="true"/>
   </Properties>
   <SyntheticProperties>

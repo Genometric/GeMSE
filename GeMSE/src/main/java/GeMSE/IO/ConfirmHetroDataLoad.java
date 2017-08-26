@@ -14,13 +14,16 @@
 package GeMSE.IO;
 
 import GeMSE.GeMSE;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,10 +45,44 @@ public class ConfirmHetroDataLoad extends javax.swing.JDialog
         setResizable(false);
         try
         {
-            HetroDataIcon.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/images/hetroData.png"))));
-            HomoDataIcon.setIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/images/homoData.png"))));
+            URL hetroPath = this.getClass().getResource("/images/hetroData.png");
+            if (hetroPath == null)
+            {
+                File tFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation() + "/images/hetroData.png");
+                // New ask me why the following message, because I don't know :( 
+                // If you remove this message, a built version of GeMSE wont 
+                // be able to find the two figures.
+                JOptionPane.showMessageDialog(
+                            parent,
+                            "File not found:" + tFile.getAbsolutePath(),
+                            "File not found",
+                            JOptionPane.ERROR_MESSAGE);
+                if (tFile.exists())
+                    hetroPath = new URL(this.getClass().getProtectionDomain().getCodeSource().getLocation() + "/images/hetroData.png");
+            }
+            if (hetroPath != null)
+            {
+                URL homoPath = this.getClass().getResource("/images/homoData.png");
+                if (homoPath == null)
+                {
+                    File tFile = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation() + "/images/homoData.png");
+                    if (tFile.exists())
+                        homoPath = new URL(this.getClass().getProtectionDomain().getCodeSource().getLocation() + "/images/homoData.png");
+                }
+                if (homoPath != null)
+                {
+                    HetroDataIcon.setText("");
+                    HomoDataIcon.setText("");
+                    HetroDataIcon.setIcon(new ImageIcon(ImageIO.read(hetroPath)));
+                    HomoDataIcon.setIcon(new ImageIcon(ImageIO.read(homoPath)));
+                }
+            }
         }
         catch (IOException ex)
+        {
+            Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (Exception ex)
         {
             Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,8 +117,10 @@ public class ConfirmHetroDataLoad extends javax.swing.JDialog
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         HetroDataIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        HetroDataIcon.setText("Can not load image!");
 
         HomoDataIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        HomoDataIcon.setText("Can not load image!");
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

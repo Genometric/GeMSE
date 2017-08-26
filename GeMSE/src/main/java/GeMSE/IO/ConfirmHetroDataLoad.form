@@ -74,11 +74,13 @@
     <Component class="javax.swing.JLabel" name="HetroDataIcon">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Can not load image!"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="HomoDataIcon">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Can not load image!"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">

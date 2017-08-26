@@ -13,8 +13,6 @@
  */
 package GeMSE.Views;
 
-import GeMSE.WebBrowser;
-
 /**
  *
  * @author Vahid Jalili
