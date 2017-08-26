@@ -35,7 +35,7 @@ import prefuse.util.ColorLib;
  */
 public class GlobalVariables implements Serializable
 {
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = 2L;
     public static GenometricSpace space;
     public static String selectedNodeID;
 
@@ -255,7 +255,7 @@ public class GlobalVariables implements Serializable
 
     public static class HeatmapOptions implements Serializable
     {
-        public static final long serialVersionUID = 1;
+        public static final long serialVersionUID = GlobalVariables.serialVersionUID;
         /**
          * If false, use integrated heatmap package. If true, use R to generate
          * heatmap.
@@ -301,7 +301,7 @@ public class GlobalVariables implements Serializable
 
     public static class GraphOptions implements Serializable
     {
-        public static final long serialVersionUID = 1;
+        public static final long serialVersionUID = GlobalVariables.serialVersionUID;
 
         public enum Theme
         {

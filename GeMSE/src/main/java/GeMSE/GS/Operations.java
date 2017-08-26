@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import ExternalLibraries.Cluster;
 import GeMSE.GS.Transitions.Options.Map;
+import GeMSE.GlobalVariables;
 import GeMSE.IO.InProgress;
 import java.io.Serializable;
 import javax.swing.SwingWorker;
@@ -43,7 +44,7 @@ public class Operations implements Serializable
     public Space source;
     public Space result;
     public Object parameters;
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
 
     public enum Functions
     {

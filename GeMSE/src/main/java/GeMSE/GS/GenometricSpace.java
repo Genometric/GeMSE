@@ -36,7 +36,7 @@ public class GenometricSpace implements Serializable
         _operations = new Operations();
     }
 
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     /**
      * Private Genometric Space populated by Initialize() function.
      */

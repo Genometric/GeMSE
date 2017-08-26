@@ -13,6 +13,7 @@
  */
 package GeMSE.GS.Transitions.Options;
 
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 
 /**
@@ -29,7 +30,7 @@ public class SortOptions implements Cloneable, Serializable
         _rowCount = rowCount;
     }
     
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
 
     public enum Orders
     {

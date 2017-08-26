@@ -23,7 +23,7 @@ import java.io.Serializable;
  */
 public class Space implements Serializable
 {
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     public double[][] content;
     public String[] rowsID;
     public String[] colsID;

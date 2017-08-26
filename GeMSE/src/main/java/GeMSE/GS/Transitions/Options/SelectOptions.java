@@ -13,6 +13,7 @@
  */
 package GeMSE.GS.Transitions.Options;
 
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 
 /**
@@ -29,7 +30,7 @@ public class SelectOptions implements Cloneable, Serializable
         RowTo = rowTo;
     }
 
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     public int ColumnFrom;
     public int ColumnTo;
     public int RowFrom;

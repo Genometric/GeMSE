@@ -17,13 +17,14 @@
  */
 package ExternalLibraries;
 
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cluster implements Serializable
 {
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     private String name;
     private Cluster parent;
     private List<Cluster> children;
