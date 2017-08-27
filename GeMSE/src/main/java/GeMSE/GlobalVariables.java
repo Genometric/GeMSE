@@ -49,8 +49,8 @@ public class GlobalVariables implements Serializable
     public static String[] availableRowLabelOptions;
     public static int columnIndexToReadRowsInfoFrom;
 
-    public static Color lowValueColor = Color.YELLOW;
-    public static Color hightValueColor = Color.BLUE;
+    public static Color lowValueColor = Color.getHSBColor(0f, 0f, 0f);
+    public static Color hightValueColor = Color.getHSBColor(0.2f, 1.0f, 1.0f);
 
     public static Boolean disablePopups;
 
@@ -321,15 +321,15 @@ public class GlobalVariables implements Serializable
         public static int angularBoundRadius = 6;
         public static Color background = Color.black;
         public static Color foreground = Color.yellow;
-        public static int edgeColor = ColorLib.rgb(40, 117, 254);
-        public static int textColor = ColorLib.rgb(200, 255, 255);
-        public static int nodeColor = ColorLib.rgb(0, 0, 20);
-        public static int textColorHover = ColorLib.rgb(255, 165, 255);
-        public static int nodeColorHover = ColorLib.rgb(30, 0, 60);
+        public static int edgeColor = ColorLib.rgb(161, 255, 21);
+        public static int textColor = ColorLib.rgb(161, 255, 21);
+        public static int nodeColor = ColorLib.rgb(20, 20, 20);
+        public static int textColorHover = ColorLib.rgb(44, 44, 44);
+        public static int nodeColorHover = ColorLib.rgb(209, 255, 23);
         public static int nodeColorSelected = ColorLib.rgb(7, 2, 30);
         public static int nodeColorSearchResult = ColorLib.rgb(80, 80, 0);
         public static int nodeAggHoverStroke = ColorLib.rgb(255, 0, 0);
-        public static int nodeAggDefaultStroke = ColorLib.rgb(0, 255, 0);
+        public static int nodeAggDefaultStroke = ColorLib.rgb(23, 255, 23);
         public static int aggHoverStroke = ColorLib.rgb(255, 244, 0);
         public static int aggDefaultStroke = ColorLib.rgb(60, 70, 150);
     }
