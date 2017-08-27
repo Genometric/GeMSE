@@ -6,17 +6,17 @@
 ---
 
 ### Tree-based tracking history of operations
-![alt text](https://github.com/VJalili/GeMSE/blob/VJalili-patch-2/TutorialData/history.gif "Track analysis history")
+![alt text](https://github.com/Genometric/GeMSE/blob/master/TutorialData/history.gif "Track analysis history")
 
 ### Interactive pattern analysis
-![alt text](https://github.com/VJalili/GeMSE/blob/VJalili-patch-2/TutorialData/patternAnalysis.gif "Pattern analysis")
-![alt text](https://github.com/VJalili/GeMSE/blob/VJalili-patch-2/TutorialData/patternDetails.gif "Pattern in details")
+![alt text](https://github.com/Genometric/GeMSE/blob/master/TutorialData/patternAnalysis.gif "Pattern analysis")
+![alt text](https://github.com/Genometric/GeMSE/blob/master/TutorialData/patternDetails.gif "Pattern in details")
 
 ### Responsive statistical inference
-![alt text](https://github.com/VJalili/GeMSE/blob/VJalili-patch-2/TutorialData/stateAnalysis.gif "statistical inference")
-![alt text](https://github.com/VJalili/GeMSE/blob/VJalili-patch-2/TutorialData/boxplot.gif "Box plot")
+![alt text](https://github.com/Genometric/GeMSE/blob/master/TutorialData/stateAnalysis.gif "statistical inference")
+![alt text](https://github.com/Genometric/GeMSE/blob/master/TutorialData/boxplot.gif "Box plot")
 
 ### Graph view
-![alt text](https://github.com/VJalili/GeMSE/blob/VJalili-patch-2/TutorialData/directed.gif "Force directed graph view")
-![alt text](https://github.com/VJalili/GeMSE/blob/VJalili-patch-2/TutorialData/radial.gif "Radial graph view")
-![alt text](https://github.com/VJalili/GeMSE/blob/VJalili-patch-2/TutorialData/directedAgg.gif "Directed aggregated graph view")
+![alt text](https://github.com/Genometric/GeMSE/blob/master/TutorialData/directed.gif "Force directed graph view")
+![alt text](https://github.com/Genometric/GeMSE/blob/master/TutorialData/radial.gif "Radial graph view")
+![alt text](https://github.com/Genometric/GeMSE/blob/master/TutorialData/directedAgg.gif "Directed aggregated graph view")
