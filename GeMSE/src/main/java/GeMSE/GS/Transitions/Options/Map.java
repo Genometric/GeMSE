@@ -13,6 +13,7 @@
  */
 package GeMSE.GS.Transitions.Options;
 
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 
 /**
@@ -29,7 +30,7 @@ public class Map implements Cloneable, Serializable
         _argument = argument;
     }
     
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
 
     private final double _rangeStart;
     private final double _rangeStop;

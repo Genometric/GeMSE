@@ -16,7 +16,9 @@ package GeMSE.GS.Analysis.Stats;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Shape;
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.EigenDecomposition;
@@ -28,9 +30,11 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.util.ShapeUtilities;
 
 
 
@@ -86,7 +90,7 @@ public final class OneSamplePCAPanel extends javax.swing.JPanel
 
     private RealMatrix _principalComponents;
     private RealVector _variance;
-    
+
     private Boolean _treatNodesSeparately = false;
 
     /**
@@ -159,7 +163,7 @@ public final class OneSamplePCAPanel extends javax.swing.JPanel
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(testAreAtPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addContainerGap(351, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,6 +322,17 @@ public final class OneSamplePCAPanel extends javax.swing.JPanel
             }
         }
 
+        if (data.length < 1)
+        {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "An error occured when computing principal components.     "
+                    + "\nExpect at least one data entry, but found none. \n",
+                    "Not enough data",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         _data = data;
         _matrix = new Array2DRowRealMatrix(data);
         computePrincipalComponents();
@@ -348,8 +363,19 @@ public final class OneSamplePCAPanel extends javax.swing.JPanel
 
     private void Plot()
     {
-        double[][] _xValues = _principalComponents.getData();
-        double[][] _yValues = _covariance.getData();
+        double[][] data = _principalComponents.getData();
+        if (data[0].length < 2)
+        {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "An error occured when computing principal components.     "
+                    + "\nRequire at least two principal components, but calculated "
+                    + String.valueOf(data[0].length) + "\n",
+                    "Not enough data",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
 
         float[] yAxisColor = new float[3];
         Color.RGBtoHSB(255, 255, 255, yAxisColor);
@@ -357,31 +383,21 @@ public final class OneSamplePCAPanel extends javax.swing.JPanel
         float[] hsbValues = new float[3];
         Color.RGBtoHSB(16, 23, 67, hsbValues);
 
+        float[] pcColor = new float[3];
+        Color.RGBtoHSB(255, 255, 0, pcColor);
+
         XYSeriesCollection dataset = new XYSeriesCollection();
 
-        // The Math.min function is kinda patch, becuase both array should have
-        // equal size; but sometimes they have different size. 
-        // TODO: find the reason and fix the issue, then remove this patch.
-        for (int s = 0 ; s < Math.min(_xValues.length, _yValues.length) ; s++)
-        {
-            XYSeries series = new XYSeries(String.valueOf(s));//_seriesLabels[s]);
-
-            // SImilar to the aforementioned point, the Math.min is a patch,
-            // and should be removed once the issue of having two arrays with 
-            // different size is resolved.
-            for (int c = 0 ; c < Math.min(_xValues[0].length, _yValues[0].length) ; c++)
-                series.add(_xValues[s][c], _yValues[s][c]);
-            
-
-            dataset.addSeries(series);
-        }
+        XYSeries series = new XYSeries("PC");
+        for (double[] d : data) series.add(d[0], d[1]);
+        dataset.addSeries(series);
 
         JFreeChart chart = ChartFactory.createScatterPlot(
                 null,
-                "Principal Components", "Covariance", (XYDataset) dataset);
+                "Principal component 1", "Principal component 2", (XYDataset) dataset);
         chart.setBackgroundPaint(Color.getHSBColor(hsbValues[0], hsbValues[1], hsbValues[2]));
         chart.removeLegend();
-        
+
 
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setBackgroundPaint(Color.getHSBColor(hsbValues[0], hsbValues[1], hsbValues[2]));
@@ -401,13 +417,11 @@ public final class OneSamplePCAPanel extends javax.swing.JPanel
         plot.getRangeAxis().setLabelPaint(Color.getHSBColor(yAxisColor[0], yAxisColor[1], yAxisColor[2]));
         plot.getRangeAxis().setLabelFont(axisLabelFont);
         plot.getRangeAxis().setTickLabelFont(axisTickLabelFont);
-        
-        
-        /*float[] priYColor = new float[3];
-        Color.RGBtoHSB(255, 255, 255, priYColor);
-        XYLineAndShapeRenderer pvRenderer = new XYLineAndShapeRenderer();
-        pvRenderer.setSeriesPaint(0, Color.getHSBColor(priYColor[0], priYColor[1], priYColor[2]));
-        plot.setRenderer(0, pvRenderer);*/
+
+        Shape shape = ShapeUtilities.createDiagonalCross(4, 0.5f);
+        XYItemRenderer renderer = chart.getXYPlot().getRenderer();
+        renderer.setSeriesShape(0, shape);
+        renderer.setSeriesPaint(0, Color.getHSBColor(pcColor[0], pcColor[1], pcColor[2]));
 
         ChartPanel panel = new ChartPanel(chart);
         Dimension plotDim = plotPanel.getSize();
@@ -418,36 +432,6 @@ public final class OneSamplePCAPanel extends javax.swing.JPanel
 
         revalidate();
         repaint();
-    }
-
-
-
-    private void computePrincipalComponents_old()
-    {
-        RealMatrix transform = _matrix.transpose();
-        _covariance_old = transform.multiply(_matrix);
-        if (_covarianceType == CovarianceType.CORRELATION)
-            _covariance_old = correlation(_covariance_old);
-
-        final EigenDecomposition ed = new EigenDecomposition(_covariance_old, 0.0);
-
-        final double[] realEigenvalues = ed.getRealEigenvalues();
-
-        if (_pcaIndices < 0)
-            _pcaIndices = numPCAIndices(realEigenvalues, _level);
-
-        int eigenCount = realEigenvalues.length;
-        int pcaCols = _pcaIndices;
-        _principalComponents = new Array2DRowRealMatrix(eigenCount, pcaCols);
-        _variance = new ArrayRealVector(pcaCols);
-
-        for (int i = 0 ; i < pcaCols ; i++)
-        {
-            RealVector eigenVec = ed.getEigenvector(i);
-            for (int j = 0 ; j < eigenCount ; j++)
-                _principalComponents.setEntry(j, i, eigenVec.getEntry(j));
-            _variance.setEntry(i, realEigenvalues[i]);
-        }
     }
 
     private int numPCAIndices(double[] sortedEigenvalues, double level)
@@ -468,25 +452,5 @@ public final class OneSamplePCAPanel extends javax.swing.JPanel
             }
         }
         return Math.max(index, 1);
-    }
-
-    private RealMatrix correlation(RealMatrix covariance)
-    {
-        final int cols = covariance.getColumnDimension();
-        for (int i = cols ; --i >= 0 ;)
-        {
-            for (int j = i ; --j >= 0 ;)
-            {
-                double stdDev1 = Math.sqrt(covariance.getEntry(i, i));
-                double stdDev2 = Math.sqrt(covariance.getEntry(j, j));
-                double cov = covariance.getEntry(i, j);
-                double corr = cov / (stdDev1 * stdDev2);
-
-                covariance.setEntry(i, j, corr);
-                covariance.setEntry(j, i, corr);
-            }
-        }
-        for (int i = cols ; --i >= 0 ;) covariance.setEntry(i, i, 1);
-        return covariance;
     }
 }

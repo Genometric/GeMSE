@@ -13,6 +13,7 @@
  */
 package GeMSE.GS.History;
 
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 import java.util.*;
 
@@ -22,7 +23,7 @@ import java.util.*;
  */
 public class Node<T> implements Serializable
 {
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     private final List<Node<T>> children = new ArrayList<>();
     private Node<T> parent = null;
     private T data = null;

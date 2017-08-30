@@ -13,6 +13,7 @@
  */
 package GeMSE.GS.Transitions.Options;
 
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class DiscretizeOptions implements Cloneable, Serializable
         _maxValue = maxValue;
     }
     
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
 
     private double _minValue;
     private double _maxValue;

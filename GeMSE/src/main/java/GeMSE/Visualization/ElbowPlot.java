@@ -13,6 +13,7 @@
  */
 package GeMSE.Visualization;
 
+import GeMSE.GlobalVariables;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -37,7 +38,7 @@ import org.jfree.ui.RectangleEdge;
  */
 public class ElbowPlot extends JFrame
 {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = GlobalVariables.serialVersionUID;
 
     public ElbowPlot(final String title)
     {

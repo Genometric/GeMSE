@@ -14,6 +14,7 @@
 package GeMSE.GS.Transitions.Options;
 
 import ExternalLibraries.Cluster;
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 
 /**
@@ -33,7 +34,7 @@ public class ClusteringOptions implements Cloneable, Serializable
         dendrogram = null;
     }
 
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
 
     public enum ClusteringMethods
     {

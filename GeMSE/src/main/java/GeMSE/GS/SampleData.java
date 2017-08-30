@@ -13,6 +13,7 @@
  */
 package GeMSE.GS;
 
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class SampleData implements Serializable
 
     public String fileName;
     public String fullPath;
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
 
     /**
      * Chromosome count of the sample which is set by features parser based on
@@ -160,7 +161,7 @@ public class SampleData implements Serializable
 
     public class Feature implements Comparable<Feature>, Serializable
     {
-        public static final long serialVersionUID = 1;
+        public static final long serialVersionUID = GlobalVariables.serialVersionUID;
         /**
          * Sets and Gets Start position of the feature, with sequence numbering
          * starting at 1
@@ -191,7 +192,7 @@ public class SampleData implements Serializable
 
             private final byte _attribute;
             private final double _value;
-            public static final long serialVersionUID = 1;
+            public static final long serialVersionUID = GlobalVariables.serialVersionUID;
         }
         private final ArrayList<_numAttribute> _numAVP = new ArrayList<>();
 
@@ -206,7 +207,7 @@ public class SampleData implements Serializable
 
             private final byte _attribute;
             private final String _value;
-            public static final long serialVersionUID = 1;
+            public static final long serialVersionUID = GlobalVariables.serialVersionUID;
         }
         private final ArrayList<_txtAttribute> _txtAVP = new ArrayList<>();
 

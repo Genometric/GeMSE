@@ -14,6 +14,7 @@
 package GeMSE.GS.History;
 
 import GeMSE.GS.Operations.Functions;
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 import java.util.Random;
 
@@ -24,7 +25,7 @@ import java.util.Random;
  */
 public class NodeData implements Serializable
 {
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     /**
      * ID of the space generated with this operations.
      */

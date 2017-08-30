@@ -13,7 +13,9 @@
  */
 package GeMSE.IO;
 
+import GeMSE.GeMSE;
 import GeMSE.GlobalVariables;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,6 +23,12 @@ import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -94,6 +102,7 @@ public class SessionIO
         worker.execute();
         inProgress.setVisible(true);
     }
+
     public static void Deserialize(JFrame parent) throws Exception
     {
         JFileChooser chooser = new JFileChooser(GlobalVariables.GetLastBrowsedDirectory());
@@ -176,5 +185,121 @@ public class SessionIO
         };
         worker.execute();
         inProgress.setVisible(true);
+    }
+
+    public static void DownloadAndLoadDemoSession(JFrame parent)
+    {
+        String onlinDemoFileName = "demoSession2.gs";
+        String downloadDemoFile = System.getProperty("user.dir")
+                                  + File.separator
+                                  + onlinDemoFileName;
+
+        InProgress inDownloadProcess = new InProgress(parent, "Downloading a demo session, please wait ...");
+        inDownloadProcess.setLocationRelativeTo(parent);
+
+        SwingWorker<Void, Void> worker;
+        worker = new SwingWorker<Void, Void>()
+        {
+            @Override
+            protected Void doInBackground()
+            {
+                try
+                {
+                    URL website = new URL("http://www.bioinformatics.deib.polimi.it/genomic_computing/GeMSE/demopacks/" + onlinDemoFileName);
+
+                    try (ReadableByteChannel rbc = Channels.newChannel(website.openStream()) ;
+                         FileOutputStream fos = new FileOutputStream(downloadDemoFile))
+                    {
+                        fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+                    }
+                }
+                catch (MalformedURLException ex)
+                {
+                    Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                catch (IOException ex)
+                {
+                    Logger.getLogger(GeMSE.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return null;
+            }
+
+            @Override
+            protected void done()
+            {
+                inDownloadProcess.setVisible(false);
+                InProgress inImportProcess = new InProgress(parent, "Now loading the downloaded session, please wait ...");
+                inImportProcess.setLocationRelativeTo(parent);
+
+                SwingWorker<Void, Void> worker;
+                worker = new SwingWorker<Void, Void>()
+                {
+                    @Override
+                    protected Void doInBackground()
+                    {
+                        GlobalVariables gv = null;
+                        try (FileInputStream fileIn = new FileInputStream(downloadDemoFile) ;
+                             ObjectInputStream in = new ObjectInputStream(fileIn))
+                        {
+                            gv = (GlobalVariables) in.readObject();
+                            inImportProcess.dispose();
+                        }
+                        catch (InvalidClassException e)
+                        {
+                            inImportProcess.dispose();
+                            JOptionPane.showMessageDialog(
+                                    parent,
+                                    "An error occured when loading the session.\n"
+                                    + "\nThe specified file contains a session which is created by a different version of GeMSE.     \n"
+                                    + "Therefore, the session in this file can not be loaded into this version of GeMSE.",
+                                    "Session load error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            inImportProcess.dispose();
+                            JOptionPane.showMessageDialog(
+                                    parent,
+                                    "An error occured when loading the session.\n"
+                                    + "\nGeMSE can not find/open the specified file.     \n",
+                                    "Session load error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                        catch (IOException e)
+                        {
+                            inImportProcess.dispose();
+                            JOptionPane.showMessageDialog(
+                                    parent,
+                                    "An error occured when loading the session.\n"
+                                    + "\nGeMSE can not find/open the specified file.     \n",
+                                    "Session load error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+                        catch (ClassNotFoundException e)
+                        {
+                            inImportProcess.dispose();
+                            JOptionPane.showMessageDialog(
+                                    parent,
+                                    "An unknown error occured when loading the session.\n"
+                                    + "\nThe error message is:     \n" + e,
+                                    "Session load error",
+                                    JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void done()
+                    {
+                        inImportProcess.setVisible(false);
+                    }
+                };
+                worker.execute();
+                inImportProcess.setVisible(true);
+            }
+        };
+        worker.execute();
+        inDownloadProcess.setVisible(true);
     }
 }

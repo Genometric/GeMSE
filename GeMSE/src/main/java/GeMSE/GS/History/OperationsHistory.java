@@ -16,6 +16,7 @@ package GeMSE.GS.History;
 
 import GeMSE.GS.Operations.Functions;
 import GeMSE.GS.Space;
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public final class OperationsHistory implements Serializable
 {
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     public String rootID = "Root";
     private String _parentIDToSearch = "rewrew";
     private final Node<NodeData> _history;

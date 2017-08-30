@@ -17,6 +17,7 @@
  */
 package ExternalLibraries;
 
+import GeMSE.GlobalVariables;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class ClusterComponent implements Paintable, Serializable
 {
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     private Cluster cluster;
     private VCoord linkPoint;
     private VCoord initPoint;

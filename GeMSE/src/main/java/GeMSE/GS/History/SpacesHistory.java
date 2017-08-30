@@ -14,6 +14,7 @@
 package GeMSE.GS.History;
 
 import GeMSE.GS.Space;
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +25,7 @@ import java.util.Map;
  */
 public class SpacesHistory implements Serializable
 {
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     private final HashMap<String, Space> _history;
     public int maximumNumberOfSpacesToBeCached = 1;
 

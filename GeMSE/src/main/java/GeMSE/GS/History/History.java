@@ -15,6 +15,7 @@ package GeMSE.GS.History;
 
 import GeMSE.GS.Operations;
 import GeMSE.GS.Space;
+import GeMSE.GlobalVariables;
 import java.io.Serializable;
 
 /**
@@ -23,7 +24,7 @@ import java.io.Serializable;
  */
 public class History implements Serializable
 {
-    public static final long serialVersionUID = 1;
+    public static final long serialVersionUID = GlobalVariables.serialVersionUID;
     public Space initialSpace;
     private final OperationsHistory _opHistory;
     private final SpacesHistory _spHistory;
