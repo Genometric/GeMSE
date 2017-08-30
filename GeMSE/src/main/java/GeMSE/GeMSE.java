@@ -55,6 +55,7 @@ import GeMSE.Popups.TreeClickListener;
 import GeMSE.Views.GridView;
 import GeMSE.Views.HeatmapView;
 import GeMSE.Visualization.BoxAndWhiskerPlot;
+import java.awt.Color;
 import java.awt.Component;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -164,6 +165,8 @@ public class GeMSE extends javax.swing.JFrame
         ViewMenu = new javax.swing.JMenu();
         boxWhiskerPlotMI = new javax.swing.JMenuItem();
         HelpMenu = new javax.swing.JMenu();
+        downloadDemoPack = new javax.swing.JMenuItem();
+        jSeparator6 = new javax.swing.JPopupMenu.Separator();
         HOnlineSupport = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         HOnlineDocs = new javax.swing.JMenu();
@@ -610,6 +613,17 @@ public class GeMSE extends javax.swing.JFrame
         jMenuBar1.add(ViewMenu);
 
         HelpMenu.setText("  Help  ");
+
+        downloadDemoPack.setText("     Download a Demo Pack     ");
+        downloadDemoPack.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                downloadDemoPackActionPerformed(evt);
+            }
+        });
+        HelpMenu.add(downloadDemoPack);
+        HelpMenu.add(jSeparator6);
 
         HOnlineSupport.setLabel("     Online Support     ");
         HOnlineSupport.addActionListener(new java.awt.event.ActionListener()
@@ -1083,6 +1097,28 @@ public class GeMSE extends javax.swing.JFrame
         boxPlot.setVisible(true);
     }//GEN-LAST:event_boxWhiskerPlotMIActionPerformed
 
+    private void downloadDemoPackActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_downloadDemoPackActionPerformed
+    {//GEN-HEADEREND:event_downloadDemoPackActionPerformed
+        try
+        {
+            SessionIO.DownloadAndLoadDemoSession(this);
+            UpdateCachedFeatures();
+            EnableDisableSpaceGeneration(true);
+            CreateStateTransitionTree();
+            EnableDisableSpaceManipulation(true);
+            GlobalVariables.disablePopups = false;
+            GlobalVariables.space.UpdateSpace(GetSelectedNodeID());
+            GlobalVariables.space.space.UpdateColumnsTitles();
+            GlobalVariables.space.space.UpdateRowsTitles();
+            _gridView.Display(GlobalVariables.space.space);
+            GlobalVariables.sessionSerializationRequired = false;
+        }
+        catch (Exception ex)
+        {
+            EnableDisableSpaceGeneration(false);
+        }
+    }//GEN-LAST:event_downloadDemoPackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1184,6 +1220,7 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JScrollPane WelcomePageSP;
     private javax.swing.JTable _inputSamplesDG;
     private javax.swing.JMenuItem boxWhiskerPlotMI;
+    private javax.swing.JMenuItem downloadDemoPack;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -1201,6 +1238,7 @@ public class GeMSE extends javax.swing.JFrame
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
+    private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JTabbedPane spaceIllustrationTab;
     // End of variables declaration//GEN-END:variables
 
@@ -1588,7 +1626,7 @@ public class GeMSE extends javax.swing.JFrame
 
         HM_Cell_Dim_MinH_TB.setText(String.valueOf(calDimension.height));
         HM_Cell_Dim_MinW_TB.setText(String.valueOf(calDimension.width));
-        
+
         _gridView.Display(GlobalVariables.space.space);
     }
 }

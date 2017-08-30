@@ -124,6 +124,16 @@
             <Property name="text" type="java.lang.String" value="  Help  "/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="downloadDemoPack">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="     Download a Demo Pack     "/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="downloadDemoPackActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator6">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="HOnlineSupport">
               <Properties>
                 <Property name="label" type="java.lang.String" value="     Online Support     "/>
