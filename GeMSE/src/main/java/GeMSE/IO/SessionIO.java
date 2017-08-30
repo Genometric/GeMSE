@@ -15,6 +15,7 @@ package GeMSE.IO;
 
 import GeMSE.GeMSE;
 import GeMSE.GlobalVariables;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -189,7 +190,9 @@ public class SessionIO
     public static void DownloadAndLoadDemoSession(JFrame parent)
     {
         String onlinDemoFileName = "demoSession2.gs";
-        String downloadDemoFile = System.getProperty("user.dir") + onlinDemoFileName;
+        String downloadDemoFile = System.getProperty("user.dir")
+                                  + File.separator
+                                  + onlinDemoFileName;
 
         InProgress inDownloadProcess = new InProgress(parent, "Downloading a demo session, please wait ...");
         inDownloadProcess.setLocationRelativeTo(parent);
@@ -202,8 +205,7 @@ public class SessionIO
             {
                 try
                 {
-                    URL website
-                        = new URL("http://www.bioinformatics.deib.polimi.it/genomic_computing/GeMSE/demopacks/" + onlinDemoFileName);
+                    URL website = new URL("http://www.bioinformatics.deib.polimi.it/genomic_computing/GeMSE/demopacks/" + onlinDemoFileName);
 
                     try (ReadableByteChannel rbc = Channels.newChannel(website.openStream()) ;
                          FileOutputStream fos = new FileOutputStream(downloadDemoFile))
