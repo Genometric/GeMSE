@@ -1,8 +1,8 @@
 # GeMSE
 **Transparent, reproducible, and interactive exploratory data analysis tool for genomics interval-based data.**
 
-| [Introduction](https://youtu.be/75FCAoSmioA) | [Documentation](https://github.com/Genometric/GeMSE/wiki) | [Demos](https://youtu.be/B0hVsd9SE5Q?list=PLfWxoOMC6swJBgu4nIDgsoXO_sLuGnIqF) | [Download](https://github.com/Genometric/GeMSE/releases/) | [Homepage](http://www.bioinformatics.deib.polimi.it/GeMSE/)
-| -- |:--:| --:| --: | --: |
+| [Introduction](https://youtu.be/75FCAoSmioA) | [Documentation](https://github.com/Genometric/GeMSE/wiki) | [Demos](https://youtu.be/B0hVsd9SE5Q?list=PLfWxoOMC6swJBgu4nIDgsoXO_sLuGnIqF) | [Download](https://github.com/Genometric/GeMSE/releases/) | [Homepage](http://www.bioinformatics.deib.polimi.it/GeMSE/) | [Publication](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1945-9)
+| -- |:--:| --:| --: | --: | --: |
 ---
 
 ### Tree-based tracking history of operations
