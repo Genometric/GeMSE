@@ -10,6 +10,10 @@ Jalili, V., Matteucci, M., Masseroli, M., & Ceri, S. (2017). <br/>
 <b>[Explorative visual analytics on interval-based genomic data and their metadata.](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-017-1945-9)</b><br/>
 BMC bioinformatics, 18(1), 536.
 
+
+---
+
+
 ### Tree-based tracking history of operations
 ![alt text](https://github.com/Genometric/GeMSE/blob/master/TutorialData/history.gif "Track analysis history")
 
